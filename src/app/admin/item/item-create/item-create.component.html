@@ -1,0 +1,305 @@
+<div class="container-fluid">
+  <div class="page-title">
+    <h4>Items</h4>
+  </div>
+  <form name="form" (ngSubmit)="saveItem()" #itemForm="ngForm">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Basic Details</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="item">Item Name*</label>
+                        <input type="text" class="form-control" name="item" [(ngModel)]="itemObj.item"
+                          #item="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && item.invalid }"
+                          required />
+                        <div *ngIf="itemForm.submitted && item.invalid" class="invalid-feedback">
+                          <div *ngIf="item.errors.required">Item Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" [(ngModel)]="itemObj.title"
+                          #title="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && title.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" name="tags" [(ngModel)]="itemObj.tags"
+                          #tags="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && tags.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="price">price</label>
+                        <input type="text" class="form-control" name="price" [(ngModel)]="itemObj.price"
+                          #price="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && price.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="sale_price">sale_price</label>
+                        <input type="text" class="form-control" name="sale_price" [(ngModel)]="itemObj.sale_price"
+                          #sale_price="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && sale_price.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="label">label</label>
+                        <input type="text" class="form-control" name="label" [(ngModel)]="itemObj.label"
+                          #label="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && label.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="short_description">short_description</label>
+                         <ckeditor [editor]="Editor" [(ngModel)]="itemObj.short_description" name="short_description" #short_description="ngModel"></ckeditor>
+                        <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
+                          #keypoints="ngModel" [(ngModel)]="itemObj.short_description"
+                          [className]="(itemForm.submitted && !itemObj.keypoints) ? 'error-editor' : '' ">
+                        </ck-editor>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="description">Long Description</label>
+                         <ckeditor [editor]="Editor" [(ngModel)]="itemObj.description" name="description" #description="ngModel"></ckeditor>
+                        <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
+                          #keypoints="ngModel" [(ngModel)]="itemObj.description"
+                          [className]="(itemForm.submitted && !itemObj.keypoints) ? 'error-editor' : '' ">
+                        </ck-editor>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="laminate_ID">laminate_ID</label>
+                        <input type="text" class="form-control" name="laminate_ID" [(ngModel)]="itemObj.laminates[0].laminate_ID"
+                          #laminate_ID="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && laminate_ID.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div> -->
+
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="warranty_detail">warranty_detail</label>
+                        <input type="text" class="form-control" name="warranty_detail" [(ngModel)]="itemObj.warranty_detail"
+                          #warranty_detail="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && warranty_detail.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="meta_description">meta_description</label>
+                        <input type="text" class="form-control" name="meta_description" [(ngModel)]="itemObj.meta_description"
+                          #meta_description="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && meta_description.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="meta_keywords">meta_keywords</label>
+                        <input type="text" class="form-control" name="meta_keywords" [(ngModel)]="itemObj.meta_keywords"
+                          #meta_keywords="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && meta_keywords.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="tag_line">tag_line</label>
+                        <input type="text" class="form-control" name="tag_line" [(ngModel)]="itemObj.tag_line"
+                          #tag_line="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && tag_line.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="sort_order">sort_order</label>
+                        <input type="text" class="form-control" name="sort_order" [(ngModel)]="itemObj.sort_order"
+                          #sort_order="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && sort_order.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="status">status</label>
+                        <input type="text" class="form-control" name="status" [(ngModel)]="itemObj.status"
+                          #status="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && status.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group" *ngFor="let item of hardwares_List">
+                        <label for="hardware_{{item.hardware_ID}}">
+                          <input type="checkbox" name="hardware_{{item.hardware_ID}}" [(checklist)]="itemObj.hardwares" [checklistValue]="{ 'hardware_ID': item.hardware_ID, 'sort_order' : item.hardware_ID }" id="hardware_{{item.hardware_ID}}" class="rounded-checkbox">
+                          <span class="commonSpan">{{ item.hardware }}&nbsp;</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Image Uploads</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Banner Image</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img [src]="itemObj.banner_image" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="img-icon-upload" class="pointer">
+                          <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                            file</span>
+                          <input type="file" id="img-icon-upload" maxlength="" class="d-none" name="icon"
+                            accept="image/*" (change)="handleInputChangeBannerImage($event)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Mobile Image</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img [src]="itemObj.banner_image_mobile" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="img-upload" class="pointer">
+                          <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                            file</span>
+                          <input type="file" id="img-upload" maxlength="" class="d-none" name="img-upload"
+                            accept="image/*" (change)="handleInputChangeMobileImage($event)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Images</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img [src]="itemObj.item_images" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="images" class="pointer">
+                          <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                            file</span>
+                          <input type="file" id="images" maxlength="" class="d-none" name="images"
+                            accept="image/*" (change)="item_images($event)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Illustration Pdf</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img [src]="itemObj.illustration_pdf" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="pdf" class="pointer">
+                          <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                            file</span>
+                          <input type="file" id="pdf" maxlength="" class="d-none" name="pdf"
+                           (change)="illustration_pdf($event)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+
+  </form>
+</div>

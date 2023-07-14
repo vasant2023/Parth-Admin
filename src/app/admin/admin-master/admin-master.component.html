@@ -1,0 +1,79 @@
+<div class="main-container">
+  <div class="sidebar">
+      <div class="sidebarpadding">
+          <div class="logo">
+              <a routerLink="/admin">
+                  Reya
+              </a>
+          </div>
+          <div class="navigation">
+              <ul>
+                  <li>
+                      <a routerLink="/dashboard"><i class="icon"></i> Dashboard</a>
+                  </li>
+                  <li class="title" [class.active]="activeNav == 'products'">
+                      <span (click)="changeActiveTab('products')"><i class="icon"></i> Products</span>
+                      <div>
+                          <ul>
+                              <li>
+                                  <a routerLink="/products">Products</a>
+                              </li>
+                              <li>
+                                  <a routerLink="/categories">Categories</a>
+                              </li>
+                          </ul>
+                      </div>
+                  </li>
+                  <li class="title" [class.active]="activeNav == 'orders'">
+                      <span (click)="changeActiveTab('orders')"><i class="icon"></i> Orders</span>
+                      <div>
+                          <ul>
+                              <li>
+                                  <a routerLink="/products">Sales</a>
+                              </li>
+                              <li>
+                                  <a routerLink="/categories">Delivery</a>
+                              </li>
+                          </ul>
+                      </div>
+                  </li>
+                  <li>
+                    <a routerLink=""><i class="icon"></i> Offers</a>
+                  </li>
+                  <li>
+                    <a routerLink=""><i class="icon"></i> Inventory</a>
+                  </li>
+                  <li>
+                    <a routerLink=""><i class="icon"></i> Reviews</a>
+                  </li>
+                  <li>
+                    <a routerLink=""><i class="icon"></i> Warehouse</a>
+                  </li>
+                  <li>
+                    <a routerLink=""><i class="icon"></i> Banners</a>
+                  </li>
+                  <li>
+                    <a routerLink=""><i class="icon"></i> Customers</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  <div class="content-body">
+      <div class="top-strip">
+          <ul class="breadcrumbs">
+            <li><i class="icon"></i></li>
+            <i class="icon"></i>
+            <li>Dashboard / <span>Default</span></li>
+          </ul>
+          <div class="right_panel">
+              <ul>
+                  <li>Extra items</li>
+              </ul>
+          </div>
+      </div>
+      <div class="main-content">
+          <router-outlet></router-outlet>
+      </div>
+  </div>
+</div>

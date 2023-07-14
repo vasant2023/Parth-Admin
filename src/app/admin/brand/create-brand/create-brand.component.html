@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <div class="page-title">
+    <h4>Brands</h4>
+  </div>
+  <form name="form" (ngSubmit)="submitBrand()" #createBrandForm="ngForm">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Basic Details</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="brand">Brand Name*</label>
+                        <input type="text" class="form-control" name="brand" [(ngModel)]="brandObj.brand"
+                          #brand="ngModel" [ngClass]="{ 'is-invalid': createBrandForm.submitted && brand.invalid }"
+                          required />
+                        <div *ngIf="createBrandForm.submitted && brand.invalid" class="invalid-feedback">
+                          <div *ngIf="brand.errors.required">Brand Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="status">Status*</label>
+                        <input type="text" class="form-control" name="status" [(ngModel)]="brandObj.status"
+                          #status="ngModel" [ngClass]="{ 'is-invalid': createBrandForm.submitted && status.invalid }"
+                          required />
+                        <div *ngIf="createBrandForm.submitted && status.invalid" class="invalid-feedback">
+                          <div *ngIf="status.errors.required"> Status is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Long Description</label>
+                         <ckeditor [editor]="Editor" [(ngModel)]="brandObj.description" name="description" #description="ngModel"></ckeditor>
+                        <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
+                          #keypoints="ngModel" [(ngModel)]="brandObj.description"
+                          [className]="(createBrandForm.submitted && !brandObj.keypoints) ? 'error-editor' : '' ">
+                        </ck-editor>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Image Uploads</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Icon Image</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img [src]="brandObj.logo" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="img-icon-upload" class="pointer">
+                          <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                            file</span>
+                          <input type="file" id="img-icon-upload" maxlength="" class="d-none" name="icon"
+                            accept="image/*" (change)="handleInputChange($event)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+
+  </form>
+</div>

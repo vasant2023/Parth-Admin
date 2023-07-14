@@ -1,0 +1,30 @@
+<div class="loginPageWrap">
+  <div class="formWrapper">
+      <div class="loginForm">
+        <form [formGroup]="loginForm" (ngSubmit) = "submitLogin(loginForm.value)" >
+            <div class="form-group">
+              <input class="form-control" type="email" placeholder="email" id="email" name="email" formControlName = "email">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="password" placeholder="password" id="password" name="password" formControlName = "password">
+            </div>
+            <div class="pull-left">
+              <input class="btn btn-primary" type="submit" value="SignIn"/>
+            </div>
+            <div class="pull-right">
+               <a href="javaScript:void(0)">Forgot your password?</a>
+            </div>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+<form [formGroup]="forgotForm" (ngSubmit) = "forgetPassword(forgotForm.value)" >
+  <input type="email" placeholder="email" id="email" name="email" formControlName = "email">
+  <input type="submit" />
+</form>

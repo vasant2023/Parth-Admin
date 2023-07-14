@@ -1,0 +1,206 @@
+<div class="container-fluid">
+  <div class="page-title">
+    <h4>Category</h4>
+  </div>
+  <form name="form" (ngSubmit)="submitCategory()" #createCategoryForm="ngForm">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Basic Details</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Category Name*</label>
+                        <input type="text" class="form-control" name="category" [(ngModel)]="categoryObj.category"
+                          #category="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && category.invalid }"
+                          required />
+                        <div *ngIf="createCategoryForm.submitted && category.invalid" class="invalid-feedback">
+                          <div *ngIf="category.errors.required">Category Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="status">Status*</label>
+                        <input type="text" class="form-control" name="status" [(ngModel)]="categoryObj.status"
+                          #status="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && status.invalid }"
+                          required />
+                        <div *ngIf="createCategoryForm.submitted && status.invalid" class="invalid-feedback">
+                          <div *ngIf="status.errors.required"> Status is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" [(ngModel)]="categoryObj.title"
+                          #title="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && title.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="sub_title">Sub-title</label>
+                        <input type="text" class="form-control" name="sub_title" [(ngModel)]="categoryObj.sub_title"
+                          #sub_title="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && sub_title.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control" name="tags" [(ngModel)]="categoryObj.tags"
+                          #tags="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && tags.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="meta_description">Meta description</label>
+                        <input type="text" class="form-control" name="meta_description" [(ngModel)]="categoryObj.meta_description"
+                          #meta_description="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && meta_description.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="parent_category">Mark As Parent Category</label>
+                            <select class="form-control" name="parent_category"
+                                [(ngModel)]="categoryObj.parent_category"
+                                #parent_category="ngModel">
+                                <option value="">Select Parent Category</option>
+                                <option [ngValue]="list.category_ID"
+                                    *ngFor="let list of nestedCategory">{{list.category}}</option>
+                                <!-- <option *ngFor="let list of categories" value="{{list.category_ID}}" [innerHTML]="list.category" [disabled]="list.is_disabled"></option> -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="sort_order">Sort Order</label>
+                        <input type="text" class="form-control" name="sort_order" [(ngModel)]="categoryObj.sort_order"
+                          #sort_order="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && sort_order.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="short_description">Short description</label>
+                        <input type="text" class="form-control" name="short_description" [(ngModel)]="categoryObj.short_description"
+                          #short_description="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && short_description.invalid }"
+                          required />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Long Description</label>
+                         <ckeditor [editor]="Editor" [(ngModel)]="categoryObj.description" name="description" #description="ngModel"></ckeditor>
+                        <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
+                          #keypoints="ngModel" [(ngModel)]="categoryObj.description"
+                          [className]="(createCategoryForm.submitted && !categoryObj.keypoints) ? 'error-editor' : '' ">
+                        </ck-editor>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Image Uploads</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Icon Image</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img [src]="categoryObj.category_icon_file" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="img-icon-upload" class="pointer">
+                          <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                            file</span>
+                          <input type="file" id="img-icon-upload" maxlength="" class="d-none" name="icon"
+                            accept="image/*" (change)="handleInputChange($event)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Icon Image</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img [src]="categoryObj.category_banner_file" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="img-icon-upload" class="pointer">
+                          <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                            file</span>
+                          <input type="file" id="img-icon-upload" maxlength="" class="d-none" name="icon"
+                            accept="image/*" (change)="handleInputChange($event)">
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit">Submit</button>
+
+  </form>
+</div>

@@ -1,0 +1,6 @@
+@font-face {
+	font-family: 'northwell';
+	src: url('../fonts/northwell/Northwell.woff') format('woff2'), url('../fonts/northwell/Northwell.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}

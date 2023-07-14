@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html x-data="main" class :class="[$store.app.mode]">
+  <body
+    class="antialiased relative font-inter bg-lightwhite dark:bg-black text-black dark:text-white text-sm font-normal overflow-x-hidden"
+  >
+    <header>
+      <nav class="bg-lightwhite dark:bg-black px-4 lg:px-7 py-4">
+        <div class="flex flex-wrap justify-between items-center">
+          <!-- Logo Here -->
+        </div>
+      </nav>
+    </header>
+
+    <div
+      class="min-h-[calc(100vh-134px)] py-4 px-4 sm:px-12 flex justify-center items-center"
+    >
+      <div
+        class="max-w-[680px] flex-none w-full bg-white dark:bg-white/5 p-4 sm:p-10 lg:px-[146px] lg:py-[107px] rounded-2xl loginform"
+      >
+        <h1 class="text-2xl font-semibold mb-2 text-center">Sign In</h1>
+        
+        <form class="mb-4">
+          <div class="mb-4">
+            <input type="text" value placeholder="Email" class="form-input" />
+          </div>
+          <div class="mb-2">
+            <input
+              type="password"
+              value
+              placeholder="Password"
+              class="form-input"
+            />
+          </div>
+          
+          <button
+            type="button"
+            class="py-2 px-4 bg-black dark:bg-lightpurple-200 w-full rounded-lg text-white dark:text-black text-lg font-semibold border border-black dark:border-lightpurple-200 hover:bg-transparent dark:hover:bg-transparent hover:text-black dark:hover:text-white transition-all duration-300"
+          >
+            Sign In
+          </button>
+        </form>
+        
+      </div>
+    </div>
+
+    <script src="assets/js/alpine-collaspe.min.js"></script>
+    <script src="assets/js/alpine-persist.min.js"></script>
+    <script src="assets/js/alpine.min.js" defer></script>
+
+    <script src="assets/js/custom.js"></script>
+  </body>
+
+</html>
