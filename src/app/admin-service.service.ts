@@ -320,4 +320,28 @@ export class AdminServiceService {
    });
    return this.http.post(url, body, { headers: httpHeaders });
   }
+
+  collectionDetails(collection_ID){
+    const url = environment.apiUrl + 'collections/details';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('collection_ID', collection_ID);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  createCollection(formData){
+    const url = environment.apiUrl + 'collections/create';
+    return this.http.post<any>(url, formData).pipe();
+  }
+
+  updateCollection(formData){
+    const url = environment.apiUrl + 'collections/update';
+    return this.http.post<any>(url, formData).pipe();
+  }
 }

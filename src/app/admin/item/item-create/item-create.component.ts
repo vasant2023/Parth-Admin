@@ -87,7 +87,6 @@ export class ItemCreateComponent implements OnInit {
     this.adminService.getHardwares().subscribe((response :{success: number, message: string, hardwares:[]}) => {
       if(response.success == 1) {
         this.hardwares_List = response.hardwares;
-        console.log(this.hardwares_List);
       }
     })
   }
@@ -127,8 +126,6 @@ export class ItemCreateComponent implements OnInit {
   }
 
   saveItem() {
-    console.log(this.itemObj.hardwares);
-    return false;
     let formData = new FormData();
     formData.append("apiId", environment.apiId);
     formData.append("from_app", "true");

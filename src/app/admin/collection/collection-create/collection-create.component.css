@@ -1,0 +1,23 @@
+.rounded-checkbox {
+    width:1.2rem;
+    height:1.2rem;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid rgb(155, 141, 166);
+    background-color: rgb(247, 246, 248);;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+  }
+  .rounded-checkbox:checked {
+    appearance: auto;
+    clip-path: circle(50% at 50% 50%);
+    background-color: blue;
+  }
+  .commonSpan{
+    vertical-align: middle;
+    padding-left: 1.5rem;
+    color: #333;
+  }
+  

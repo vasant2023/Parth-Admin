@@ -1,1 +1,353 @@
-<p>collection-create works!</p>
+<div class="container-fluid">
+    <div class="page-title">
+        <h4>Collections</h4>
+    </div>
+    <form name="form" (ngSubmit)="saveCollection()" #collectionForm="ngForm">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-heading border bottom">
+                        <h4 class="card-title">Basic Details</h4>
+                    </div>
+                    <div class="card-block">
+                        <div class="mrg-top-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="collection">Collection Name*</label>
+                                                <input type="text" class="form-control" name="collection"
+                                                    [(ngModel)]="collectionObj.collection" #collection="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && collection.invalid }"
+                                                    required />
+                                                <div *ngIf="collectionForm.submitted && collection.invalid"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="collection.errors.required">Collection Name is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="title">Title</label>
+                                                <input type="text" class="form-control" name="title"
+                                                    [(ngModel)]="collectionObj.title" #title="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && title.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="tags">Tags</label>
+                                                <input type="text" class="form-control" name="tags"
+                                                    [(ngModel)]="collectionObj.tags" #tags="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && tags.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="price">price</label>
+                                                <input type="text" class="form-control" name="price"
+                                                    [(ngModel)]="collectionObj.price" #price="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && price.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="sale_price">sale_price</label>
+                                                <input type="text" class="form-control" name="sale_price"
+                                                    [(ngModel)]="collectionObj.sale_price" #sale_price="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && sale_price.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="label">label</label>
+                                                <input type="text" class="form-control" name="label"
+                                                    [(ngModel)]="collectionObj.label" #label="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && label.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="short_description">short_description</label>
+                                                <ckeditor [editor]="Editor"
+                                                    [(ngModel)]="collectionObj.short_description"
+                                                    name="short_description" #short_description="ngModel"></ckeditor>
+                                                <ck-editor skin="moono-lisa" language="en" [config]="configEditor"
+                                                    name="keypoints" #keypoints="ngModel"
+                                                    [(ngModel)]="collectionObj.short_description"
+                                                    [className]="(collectionForm.submitted && !collectionObj.keypoints) ? 'error-editor' : '' ">
+                                                </ck-editor>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="description">Long Description</label>
+                                                <ckeditor [editor]="Editor" [(ngModel)]="collectionObj.description"
+                                                    name="description" #description="ngModel"></ckeditor>
+                                                <ck-editor skin="moono-lisa" language="en" [config]="configEditor"
+                                                    name="keypoints" #keypoints="ngModel"
+                                                    [(ngModel)]="collectionObj.description"
+                                                    [className]="(collectionForm.submitted && !collectionObj.keypoints) ? 'error-editor' : '' ">
+                                                </ck-editor>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="warranty_detail">warranty_detail</label>
+                                                <input type="text" class="form-control" name="warranty_detail"
+                                                    [(ngModel)]="collectionObj.warranty_detail"
+                                                    #warranty_detail="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && warranty_detail.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="meta_description">meta_description</label>
+                                                <input type="text" class="form-control" name="meta_description"
+                                                    [(ngModel)]="collectionObj.meta_description"
+                                                    #meta_description="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && meta_description.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="meta_keywords">meta_keywords</label>
+                                                <input type="text" class="form-control" name="meta_keywords"
+                                                    [(ngModel)]="collectionObj.meta_keywords" #meta_keywords="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && meta_keywords.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="tag_line">tag_line</label>
+                                                <input type="text" class="form-control" name="tag_line"
+                                                    [(ngModel)]="collectionObj.tag_line" #tag_line="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && tag_line.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="sort_order">sort_order</label>
+                                                <input type="text" class="form-control" name="sort_order"
+                                                    [(ngModel)]="collectionObj.sort_order" #sort_order="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && sort_order.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="status">status</label>
+                                                <input type="text" class="form-control" name="status"
+                                                    [(ngModel)]="collectionObj.status" #status="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && status.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="warranty_time">warranty_time</label>
+                                                <input type="text" class="form-control" name="warranty_time"
+                                                    [(ngModel)]="collectionObj.warranty_time" #warranty_time="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && warranty_time.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="warranty_duration">warranty_duration</label>
+                                                <input type="text" class="form-control" name="warranty_duration"
+                                                    [(ngModel)]="collectionObj.warranty_duration" #warranty_duration="ngModel"
+                                                    [ngClass]="{ 'is-invalid': collectionForm.submitted && warranty_duration.invalid }"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group" *ngFor="let item of itemList">
+                                                <label for="item_{{item.item_ID}}">
+                                                    <input type="checkbox" name="item_{{item.item_ID}}"
+                                                        [(checklist)]="collectionObj.items"
+                                                        [checklistValue]="{ 'item_ID': item.item_ID, 'sort_order' : item.item_ID }"
+                                                        id="item_{{item.item_ID}}" class="rounded-checkbox">
+                                                    <span class="commonSpan">{{ item.item }}&nbsp;</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-heading border bottom">
+                        <h4 class="card-title">Image Uploads</h4>
+                    </div>
+                    <div class="card-block">
+                        <div class="mrg-top-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="category">Banner Image</label>
+                                                <div class="clearfix"></div>
+                                                <div class="default_imageiconcategory">
+                                                    <img [src]="collectionObj.banner_image" class="img categoryiconimg"
+                                                        default="assets/images/profile.jpg" />
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <label for="img-icon-upload" class="pointer">
+                                                    <span
+                                                        class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                                                        file</span>
+                                                    <input type="file" id="img-icon-upload" maxlength="" class="d-none"
+                                                        name="icon" accept="image/*"
+                                                        (change)="handleInputChangeBannerImage($event)">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="category">Mobile Image</label>
+                                                <div class="clearfix"></div>
+                                                <div class="default_imageiconcategory">
+                                                    <img [src]="collectionObj.banner_image_mobile"
+                                                        class="img categoryiconimg"
+                                                        default="assets/images/profile.jpg" />
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <label for="img-upload" class="pointer">
+                                                    <span
+                                                        class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                                                        file</span>
+                                                    <input type="file" id="img-upload" maxlength="" class="d-none"
+                                                        name="img-upload" accept="image/*"
+                                                        (change)="handleInputChangeMobileImage($event)">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="category">Images</label>
+                                                <div class="clearfix"></div>
+                                                <div class="default_imageiconcategory">
+                                                    <img [src]="collectionObj.item_images" class="img categoryiconimg"
+                                                        default="assets/images/profile.jpg" />
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <label for="images" class="pointer">
+                                                    <span
+                                                        class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                                                        file</span>
+                                                    <input type="file" id="images" maxlength="" class="d-none"
+                                                        name="images" accept="image/*" (change)="item_images($event)">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="category">Illustration Pdf</label>
+                                                <div class="clearfix"></div>
+                                                <div class="default_imageiconcategory">
+                                                    <img [src]="collectionObj.illustration_pdf"
+                                                        class="img categoryiconimg"
+                                                        default="assets/images/profile.jpg" />
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <label for="pdf" class="pointer">
+                                                    <span
+                                                        class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                                                        file</span>
+                                                    <input type="file" id="pdf" maxlength="" class="d-none" name="pdf"
+                                                        (change)="brochure($event)">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+
+    </form>
+</div>
