@@ -41,29 +41,85 @@ export class ItemListComponent implements OnInit {
   }
 
   proposalObj: any = {
+    item_IDs : [],
+    items : []
   }
 
   proposal: any = [];
 
+  public marked_IDs = [16,20,21];
+
+  addforproposal(){
+    this.marked_IDs.forEach(item_ID => {
+        if(this.proposalObj.item_IDs.indexOf(item_ID) < 0){
+          this.proposalObj.item_IDs.push(item_ID);
+        }
+    });
+
+    if(this.proposalObj.item_IDs.length > 0){
+
+      this.proposalObj.items = [];
+
+      this.proposalObj.item_IDs.forEach(item_ID => {
+        var singleObj = this.item_list.filter(function ( e ) {if(e.item_ID == item_ID) {return e}} )[0];
+
+        singleObj.marginOption = this.universalMarginOption;
+        singleObj.margin = this.commonMargin;
+
+        let price = parseFloat(singleObj.price);
+        let margin = parseFloat(singleObj.margin);
+        let marginOption = singleObj.marginOption;
+
+
+        
+
+        if (marginOption === 'Rupees') {
+          singleObj.finalPrice = price + margin;
+        } else if (marginOption === 'Percentage') {
+          singleObj.finalPrice = (price + (price * (margin / 100))).toFixed(0);
+        } else {
+          singleObj.finalPrice = price;
+        }
+
+        this.proposalObj.items.push(singleObj);
+      });
+    }
+
+    this.marked_IDs = [];
+
+  }
+
   universalMarginOption = 'Percentage';
   itemMarginOption = 'Percentage';
-  commonMargin = 0;
+  commonMargin = 10;
 
   hidePopup(){
     this.isProposal = false
   }
 
   applyUniversalMargin() {
-    for (const item of this.proposal) {
-      if (this.universalMarginOption === 'Percentage') {
+
+    this.proposalObj.items.forEach(item => {
+        if (this.universalMarginOption === 'Percentage') {
         item.marginOption = 'Percentage';
         item.margin = this.commonMargin;
       } else if (this.universalMarginOption === 'Rupees') {
         item.marginOption = 'Rupees';
         item.margin = this.commonMargin;
       }
-      this.calculateFinalPrice(item);
-    }
+      this.calculateFinalPrice(item);  
+    });
+
+    // for (const item of this.proposalObj.items) {
+    //   if (this.universalMarginOption === 'Percentage') {
+    //     item.marginOption = 'Percentage';
+    //     item.margin = this.commonMargin;
+    //   } else if (this.universalMarginOption === 'Rupees') {
+    //     item.marginOption = 'Rupees';
+    //     item.margin = this.commonMargin;
+    //   }
+    //   this.calculateFinalPrice(item);
+    // }
   }
 
   items : any ={
@@ -71,14 +127,15 @@ export class ItemListComponent implements OnInit {
   }
 
   calculateFinalPrice(item: any) {
-    const price = parseFloat(item.price);
-    const margin = parseFloat(item.margin);
-    const marginOption = this.item.marginOption;
 
+    let price = parseFloat(item.price);
+    let margin = parseFloat(item.margin);
+    let marginOption = item.marginOption;
+    
     if (marginOption === 'Rupees') {
       item.finalPrice = price + margin;
     } else if (marginOption === 'Percentage') {
-      item.finalPrice = price + (price * (margin / 100));
+      item.finalPrice = price + (price * (margin / 100)).toFixed(0);
     } else {
       item.finalPrice = price;
     }

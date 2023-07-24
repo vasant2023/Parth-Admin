@@ -17,8 +17,13 @@
               <div class="submit_comon_btn">
                 <a routerLink="/admin/items/create" class="btn submit_btn">ADD NEW</a>
               </div>
-              <div class="submit_comon_btn" (click)="proposalRequest()">
-                <a class="btn submit_btn">Get Proposal</a>
+
+              <div class="submit_comon_btn" (click)="addforproposal()" *ngIf="marked_IDs.length > 0">
+                <a class="btn submit_btn">Add {{marked_IDs.length}} Items to Proposal</a>
+              </div>
+
+              <div class="submit_comon_btn" (click)="proposalRequest()" *ngIf="proposalObj.item_IDs.length > 0">
+                <a class="btn submit_btn">Generate Proposal ({{proposalObj.item_IDs.length}} Items)</a>
               </div>
             </div>
           </div>
@@ -47,8 +52,8 @@
                 <tr *ngFor="let item of item_list | filter : searchText" [class]="{ inactive: item.status == 0 }">
                   <td>
                     <label for="item_{{ item.item_ID }}">
-                      <input type="checkbox" (change)="getProposal()" class="rounded-checkbox"
-                        [(checklist)]="proposalObj.item_ID" [checklistValue]="item.item_ID" />
+                      <input type="checkbox" class="rounded-checkbox"
+                        [(checklist)]="marked_IDs" [checklistValue]="item.item_ID" />
                     </label>
                   </td>
                   <td class="categoryImageWrapper">
@@ -100,7 +105,7 @@
 </div>
 
 <div class="proposal" *ngIf="isProposal">
-  <div class="popup-overlay" (click)="hidePopup()" *ngIf="proposal.length > 0">
+  <div class="popup-overlay" (click)="hidePopup()" *ngIf="proposalObj.item_IDs.length > 0">
     <div class="popup" (click)="$event.stopPropagation()">
       <div>
         <label for="commonMargin">Margin</label>
@@ -119,7 +124,7 @@
         </div>
       </div>
 
-      <div *ngFor="let item of proposal; let i = index" class="flex list">
+      <div *ngFor="let item of proposalObj.items; let i = index" class="flex list">
         <div>
           <img src="{{ item.banner_image }}" alt="Image of item" style="height: 60px; width: 60px; object-fit: cover" />
         </div>
