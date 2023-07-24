@@ -36,6 +36,15 @@ import { CategoryListComponent } from './admin/category/category-list/category-l
 import { CategoryCreateComponent } from './admin/category/category-create/category-create.component';
 import { CollectionListComponent } from './admin/collection/collection-list/collection-list.component';
 import { CollectionCreateComponent } from './admin/collection/collection-create/collection-create.component';
+import { ColletionCategoryListComponent } from './admin/collection-category/colletion-category-list/colletion-category-list.component';
+import { ColletionCategoryCreateComponent } from './admin/collection-category/colletion-category-create/colletion-category-create.component';
+import { HardwareCategoryListComponent } from './admin/hardware-category/hardware-category-list/hardware-category-list.component';
+import { HardwareCategoryCreateComponent } from './admin/hardware-category/hardware-category-create/hardware-category-create.component';
+import { LaminateCategoryCreateComponent } from './admin/laminate-category/laminate-category-create/laminate-category-create.component';
+import { LaminateCategoryListComponent } from './admin/laminate-category/laminate-category-list/laminate-category-list.component';
+import { ItemCategoryListComponent } from './admin/item-category/item-category-list/item-category-list.component';
+import { ItemCategoryCreateComponent } from './admin/item-category/item-category-create/item-category-create.component';
+import { LeadsListComponent } from './admin/leads/leads-list/leads-list.component';
 
 
 
@@ -61,6 +70,15 @@ import { CollectionCreateComponent } from './admin/collection/collection-create/
     CategoryCreateComponent,
     CollectionListComponent,
     CollectionCreateComponent,
+    ColletionCategoryListComponent,
+    ColletionCategoryCreateComponent,
+    HardwareCategoryListComponent,
+    HardwareCategoryCreateComponent,
+    LaminateCategoryCreateComponent,
+    LaminateCategoryListComponent,
+    ItemCategoryListComponent,
+    ItemCategoryCreateComponent,
+    LeadsListComponent,
   ],
   imports: [
     FormsModule,

@@ -20,6 +20,32 @@ export class AdminServiceService {
 
   constructor(private http: HttpClient) {}
 
+  adminSignIn(userData): Observable<any> {
+    const httpOptions = {
+       headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+       })
+    };
+    userData.apiId = environment.apiId;
+    return this.http.post<any>(environment.apiUrl + 'users/signin', JSON.stringify(userData), httpOptions).pipe(
+       tap((product) => console.log(`added product w/ id=${product}`)),
+    );
+  }
+
+  setObjservableUser(objLoggedInUser) {
+    this.objservableadmin.next(objLoggedInUser);
+    localStorage.setItem("ParthAdminLoggedInId", objLoggedInUser);
+  }
+
+  geObjservableUser(): Observable<any> {
+    return this.objservableadmin.asObservable();
+  }
+
+  removeObjservableUser() {
+    this.objservableadmin.next();
+    localStorage.removeItem("ParthAdminLoggedInId");
+  }
+
   createBrand(formData) {
     const url = environment.apiUrl + "brands/create";
     return this.http.post<any>(url, formData).pipe();
@@ -212,7 +238,7 @@ export class AdminServiceService {
   }
 
   createItem(formData){
-    console.log(formData)
+    // console.log(formData)
     const url = environment.apiUrl + 'items/create';
     return this.http.post<any>(url, formData).pipe();
   }
@@ -344,4 +370,180 @@ export class AdminServiceService {
     const url = environment.apiUrl + 'collections/update';
     return this.http.post<any>(url, formData).pipe();
   }
+
+  // Collection Categories
+
+  getCollectioncategories(){
+    const url = environment.apiUrl + 'categories/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', 'collection');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteCollectionCategory(category_ID){
+    const url = environment.apiUrl + 'categories/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('category_ID', category_ID);
+    body = body.append('type', 'collection');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Hardware Category
+
+  getHardwarecategories(){
+    const url = environment.apiUrl + 'categories/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', 'hardware');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteHardwareCategory(category_ID){
+    const url = environment.apiUrl + 'categories/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('category_ID', category_ID);
+    body = body.append('type', 'hardware');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Laminate Category
+
+  getLaminatecategories(){
+    const url = environment.apiUrl + 'categories/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', 'laminate');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteLaminateCategory(category_ID){
+    const url = environment.apiUrl + 'categories/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('category_ID', category_ID);
+    body = body.append('type', 'laminate');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Item Categories
+
+  getItemcategories(){
+    const url = environment.apiUrl + 'categories/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', 'item');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteItemCategory(category_ID){
+    const url = environment.apiUrl + 'categories/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('category_ID', category_ID);
+    body = body.append('type', 'item');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Leads
+
+  getLeads(){
+    const url = environment.apiUrl + 'leads/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  getStatus(){
+    const url = environment.apiUrl + 'leads/status-list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  followUp(leadObj){
+    const url = environment.apiUrl + 'leads/lead-followup';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('lead_ID', leadObj.lead_ID);
+    body = body.append('next_followup_date', leadObj.next_followup_date);
+    body = body.append('followup_comments', leadObj.followup_comments);
+    body = body.append('status_id', leadObj.status_id);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
 }
+
+

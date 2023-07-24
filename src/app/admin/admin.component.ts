@@ -123,6 +123,7 @@ export class AdminComponent implements OnInit {
   }
 
   logout() {
+    this.adminService.removeObjservableUser();
     this.router.navigate(['admin/login']);
   }
 

@@ -5,7 +5,6 @@ import {
   Validators,
   FormControl,
 } from "@angular/forms";
-// import { ErrorMessage } from 'ng-bootstrap-form-validation';
 import { Router, ActivatedRoute } from "@angular/router";
 import {
   HttpClient,
@@ -22,7 +21,6 @@ import { ChangeEvent } from "@ckeditor/ckeditor5-angular/ckeditor.component";
 import { Observable } from "rxjs";
 import { map, catchError, tap, ignoreElements } from "rxjs/operators";
 import { Response } from "selenium-webdriver/http";
-// import { element } from '@angular/core/src/render3';
 import { environment } from "../../../../environments/environment";
 import swal from "sweetalert2";
 import { DragulaService } from "ng2-dragula";
@@ -45,7 +43,7 @@ export class ItemCreateComponent implements OnInit {
     description: "",
     short_description: "",
     laminate: {},
-    hardwares: [],
+    hardware_IDs: [],
     warranty_detail: "",
     meta_description: "",
     meta_keywords: "",
@@ -56,12 +54,38 @@ export class ItemCreateComponent implements OnInit {
     sort_order: "",
     status: "",
     mark_as: "",
-    tag_line : ""
+    tag_line: "",
   };
 
   item_ID = "";
 
   itemForm: FormGroup;
+
+  configEditor = {
+    removeButtons:
+      "Print,Preview,NewPage,Source,Save,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Find,SelectAll,Scayt,Checkbox,TextField,Textarea,Radio,Form,Select,Button,ImageButton,HiddenField,Replace,CopyFormatting,Outdent,Indent,Blockquote,CreateDiv,BidiLtr,BidiRtl,Language,Anchor,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,Maximize,ShowBlocks,About,FontSize,Image",
+    toolbarGroups: [
+      { name: "document", groups: ["mode", "document", "doctools"] },
+      {
+        name: "editing",
+        groups: ["find", "selection", "spellchecker", "editing"],
+      },
+      { name: "basicstyles", groups: ["basicstyles", "cleanup"] },
+      { name: "styles", groups: ["styles"] },
+      { name: "paragraph", groups: ["list", "indent", "blocks"] },
+      "/",
+      { name: "clipboard", groups: ["clipboard", "undo"] },
+      { name: "paragraph", groups: ["align", "bidi", "paragraph"] },
+      { name: "forms", groups: ["forms"] },
+      { name: "links", groups: ["links"] },
+      { name: "colors", groups: ["colors"] },
+      { name: "insert", groups: ["insert"] },
+      "/",
+      { name: "tools", groups: ["tools"] },
+      { name: "others", groups: ["others"] },
+      { name: "about", groups: ["about"] },
+    ],
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,29 +105,37 @@ export class ItemCreateComponent implements OnInit {
     this.getAllHardware();
   }
 
-  hardwares_List:any = [];
+  public onChange({ editor }: ChangeEvent) {
+    this.itemObj.description = editor.getData();
+  }
 
-  getAllHardware(){
-    this.adminService.getHardwares().subscribe((response :{success: number, message: string, hardwares:[]}) => {
-      if(response.success == 1) {
-        this.hardwares_List = response.hardwares;
-      }
-    })
+  hardwares_List: any = [];
+
+  getAllHardware() {
+    this.adminService
+      .getHardwares()
+      .subscribe(
+        (response: { success: number; message: string; hardwares: [] }) => {
+          if (response.success == 1) {
+            this.hardwares_List = response.hardwares;
+          }
+        }
+      );
   }
 
   handleInputChangeBannerImage(event) {
     this.itemObj.banner_image = event.target.files[0];
   }
 
-  handleInputChangeMobileImage(event){
+  handleInputChangeMobileImage(event) {
     this.itemObj.banner_image_mobile = event.target.files[0];
   }
 
-  item_images(event){
+  item_images(event) {
     this.itemObj.item_images = event.target.files[0];
   }
 
-  illustration_pdf(event){
+  illustration_pdf(event) {
     this.itemObj.illustration_pdf = event.target.files[0];
   }
 
@@ -116,59 +148,84 @@ export class ItemCreateComponent implements OnInit {
   itemDetails() {
     this.adminService
       .itemDetails(this.item_ID)
-      .subscribe(
-        (response: { success: number; message: string; item: [] }) => {
-          if (response.success == 1) {
-            this.itemObj = response.item;
-          }
+      .subscribe((response: { success: number; message: string; item: [] }) => {
+        if (response.success == 1) {
+          this.itemObj = response.item;
+
+          this.itemObj.hardware_IDs = [];
+
+          this.itemObj.hardwares.forEach((value) => {
+            this.itemObj.hardware_IDs.push(value.hardware_ID);
+          });
         }
-      );
+      });
   }
 
   saveItem() {
-    let formData = new FormData();
-    formData.append("apiId", environment.apiId);
-    formData.append("from_app", "true");
-    formData.append("item", this.itemObj.item);
-    formData.append("title", this.itemObj.title);
-    formData.append("tags", this.itemObj.tags);
-    formData.append("price", this.itemObj.price);
-    formData.append("sale_price", this.itemObj.sale_price);
-    formData.append("label", this.itemObj.label);
-    formData.append("label_from", this.itemObj.label_from);
-    formData.append("label_to", this.itemObj.label_to);
-    formData.append("description", this.itemObj.description);
-    formData.append("short_description", this.itemObj.short_description);
-    formData.append("hardwares", JSON.stringify(this.itemObj.hardwares));
-    formData.append("laminate_ID", this.itemObj.laminate_ID);
-    formData.append("warranty_detail", this.itemObj.warranty_detail);
-    formData.append("meta_description", this.itemObj.meta_description);
-    formData.append("meta_keywords", this.itemObj.meta_keywords);
-    formData.append("banner_image", this.itemObj.banner_image);
-    formData.append("banner_image_mobile", this.itemObj.banner_image_mobile);
-    formData.append("illustration_pdf", this.itemObj.illustration_pdf);
-    formData.append("item_images", this.itemObj.item_images);
-    formData.append("image_alttext", this.itemObj.image_alttext);
-    formData.append("sort_order", this.itemObj.sort_order);
-    formData.append("tag_line", this.itemObj.tag_line);
-    formData.append("status", this.itemObj.status);
-    if (this.item_ID) {
-      formData.append("item_ID", this.item_ID);
-      this.adminService
-        .updateItem(formData)
-        .subscribe((response: { success: number; message: string }) => {
-          if (response.success == 1) {
-            this.router.navigate(["admin/items"]);
-          }
-        });
-    } else {
-      this.adminService
-        .createItem(formData)
-        .subscribe((response: { success: number; message: string }) => {
-          if (response.success == 1) {
-            this.router.navigate(["admin/items"]);
-          }
-        });
+    if (this.isLoading == false) {
+      this.isLoading = true;
+      let formData = new FormData();
+      formData.append("apiId", environment.apiId);
+      formData.append("from_app", "true");
+      formData.append("item", this.itemObj.item);
+      formData.append("title", this.itemObj.title);
+      formData.append("tags", this.itemObj.tags);
+      formData.append("price", this.itemObj.price);
+      formData.append("sale_price", this.itemObj.sale_price);
+      formData.append("label", this.itemObj.label);
+      formData.append("label_from", this.itemObj.label_from);
+      formData.append("label_to", this.itemObj.label_to);
+      formData.append("description", this.itemObj.description);
+      formData.append("short_description", this.itemObj.short_description);
+
+      var sort_order = 1;
+      var hardwares = [];
+
+      this.itemObj.hardware_IDs.forEach((single_ID) => {
+        var Obj = {
+          hardware_ID: single_ID,
+          sort_order: sort_order,
+        };
+        hardwares.push(Obj);
+
+        sort_order++;
+      });
+
+      formData.append("hardwares", JSON.stringify(this.itemObj.hardwares));
+      formData.append("laminate_ID", this.itemObj.laminate_ID);
+      formData.append("warranty_detail", this.itemObj.warranty_detail);
+      formData.append("meta_description", this.itemObj.meta_description);
+      formData.append("meta_keywords", this.itemObj.meta_keywords);
+      formData.append("banner_image", this.itemObj.banner_image);
+      formData.append("banner_image_mobile", this.itemObj.banner_image_mobile);
+      formData.append("illustration_pdf", this.itemObj.illustration_pdf);
+      formData.append("item_images", this.itemObj.item_images);
+      formData.append("image_alttext", this.itemObj.image_alttext);
+      formData.append("sort_order", this.itemObj.sort_order);
+      formData.append("tag_line", this.itemObj.tag_line);
+      formData.append("status", this.itemObj.status);
+      if (this.item_ID) {
+        formData.append("item_ID", this.item_ID);
+        this.adminService
+          .updateItem(formData)
+          .subscribe((response: { success: number; message: string }) => {
+            if (response.success == 1) {
+              this.router.navigate(["admin/items"]);
+            }
+            this.isLoading = false;
+
+          });
+      } else {
+        this.adminService
+          .createItem(formData)
+          .subscribe((response: { success: number; message: string }) => {
+            if (response.success == 1) {
+              this.router.navigate(["admin/items"]);
+            }
+            this.isLoading = false;
+
+          });
+      }
     }
   }
 }

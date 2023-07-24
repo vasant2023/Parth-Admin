@@ -3,27 +3,30 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-block">
-          <div class="pull-left">
-            <h4 class="card-title mrg-top-5">Category &nbsp; &nbsp;</h4>
-          </div>
-          <div class="pull-left">
-            <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off"
-              placeholder="Search categorys" />
-          </div>
-          <div class="pull-right">
-            <div class="submit_comon_btn ty10 forms_strip">
-              <a routerLink="/admin/categories/create" class="btn submit_btn">ADD NEW</a>
+          <div class="check">
+            <div class="check">
+              <div class="">
+                <h4 class="card-title mrg-top-5">Category &nbsp; &nbsp;</h4>
+              </div>
+              <div class="">
+                <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Category" />
+              </div>
+            </div>
+            <div class="button">
+                <div class="submit_comon_btn">
+                  <a routerLink="/admin/categories/create" class="btn submit_btn">ADD NEW</a>
+                </div>
             </div>
           </div>
           <div class="clearfix"></div>
           <div class="table-overflow">
             <table class="table table-hover">
-              <thead>
+              <!-- <thead>
                 <tr>
                   <th>Category</th>
                   <th></th>
                 </tr>
-              </thead>
+              </thead> -->
               <tbody *ngIf="category_list.length == 0 && isloading == false">
                 <tr>
                   <td colspan="6">
@@ -34,7 +37,7 @@
                   </td>
                 </tr>
               </tbody>
-              <tbody dragula="VAMPIRES" [(dragulaModel)]="category_list" *ngIf="category_list.length > 0">
+              <tbody *ngIf="category_list.length > 0">
                 <tr *ngFor="let category of category_list | filter:searchText" [class]="{'inactive' : category.status == 0}">
 
                   <td class="categoryImageWrapper">

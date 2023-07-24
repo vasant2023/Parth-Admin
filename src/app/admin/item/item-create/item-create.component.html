@@ -54,7 +54,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="price">price</label>
-                        <input type="text" class="form-control" name="price" [(ngModel)]="itemObj.price"
+                        <input type="number" class="form-control" name="price" [(ngModel)]="itemObj.price"
                           #price="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && price.invalid }"
                           required />
                       </div>
@@ -65,7 +65,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="sale_price">sale_price</label>
-                        <input type="text" class="form-control" name="sale_price" [(ngModel)]="itemObj.sale_price"
+                        <input type="number" class="form-control" name="sale_price" [(ngModel)]="itemObj.sale_price"
                           #sale_price="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && sale_price.invalid }"
                           required />
                       </div>
@@ -75,19 +75,8 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="label">label</label>
-                        <input type="text" class="form-control" name="label" [(ngModel)]="itemObj.label"
-                          #label="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && label.invalid }"
-                          required />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
                         <label for="short_description">short_description</label>
-                         <ckeditor [editor]="Editor" [(ngModel)]="itemObj.short_description" name="short_description" #short_description="ngModel"></ckeditor>
+                         <!-- <ckeditor [editor]="Editor" [(ngModel)]="itemObj.short_description" name="short_description" #short_description="ngModel"></ckeditor> -->
                         <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
                           #keypoints="ngModel" [(ngModel)]="itemObj.short_description"
                           [className]="(itemForm.submitted && !itemObj.keypoints) ? 'error-editor' : '' ">
@@ -100,7 +89,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="description">Long Description</label>
-                         <ckeditor [editor]="Editor" [(ngModel)]="itemObj.description" name="description" #description="ngModel"></ckeditor>
+                         <!-- <ckeditor [editor]="Editor" [(ngModel)]="itemObj.description" name="description" #description="ngModel"></ckeditor> -->
                         <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
                           #keypoints="ngModel" [(ngModel)]="itemObj.description"
                           [className]="(itemForm.submitted && !itemObj.keypoints) ? 'error-editor' : '' ">
@@ -120,17 +109,6 @@
                     </div>
                   </div> -->
 
-
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label for="warranty_detail">warranty_detail</label>
-                        <input type="text" class="form-control" name="warranty_detail" [(ngModel)]="itemObj.warranty_detail"
-                          #warranty_detail="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && warranty_detail.invalid }"
-                          required />
-                      </div>
-                    </div>
-                  </div>
 
                   <div class="row">
                     <div class="col-md-12">
@@ -169,7 +147,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="sort_order">sort_order</label>
-                        <input type="text" class="form-control" name="sort_order" [(ngModel)]="itemObj.sort_order"
+                        <input type="number" class="form-control" name="sort_order" [(ngModel)]="itemObj.sort_order"
                           #sort_order="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && sort_order.invalid }"
                           required />
                       </div>
@@ -180,14 +158,14 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="status">status</label>
-                        <input type="text" class="form-control" name="status" [(ngModel)]="itemObj.status"
+                        <input type="number" class="form-control" name="status" [(ngModel)]="itemObj.status"
                           #status="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && status.invalid }"
                           required />
                       </div>
                     </div>
                   </div>
 
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-md-12">
                       <div class="form-group" *ngFor="let item of hardwares_List">
                         <label for="hardware_{{item.hardware_ID}}">
@@ -196,7 +174,20 @@
                         </label>
                       </div>
                     </div>
+                  </div> -->
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>Hardwares : </h2>
+                      <div class="form-group" *ngFor="let item of hardwares_List">
+                        <label for="hardware_{{item.hardware_ID}}">
+                          <input type="checkbox" name="hardware_{{item.hardware_ID}}" [(checklist)]="itemObj.hardware_IDs" [checklistValue]="item.hardware_ID" id="hardware_{{item.hardware_ID}}" class="rounded-checkbox">
+                          <span class="commonSpan">{{ item.hardware }}&nbsp;</span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
+
                   
                 </div>
               </div>
@@ -299,7 +290,7 @@
         </div>
       </div>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn submit_btn">Submit</button>
 
   </form>
 </div>

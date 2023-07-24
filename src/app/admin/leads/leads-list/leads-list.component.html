@@ -1,0 +1,129 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="check">
+            <div class="check">
+              <div class="">
+                <h4 class="card-title mrg-top-5">Leads &nbsp; &nbsp;</h4>
+              </div>
+              <div class="flex button">
+                <div *ngFor="let status of statusList" class="submit_comon_btn">
+                  <button class="btn submit_btn">{{ status.status }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="table-overflow">
+            <table class="table table-hover">
+              <tbody *ngIf="leadsList.length == 0 && isloading == false">
+                <tr>
+                  <td colspan="6">
+                    <div class="nodata">
+                      <p class="text-center font-size-22">
+                        <i class="ei-sad"></i>
+                      </p>
+                      <p class="text-center">No Leads found!</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="leadsList.length > 0">
+                <tr *ngFor="let lead of leadsList; let i = index">
+                  <td>
+                    <span>{{ i + 1 }}</span>
+                  </td>
+                  <td>
+                    <span>{{ lead.first_name }} {{ lead.last_name }}</span>
+                    <p
+                      class="status-check"
+                      (click)="handleChange(lead.lead_ID)"
+                    >
+                      {{ lead.status }}
+                    </p>
+                  </td>
+                  <td>
+                    <span>{{ lead.email }}</span>
+                  </td>
+                  <td>
+                    <span>{{ lead.contact_no }}</span>
+                  </td>
+                  <td>
+                    <span>{{ lead.comments }}</span>
+                  </td>
+                  <!-- <td>
+                    <span>{{ lead.status }}</span>
+                  </td> -->
+                </tr>
+                <tr *ngIf="leadsList.length == 0">
+                  <td colspan="6">
+                    <div class="nodata">
+                      <p class="text-center font-size-22">
+                        <i class="ei-sad"></i>
+                      </p>
+                      <p class="text-center">No Leads found!</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="handleStatus" class="popup-overlay" (click)="hidePopup()">
+  <div class="popup" (click)="$event.stopPropagation()">
+    <form name="form" (ngSubmit)="submitFollowUp()" #followUpForm="ngForm">
+      <div class="">
+        <div class="card-heading border bottom">
+          <h4 class="card-title">Follow Up Details</h4>
+          <span (click)="hidePopup()" class="material-symbols-outlined">
+            close
+          </span>
+        </div>
+
+        <label for="status">Status</label>
+        <select
+          class="form-control"
+          name="status"
+          [(ngModel)]="leadsObj.status_id"
+          #status="ngModel"
+        >
+          <option value="">Select Status</option>
+          <option [ngValue]="list.status_id" *ngFor="let list of statusList">
+            {{ list.status }}
+          </option>
+        </select>
+
+        <label for="followup_comments">Follow Up Comment</label>
+        <textarea
+          class="form-control"
+          name="followup_comments"
+          [(ngModel)]="leadsObj.followup_comments"
+          id="followup_comments"
+          cols="30"
+          rows="10"
+          #followup_comments="ngModel"
+        ></textarea>
+
+        <label for="next_followup_date">Follow Up Date</label>
+        <input
+          class="form-control"
+          id="next_followup_date"
+          type="date"
+          name="next_followup_date"
+          [(ngModel)]="leadsObj.next_followup_date"
+          #next_followup_date="ngModel"
+        />
+        <div class="button">
+          <button type="submit" class="btn submit_btn">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

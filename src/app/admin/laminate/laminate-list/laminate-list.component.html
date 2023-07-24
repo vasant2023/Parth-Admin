@@ -3,25 +3,29 @@
       <div class="col-md-12">
           <div class="card">
               <div class="card-block">
-                  <div class="pull-left">
-                    <h4 class="card-title mrg-top-5">Laminates &nbsp; &nbsp;</h4>
+                <div class="check">
+                  <div class="check">
+                    <div class="">
+                      <h4 class="card-title mrg-top-5">Laminates &nbsp; &nbsp;</h4>
+                    </div>
+                    <div class="">
+                      <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Laminates" />
+                    </div>
                   </div>
-                  <div class="pull-left">
-                    <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Laminates" />
-                  </div>
-                  <div class="pull-right">
-                      <div class="submit_comon_btn ty10 forms_strip">
+                  <div class="button">
+                      <div class="submit_comon_btn">
                         <a routerLink="/admin/laminates/create" class="btn submit_btn">ADD NEW</a>
                       </div>
                   </div>
+                </div>
                   <div class="clearfix"></div>
                   <div class="table-overflow">
                       <table class="table table-hover">
                           <thead>
-                              <tr>
+                              <!-- <tr>
                                 <th>Laminate</th>
                                 <th></th>
-                              </tr>
+                              </tr> -->
                           </thead>
                           <tbody *ngIf="laminate_list.length == 0 && isloading == false">
                               <tr>
@@ -33,7 +37,7 @@
                                 </td>
                               </tr>
                           </tbody>
-                          <tbody dragula="VAMPIRES" [(dragulaModel)]="laminate_list" *ngIf="laminate_list.length > 0" >
+                          <tbody *ngIf="laminate_list.length > 0" >
                               <tr *ngFor="let laminate of laminate_list | filter:searchText" [class] = "{'inactive' : laminate.status == 0}">
 
                                 <td class="categoryImageWrapper">

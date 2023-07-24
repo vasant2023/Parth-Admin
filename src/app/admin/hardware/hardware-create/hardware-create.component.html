@@ -32,7 +32,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="status">Status*</label>
-                        <input type="text" class="form-control" name="status" [(ngModel)]="hardwareObj.status"
+                        <input type="number" class="form-control" name="status" [(ngModel)]="hardwareObj.status"
                           #status="ngModel" [ngClass]="{ 'is-invalid': createHarwareform.submitted && status.invalid }"
                           required />
                         <div *ngIf="createHarwareform.submitted && status.invalid" class="invalid-feedback">
@@ -47,7 +47,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="brand_ID">Brand*</label>
-                        <input type="text" class="form-control" name="brand_ID" [(ngModel)]="hardwareObj.brand_ID"
+                        <input type="number" class="form-control" name="brand_ID" [(ngModel)]="hardwareObj.brand_ID"
                           #brand_ID="ngModel" [ngClass]="{ 'is-invalid': createHarwareform.submitted && brand_ID.invalid }"
                           required />
                         <div *ngIf="createHarwareform.submitted && status.invalid" class="invalid-feedback">
@@ -84,7 +84,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="stock">Stock</label>
-                        <input type="text" class="form-control" name="stock" [(ngModel)]="hardwareObj.stock"
+                        <input type="number" class="form-control" name="stock" [(ngModel)]="hardwareObj.stock"
                           #stock="ngModel" [ngClass]="{ 'is-invalid': createHarwareform.submitted && stock.invalid }"
                           required />
                       </div>
@@ -95,7 +95,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="price">Price</label>
-                        <input type="text" class="form-control" name="price" [(ngModel)]="hardwareObj.price"
+                        <input type="number" class="form-control" name="price" [(ngModel)]="hardwareObj.price"
                           #price="ngModel" [ngClass]="{ 'is-invalid': createHarwareform.submitted && price.invalid }"
                           required />
                       </div>
@@ -106,7 +106,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Long Description</label>
-                         <ckeditor [editor]="Editor" [(ngModel)]="hardwareObj.description" name="description" #description="ngModel"></ckeditor>
+                         <!-- <ckeditor [editor]="Editor" [(ngModel)]="hardwareObj.description" name="description" #description="ngModel"></ckeditor> -->
                         <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
                           #keypoints="ngModel" [(ngModel)]="hardwareObj.description"
                           [className]="(createHarwareform.submitted && !hardwareObj.keypoints) ? 'error-editor' : '' ">
@@ -158,7 +158,7 @@
         </div>
       </div>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn submit_btn">Submit</button>
 
   </form>
 </div>

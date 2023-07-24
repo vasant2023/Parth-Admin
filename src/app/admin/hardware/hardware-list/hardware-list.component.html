@@ -3,25 +3,29 @@
       <div class="col-md-12">
           <div class="card">
               <div class="card-block">
-                  <div class="pull-left">
-                    <h4 class="card-title mrg-top-5">Hardwares &nbsp; &nbsp;</h4>
+                <div class="check">
+                  <div class="check">
+                    <div class="">
+                      <h4 class="card-title mrg-top-5">Hardwares &nbsp; &nbsp;</h4>
+                    </div>
+                    <div class="">
+                      <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Hardwares" />
+                    </div>
                   </div>
-                  <div class="pull-left">
-                    <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Hardwares" />
-                  </div>
-                  <div class="pull-right">
-                      <div class="submit_comon_btn ty10 forms_strip">
+                  <div class="button">
+                      <div class="submit_comon_btn">
                         <a routerLink="/admin/hardwares/create" class="btn submit_btn">ADD NEW</a>
                       </div>
                   </div>
+                </div>
                   <div class="clearfix"></div>
                   <div class="table-overflow">
                       <table class="table table-hover">
                           <thead>
-                              <tr>
+                              <!-- <tr>
                                 <th>Hardwares</th>
                                 <th></th>
-                              </tr>
+                              </tr> -->
                           </thead>
                           <tbody *ngIf="hardware_List.length == 0 && isloading == false">
                               <tr>
@@ -33,7 +37,7 @@
                                 </td>
                               </tr>
                           </tbody>
-                          <tbody dragula="VAMPIRES" [(dragulaModel)]="hardware_List" *ngIf="hardware_List.length > 0" >
+                          <tbody *ngIf="hardware_List.length > 0" >
                               <tr *ngFor="let hardware of hardware_List | filter:searchText" [class] = "{'inactive' : hardware.status == 0}">
 
                                 <td class="categoryImageWrapper">

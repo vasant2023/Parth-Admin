@@ -15,6 +15,15 @@ import { CategoryCreateComponent } from './admin/category/category-create/catego
 import { CategoryListComponent } from './admin/category/category-list/category-list.component';
 import { CollectionListComponent } from './admin/collection/collection-list/collection-list.component';
 import { CollectionCreateComponent } from './admin/collection/collection-create/collection-create.component';
+import { ColletionCategoryListComponent } from './admin/collection-category/colletion-category-list/colletion-category-list.component';
+import { ColletionCategoryCreateComponent } from './admin/collection-category/colletion-category-create/colletion-category-create.component';
+import { HardwareCategoryListComponent } from './admin/hardware-category/hardware-category-list/hardware-category-list.component';
+import { HardwareCategoryCreateComponent } from './admin/hardware-category/hardware-category-create/hardware-category-create.component';
+import { LaminateCategoryListComponent } from './admin/laminate-category/laminate-category-list/laminate-category-list.component';
+import { LaminateCategoryCreateComponent } from './admin/laminate-category/laminate-category-create/laminate-category-create.component';
+import { ItemCategoryListComponent } from './admin/item-category/item-category-list/item-category-list.component';
+import { ItemCategoryCreateComponent } from './admin/item-category/item-category-create/item-category-create.component';
+import { LeadsListComponent } from './admin/leads/leads-list/leads-list.component';
 
 
 const routes: Routes = [
@@ -26,20 +35,20 @@ const routes: Routes = [
   {
       path: "admin",
       component: AdminComponent,
-      // canActivate: [AdminAuthGuard],
+      canActivate: [AdminAuthGuard],
       children: [
         {
-          path: "brand",
+          path: "brands",
           component: BrandListComponent,
           data : {title : "Parth Hospitality"}
         },
         {
-          path: "brand/create",
+          path: "brands/create",
           component: CreateBrandComponent,
           data : {title : "Parth Hospitality"}
         },
         {
-          path: "brand/create/:brand_ID",
+          path: "brands/create/:brand_ID",
           component: CreateBrandComponent,
           data : {title : "Parth Hospitality"}
         },
@@ -118,7 +127,72 @@ const routes: Routes = [
           path: "collections/create/:collection_ID",
           component: CollectionCreateComponent,
           data : {title : "Parth Hospitality"}
-        }
+        },
+        {
+          path: "collections-category",
+          component: ColletionCategoryListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "collections-category/create",
+          component: ColletionCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "collections-category/create/:category_ID",
+          component: ColletionCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "hardware-category",
+          component: HardwareCategoryListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "hardware-category/create",
+          component: HardwareCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "hardware-category/create/:category_ID",
+          component: HardwareCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "laminate-category",
+          component: LaminateCategoryListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "laminate-category/create",
+          component: LaminateCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "laminate-category/create/:category_ID",
+          component: LaminateCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "item-category",
+          component: ItemCategoryListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "item-category/create",
+          component: ItemCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "item-category/create/:category_ID",
+          component: ItemCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "leads",
+          component: LeadsListComponent,
+          data : {title : "Parth Hospitality"}
+        },
 
       ],
       data: { title: 'Parth Admin' },

@@ -1,50 +1,94 @@
 <div class="app">
   <div class="authentication">
-      <div class="sign-in-2">
-          <div class="container-fluid no-pdd-horizon bg" style="background-color:#EBEBEB">
-              <div class="row">
-                  <div class="col-md-10 mr-auto ml-auto">
-                      <div class="row">
-                          <div class="mr-auto ml-auto full-height height-100 d-flex align-items-center">
-                              <div class="vertical-align full-height">
-                                  <div class="table-cell">
-                                      <div class="card">
-                                          <div class="card-body">
-                                              <div class="pdd-horizon-30 pdd-vertical-30" *ngIf="toggleFormFlag">
-                                                  <div class="mrg-btm-30">
-                                                        <h2 class="text-center">Reya Login</h2>
-                                                      <!-- <img  class="login_logo img-responsive inline-block" src="assets/images/logo/logo.png" alt=""> -->
-                                                      <!-- <h2 class="inline-block pull-right no-mrg-vertical pdd-top-15">Login</h2> -->
-                                                  </div>
-                                                  <p class="mrg-btm-15 font-size-13 text-center">Please enter your user name and password to login</p>
-                                                  <!-- <form [formGroup]="loginForm" (validSubmit) = "submitLogin(loginForm.value)" > -->
-                                                <form name="form" (ngSubmit)="loginForm.form.valid && submitLogin()" #loginForm="ngForm" novalidate>
-                                                      <div class="form-group">
-                                                          <input type="email" placeholder="Email Address" name="email" id="email" class="form-control" autocomplete="off"  [(ngModel)]="loginObj.email" required #email="ngModel" /> 
+    <div class="sign-in-2">
+      <div
+        class="container-fluid no-pdd-horizon bg"
+        style="background-color: #ebebeb"
+      >
+        <div class="row">
+          <div class="col-md-10 mr-auto ml-auto">
+            <div class="row">
+              <div
+                class="mr-auto ml-auto full-height height-100 d-flex align-items-center"
+              >
+                <div class="vertical-align full-height">
+                  <div class="table-cell">
+                    <div class="card">
+                      <div class="card-body">
+                        <div
+                          class="pdd-horizon-30 pdd-vertical-30"
+                          *ngIf="toggleFormFlag"
+                        >
+                          <div class="mrg-btm-30">
+                            <h2 class="text-center">Parth Login</h2>
+                            <!-- <img  class="login_logo img-responsive inline-block" src="assets/images/logo/logo.png" alt=""> -->
+                            <!-- <h2 class="inline-block pull-right no-mrg-vertical pdd-top-15">Login</h2> -->
+                          </div>
+                          <p class="mrg-btm-15 font-size-13 text-center">
+                            Please enter your user name and password to login
+                          </p>
+                          <!-- <form [formGroup]="loginForm" (validSubmit) = "submitLogin(loginForm.value)" > -->
+                          <form name="form" (ngSubmit)="loginForm.form.valid && submitLogin()" #loginForm="ngForm" novalidate>
+                            <div class="form-group">
+                              <input
+                                type="email"
+                                placeholder="Email Address"
+                                name="email"
+                                id="email"
+                                class="form-control"
+                                autocomplete="off"
+                                [(ngModel)]="loginObj.email"
+                                required
+                                #email="ngModel"
+                              />
 
-                                                            <div *ngIf="loginForm.submitted && email.invalid">
-                                                                <label class="error" *ngIf="email.errors.required">Email can not be blank.</label>
-                                                            </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                            <input type="password" placeholder="Password" name="password" id="password" class="form-control" autocomplete="off" [(ngModel)]="loginObj.password" required #password="ngModel" />
-                                                            <div *ngIf="loginForm.submitted && password.invalid">
-                                                                <label class="error" *ngIf="password.errors.required">Password can not be blank.</label>
-                                                            </div>
-                                                      </div>
-                                                      <div class="checkbox font-size-13 inline-block no-mrg-vertical no-pdd-vertical">
-                                                          <!-- <input id="agreement" name="agreement" type="checkbox">
+                              <div *ngIf="loginForm.submitted && email.invalid">
+                                <label
+                                  class="error"
+                                  *ngIf="email.errors.required"
+                                  >Email can not be blank.</label
+                                >
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <input
+                                type="password"
+                                placeholder="Password"
+                                name="password"
+                                id="password"
+                                class="form-control"
+                                autocomplete="off"
+                                [(ngModel)]="loginObj.password"
+                                required
+                                #password="ngModel"
+                              />
+                              <div
+                                *ngIf="loginForm.submitted && password.invalid"
+                              >
+                                <label
+                                  class="error"
+                                  *ngIf="password.errors.required"
+                                  >Password can not be blank.</label
+                                >
+                              </div>
+                            </div>
+                            <div
+                              class="checkbox font-size-13 inline-block no-mrg-vertical no-pdd-vertical"
+                            >
+                              <!-- <input id="agreement" name="agreement" type="checkbox">
                                                           <label for="agreement">Keep Me Signed In</label> -->
-                                                      </div>
-                                                      <!-- <div class="pull-right">
+                            </div>
+                            <!-- <div class="pull-right">
                                                           <a routerLink="javaScript:void(0);" class="text-dark" (click)="toggleForm()">Recover your password?</a>
                                                       </div> -->
-                                                      <div class="submit_comon_btn mrg-top-20">
-                                                          <button class="btn submit_btn text-uppercase">Login</button>
-                                                      </div>
-                                                  </form>
-                                              </div>
-                                              <!-- <div class="pdd-horizon-30 pdd-vertical-30" *ngIf="!toggleFormFlag">
+                            <div class="submit_comon_btn mrg-top-20">
+                              <button class="btn submit_btn text-uppercase">
+                                Login
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                        <!-- <div class="pdd-horizon-30 pdd-vertical-30" *ngIf="!toggleFormFlag">
                                                 <form [formGroup]="forgotForm" (ngSubmit)="submitPassword(passwordForm.value)" >
                                                     <div class="form-group">
                                                         <input type="email" placeholder="Email Address" name="recover_email" id="recover_email" formControlName="recover_email" class="form-control" autocomplete="off">                                                          
@@ -56,15 +100,15 @@
                                                         <button class="btn submit_btn text-uppercase">RECOVER</button>
                                                     </div>
                                                 </form> -->
-                                            </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
                       </div>
+                    </div>
                   </div>
+                </div>
               </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
   </div>
+</div>

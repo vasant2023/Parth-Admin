@@ -15,7 +15,7 @@ export class AdminAuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-      if (localStorage.getItem('ReyaAdminLoggedInId')) {
+      if (localStorage.getItem('ParthAdminLoggedInId')) {
         return true
       }
       else {

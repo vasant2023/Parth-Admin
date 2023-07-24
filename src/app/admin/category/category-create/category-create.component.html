@@ -32,7 +32,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="status">Status*</label>
-                        <input type="text" class="form-control" name="status" [(ngModel)]="categoryObj.status"
+                        <input type="number" class="form-control" name="status" [(ngModel)]="categoryObj.status"
                           #status="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && status.invalid }"
                           required />
                         <div *ngIf="createCategoryForm.submitted && status.invalid" class="invalid-feedback">
@@ -130,10 +130,10 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Long Description</label>
-                         <ckeditor [editor]="Editor" [(ngModel)]="categoryObj.description" name="description" #description="ngModel"></ckeditor>
-                        <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
-                          #keypoints="ngModel" [(ngModel)]="categoryObj.description"
-                          [className]="(createCategoryForm.submitted && !categoryObj.keypoints) ? 'error-editor' : '' ">
+                         <!-- <ckeditor [editor]="Editor" [(ngModel)]="categoryObj.description" name="description" #description="ngModel"></ckeditor> -->
+                        <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="description"
+                          #description="ngModel" [(ngModel)]="categoryObj.description"
+                          [className]="(createCategoryForm.submitted && !categoryObj.description) ? 'error-editor' : '' ">
                         </ck-editor>
                       </div>
                     </div>
@@ -200,7 +200,7 @@
         </div>
       </div>
     </div>
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn submit_btn">Submit</button>
 
   </form>
 </div>

@@ -7,6 +7,10 @@ export const environment = {
   apiUrl: 'http://192.168.50.50/parth-hospitality/api/',
   front_apiUrl: 'http://192.168.50.50/parth-hospitality/api/',
 
+  // apiUrl: 'https://www.saltpixels.in/parth/api',
+
+  // front_apiUrl: 'https://www.saltpixels.in/parth/api',
+
   apiId: 'ZTQ2NzZmMmYwZWFjNmY3YjIwYzdmNWZmODkwNzBhMWM='
 };
 

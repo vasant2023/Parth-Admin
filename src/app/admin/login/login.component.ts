@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  submitLogin(value){
-     console.log(value);
-  }
+  // submitLogin(value){
+  //    console.log(value);
+  // }
 
   forgetPassword(value){
     console.log(value);
