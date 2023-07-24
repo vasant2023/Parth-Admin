@@ -12,6 +12,12 @@
                 <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off"
                   placeholder="Search Hardwares" />
               </div>
+              <div>
+                <select name="item_category" >
+                  <option value="">Select Category</option>
+                  <option [ngValue]="list.category_ID" *ngFor="let list of itemCategory">{{list.category}}</option>
+                </select>
+              </div>
             </div>
             <div class="button flex">
               <div class="submit_comon_btn">
@@ -52,8 +58,8 @@
                 <tr *ngFor="let item of item_list | filter : searchText" [class]="{ inactive: item.status == 0 }">
                   <td>
                     <label for="item_{{ item.item_ID }}">
-                      <input type="checkbox" class="rounded-checkbox"
-                        [(checklist)]="marked_IDs" [checklistValue]="item.item_ID" />
+                      <input type="checkbox" class="rounded-checkbox" [(checklist)]="marked_IDs"
+                        [checklistValue]="item.item_ID" />
                     </label>
                   </td>
                   <td class="categoryImageWrapper">

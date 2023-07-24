@@ -25,6 +25,7 @@ export class ItemListComponent implements OnInit {
   ) { }
 
   item_list: any = [];
+  itemCategory: any = [];
 
   item = {
     marginOption : "Percentage"
@@ -32,6 +33,7 @@ export class ItemListComponent implements OnInit {
 
   ngOnInit() {
     this.getItems();
+    this.getItemCategories();
   }
 
   isProposal = false;
@@ -47,7 +49,7 @@ export class ItemListComponent implements OnInit {
 
   proposal: any = [];
 
-  public marked_IDs = [16,20,21];
+  public marked_IDs = [16,20,21,18,25,19,22,23,24];
 
   addforproposal(){
     this.marked_IDs.forEach(item_ID => {
@@ -70,16 +72,16 @@ export class ItemListComponent implements OnInit {
         let margin = parseFloat(singleObj.margin);
         let marginOption = singleObj.marginOption;
 
+        var marginSingle = 0;
 
-        
-
-        if (marginOption === 'Rupees') {
-          singleObj.finalPrice = price + margin;
-        } else if (marginOption === 'Percentage') {
-          singleObj.finalPrice = (price + (price * (margin / 100))).toFixed(0);
-        } else {
-          singleObj.finalPrice = price;
-        }
+         if (marginOption === 'Rupees') {
+         marginSingle = margin; 
+         } else if (marginOption === 'Percentage') {
+         marginSingle = Number(Math.round(price * (margin / 100))); 
+         } else {
+         marginSingle = 0
+         }
+         singleObj.finalPrice = price + marginSingle;
 
         this.proposalObj.items.push(singleObj);
       });
@@ -109,21 +111,6 @@ export class ItemListComponent implements OnInit {
       }
       this.calculateFinalPrice(item);  
     });
-
-    // for (const item of this.proposalObj.items) {
-    //   if (this.universalMarginOption === 'Percentage') {
-    //     item.marginOption = 'Percentage';
-    //     item.margin = this.commonMargin;
-    //   } else if (this.universalMarginOption === 'Rupees') {
-    //     item.marginOption = 'Rupees';
-    //     item.margin = this.commonMargin;
-    //   }
-    //   this.calculateFinalPrice(item);
-    // }
-  }
-
-  items : any ={
-    marginOption : "Percentage"
   }
 
   calculateFinalPrice(item: any) {
@@ -132,27 +119,17 @@ export class ItemListComponent implements OnInit {
     let margin = parseFloat(item.margin);
     let marginOption = item.marginOption;
     
-    if (marginOption === 'Rupees') {
-      item.finalPrice = price + margin;
-    } else if (marginOption === 'Percentage') {
-      item.finalPrice = price + (price * (margin / 100)).toFixed(0);
-    } else {
-      item.finalPrice = price;
-    }
+    var marginSingle = 0;
+
+if (marginOption === 'Rupees') {
+ marginSingle = margin;  
+ } else if (marginOption === 'Percentage') {
+ marginSingle = Number(Math.round(price * (margin / 100)));  
+  } else {
+ marginSingle = 0
+ }
+ item.finalPrice = price + marginSingle;
   }
-
-
-
-  // getTotalPriceOfSelectedItems(): number {
-  //   let totalPrice = 0;
-  //   for (const item of this.proposal) {
-  //     if (item.marginOption && item.marginOption !== '' && item.margin) {
-  //       totalPrice += item.finalPrice;
-  //     }
-  //   }
-  //   return totalPrice;
-  // }
-
 
   getProposal() {
     const selectedItemsIds = this.proposalObj.item_ID;
@@ -178,6 +155,17 @@ export class ItemListComponent implements OnInit {
       if (response.success == 1) {
         this.item_list = response.items;
         this.loaderService.hide();
+      } else {
+        this.toastr.error(response.message, "Error", {});
+        this.loaderService.hide();
+      }
+    })
+  }
+
+  getItemCategories(){
+    this.adminService.getItemcategories().subscribe((response : {success: number, message: string, categories: []}) => {
+      if(response.success == 1) {
+        this.itemCategory = response.categories
       } else {
         this.toastr.error(response.message, "Error", {});
         this.loaderService.hide();

@@ -45,9 +45,12 @@
 
 /* Styles for the popup content */
 .popup {
-  width: 700px;
+  width: 75%;
+  height: 80%;
+  overflow: auto;
+  /* margin-top: 7rem; */
   background-color: #fff;
-  /* White background for the popup */
+  position: absolute;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -104,4 +107,9 @@
 
 .flex-20 input, select {
     width: 100%;
+}
+
+.proposal .flex{
+  gap: 0;
+  justify-content: space-between;
 }
