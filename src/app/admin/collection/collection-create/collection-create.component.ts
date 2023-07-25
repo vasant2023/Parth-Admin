@@ -150,7 +150,7 @@ export class CollectionCreateComponent implements OnInit {
 
   getAllItems() {
     this.adminService
-      .getItems()
+      .getItems("")
       .subscribe(
         (response: { success: number; message: string; items: [] }) => {
           if (response.success == 1) {

@@ -19,7 +19,7 @@ import { Ng4LoadingSpinnerService } from "ng4-loading-spinner";
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ChangeEvent } from "@ckeditor/ckeditor5-angular/ckeditor.component";
 import { Observable } from "rxjs";
-import { map, catchError, tap, ignoreElements } from "rxjs/operators";
+import { map, catchError, tap, ignoreElements, single } from "rxjs/operators";
 import { Response } from "selenium-webdriver/http";
 import { environment } from "../../../../environments/environment";
 import swal from "sweetalert2";
@@ -44,6 +44,8 @@ export class ItemCreateComponent implements OnInit {
     short_description: "",
     laminate: {},
     hardware_IDs: [],
+    category_IDs:[],
+    categories: "",
     warranty_detail: "",
     meta_description: "",
     meta_keywords: "",
@@ -103,6 +105,7 @@ export class ItemCreateComponent implements OnInit {
     this.getItemId();
     this.itemDetails();
     this.getAllHardware();
+    this.getItemCategories();
   }
 
   public onChange({ editor }: ChangeEvent) {
@@ -110,6 +113,23 @@ export class ItemCreateComponent implements OnInit {
   }
 
   hardwares_List: any = [];
+  itemCategory: any = [];
+
+
+  getItemCategories() {
+    this.adminService
+      .getItemcategories()
+      .subscribe(
+        (response: { success: number; message: string; categories: [] }) => {
+          if (response.success == 1) {
+            this.itemCategory = response.categories;
+            // console.log(this.itemCategory, "item category")
+          } else {
+            this.toastr.error(response.message, "Error", {});
+          }
+        }
+      );
+  }
 
   getAllHardware() {
     this.adminService
@@ -151,17 +171,26 @@ export class ItemCreateComponent implements OnInit {
       .subscribe((response: { success: number; message: string; item: [] }) => {
         if (response.success == 1) {
           this.itemObj = response.item;
-
           this.itemObj.hardware_IDs = [];
-
+          this.itemObj.category_IDs = [];
           this.itemObj.hardwares.forEach((value) => {
-            this.itemObj.hardware_IDs.push(value.hardware_ID);
+            this.itemObj.hardware_IDs.push(parseInt(value.hardware_ID));
           });
+
+          this.itemObj.categories.forEach((value) => {
+            this.itemObj.category_IDs.push(parseInt(value));
+            console.log(this.itemObj.category_IDs, "ididididididid")
+          })
         }
+        console.log(this.itemObj, "Details");
       });
   }
 
   saveItem() {
+
+    // console.log(this.itemObj);
+    // return false
+    
     if (this.isLoading == false) {
       this.isLoading = true;
       let formData = new FormData();
@@ -191,7 +220,11 @@ export class ItemCreateComponent implements OnInit {
         sort_order++;
       });
 
-      formData.append("hardwares", JSON.stringify(this.itemObj.hardwares));
+      
+
+
+      formData.append("hardwares", JSON.stringify(hardwares));
+      formData.append("category",this.itemObj.categories);
       formData.append("laminate_ID", this.itemObj.laminate_ID);
       formData.append("warranty_detail", this.itemObj.warranty_detail);
       formData.append("meta_description", this.itemObj.meta_description);
@@ -204,6 +237,8 @@ export class ItemCreateComponent implements OnInit {
       formData.append("sort_order", this.itemObj.sort_order);
       formData.append("tag_line", this.itemObj.tag_line);
       formData.append("status", this.itemObj.status);
+
+
       if (this.item_ID) {
         formData.append("item_ID", this.item_ID);
         this.adminService

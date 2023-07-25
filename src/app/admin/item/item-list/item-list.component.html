@@ -12,8 +12,8 @@
                 <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off"
                   placeholder="Search Hardwares" />
               </div>
-              <div>
-                <select name="item_category" >
+              <div class="category-input">
+                <select name="item_category" [(ngModel)]="selectedCategoryID" (change)="onCategoryChange()">
                   <option value="">Select Category</option>
                   <option [ngValue]="list.category_ID" *ngFor="let list of itemCategory">{{list.category}}</option>
                 </select>
@@ -37,10 +37,7 @@
           <div class="table-overflow">
             <table class="table table-hover">
               <thead>
-                <!-- <tr>
-                                <th>Items</th>
-                                <th></th>
-                              </tr> -->
+                
               </thead>
               <tbody *ngIf="item_list.length == 0 && isloading == false">
                 <tr>
@@ -112,49 +109,60 @@
 
 <div class="proposal" *ngIf="isProposal">
   <div class="popup-overlay" (click)="hidePopup()" *ngIf="proposalObj.item_IDs.length > 0">
-    <div class="popup" (click)="$event.stopPropagation()">
-      <div>
-        <label for="commonMargin">Margin</label>
-      </div>
-      <div class="flex">
-        <div class="flex-48">
-          <input type="text" name="commonMargin" [(ngModel)]="commonMargin" (ngModelChange)="applyUniversalMargin()"
-            class="input" />
-        </div>
-        <div class="flex-48">
-          <select name="universalMarginOption" id="" [(ngModel)]="universalMarginOption"
-            (change)="applyUniversalMargin()" class="select">
-            <option value="Percentage">Percentage</option>
-            <option value="Rupees">Rupees</option>
-          </select>
-        </div>
-      </div>
-
-      <div *ngFor="let item of proposalObj.items; let i = index" class="flex list">
+    <div class="popup-container slide-from-right" [class.active]="isPopupActive" (mouseenter)="activatePopup()">
+      <div class="popup" (click)="$event.stopPropagation()">
         <div>
-          <img src="{{ item.banner_image }}" alt="Image of item" style="height: 60px; width: 60px; object-fit: cover" />
+          <label for="commonMargin">Margin</label>
         </div>
-        <div class="flex-20">
-          <h2>{{ item.item }}</h2>
+        <div class="flex">
+          <div class="flex-48">
+            <input type="text" name="commonMargin" [(ngModel)]="commonMargin" (ngModelChange)="applyUniversalMargin()"
+              class="input" />
+          </div>
+          <div class="flex-48">
+            <select name="universalMarginOption" id="" [(ngModel)]="universalMarginOption"
+              (change)="applyUniversalMargin()" class="select">
+              <option value="Percentage">Percentage</option>
+              <option value="Rupees">Rupees</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <h3>Price:</h3>
-          <p>{{ item.price }}</p>
-        </div>
-        <div class="flex-20">
-          <select name="type" id="" [(ngModel)]="item.marginOption" (change)="calculateFinalPrice(item)">
-            <option value="Percentage">Percentage</option>
-            <option value="Rupees">Rupees</option>
-          </select>
-        </div>
-        <div class="flex-20">
-          <input type="number" name="margin" [(ngModel)]="item.margin" #margin="ngModel"
-            (ngModelChange)="calculateFinalPrice(item)" placeholder="Add Margin" />
-        </div>
-        <div class="flex-20">
-          <h2>Total:</h2>
-          <p>{{ item.finalPrice }}</p>
-        </div>
+  
+        <table class="table table-hover table-new">
+          <tbody>
+            <tr *ngFor="let item of proposalObj.items; let i = index">
+              <td class="categoryImageWrapper">
+                <img src="{{ item.banner_image }}" alt="Image of item" style="height: 60px; width: 60px; object-fit: cover" />
+              </td>
+              <td>
+                <span>{{ item.item }}</span>
+              </td>
+              <td>
+                <span>          
+                  <p>{{ item.price }}</p>
+                </span>
+              </td>
+  
+              <td>
+                <select name="type" id="" [(ngModel)]="item.marginOption" (change)="calculateFinalPrice(item)">
+                  <option value="Percentage">Percentage</option>
+                  <option value="Rupees">Rupees</option>
+                </select>
+              </td>
+  
+              <td>
+                <input type="number" name="margin" [(ngModel)]="item.margin" #margin="ngModel"
+                (ngModelChange)="calculateFinalPrice(item)" placeholder="Add Margin" />
+              </td>
+  
+              <td>
+                <h2>Total:</h2>
+                <p>{{ item.finalPrice }}</p>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

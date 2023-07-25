@@ -197,7 +197,7 @@ export class AdminServiceService {
 
   // Items function
 
-  getItems() {
+  getItems(id) {
     const url = environment.apiUrl + "items/list";
     const apiId = environment.apiId;
 
@@ -205,6 +205,10 @@ export class AdminServiceService {
     body = body.append("apiId", apiId);
     body = body.append("flag", "all");
 
+    if(id){
+      body = body.append("category_ID", id);
+    } 
+    
     let httpHeaders = new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
     });

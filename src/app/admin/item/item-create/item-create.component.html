@@ -165,16 +165,17 @@
                     </div>
                   </div>
 
-                  <!-- <div class="row">
+                  <div class="row">
                     <div class="col-md-12">
-                      <div class="form-group" *ngFor="let item of hardwares_List">
-                        <label for="hardware_{{item.hardware_ID}}">
-                          <input type="checkbox" name="hardware_{{item.hardware_ID}}" [(checklist)]="itemObj.hardwares" [checklistValue]="{ 'hardware_ID': item.hardware_ID, 'sort_order' : item.hardware_ID }" id="hardware_{{item.hardware_ID}}" class="rounded-checkbox">
-                          <span class="commonSpan">{{ item.hardware }}&nbsp;</span>
+                      <h2>Items Category : </h2>
+                      <div class="form-group" *ngFor="let item of itemCategory">
+                        <label for="item_{{item.category_ID}}">
+                          <input type="checkbox" name="item_{{item.category_ID}}" [(checklist)]="itemObj.category_IDs" [checklistValue]="item.category_ID" id="item_{{item.category_ID}}" class="rounded-checkbox">
+                          <span class="commonSpan">{{ item.category }}&nbsp;</span>
                         </label>
                       </div>
                     </div>
-                  </div> -->
+                  </div>
 
                   <div class="row">
                     <div class="col-md-12">
