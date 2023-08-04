@@ -1,0 +1,155 @@
+<div class="container-fluid">
+    <div class="page-title">
+      <h4>Contact Us</h4>
+    </div>
+    <form name="form" (ngSubmit)="submitContactForm()" #createContactForm="ngForm">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-heading border bottom">
+              <h4 class="card-title">Add Lead</h4>
+            </div>
+            <div class="card-block">
+              <div class="mrg-top-20">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" name="name" [(ngModel)]="contactObj.name"
+                            #name="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && name.invalid }"
+                            required />
+                          <div *ngIf="createContactForm.submitted && name.invalid" class="invalid-feedback">
+                            <div *ngIf="name.errors.required">Name is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="email">Email*</label>
+                          <input type="email" class="form-control" name="email" [(ngModel)]="contactObj.email"
+                            #email="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && email.invalid }"
+                            required />
+                          <div *ngIf="createContactForm.submitted && email.invalid" class="invalid-feedback">
+                            <div *ngIf="email.errors.required"> Email is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="phone">Phone*</label>
+                            <input type="phone" class="form-control" name="phone" [(ngModel)]="contactObj.phone"
+                              #phone="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && phone.invalid }"
+                              required />
+                            <div *ngIf="createContactForm.submitted && phone.invalid" class="invalid-feedback">
+                              <div *ngIf="phone.errors.required"> Phone is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="company_name">Company Name</label>
+                            <input type="text" class="form-control" name="company_name" [(ngModel)]="contactObj.company_name"
+                              #company_name="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && company_name.invalid }"/>
+                          </div>
+                        </div>
+                      </div>
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Message</label>
+                          <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
+                            #keypoints="ngModel" [(ngModel)]="contactObj.message"
+                            [className]="(createContactForm.submitted && !contactObj.keypoints) ? 'error-editor' : '' ">
+                          </ck-editor>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" name="city" [(ngModel)]="contactObj.city"
+                              #city="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && city.invalid }"/>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" name="state" [(ngModel)]="contactObj.state"
+                              #state="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && state.invalid }"/>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="zip_code">Zip Code</label>
+                            <input type="number" class="form-control" name="zip_code" [(ngModel)]="contactObj.zip_code"
+                              #zip_code="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && zip_code.invalid }"/>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" class="form-control" name="country" [(ngModel)]="contactObj.country"
+                              #country="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && country.invalid }"/>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="property_code">Property Code</label>
+                            <input type="number" class="form-control" name="property_code" [(ngModel)]="contactObj.property_code"
+                              #property_code="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && property_code.invalid }"/>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="rooms">Rooms</label>
+                            <input type="number" class="form-control" name="rooms" [(ngModel)]="contactObj.rooms"
+                              #rooms="ngModel" [ngClass]="{ 'is-invalid': createContactForm.submitted && rooms.invalid }"/>
+                          </div>
+                        </div>
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+     <button type="submit" class="btn submit_btn">Submit</button>
+  
+    </form>
+  </div>
+  

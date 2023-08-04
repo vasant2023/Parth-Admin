@@ -77,7 +77,8 @@ export class CollectionCreateComponent implements OnInit {
     banner_image: (File = null),
     banner_image_mobile: (File = null),
     brochure: (File = null),
-    collection_images: (File = null),
+    // collection_images: (File = null),
+    collection_images : [],
     sort_order: "",
     status: "",
     warranty_time: "",
@@ -123,7 +124,11 @@ export class CollectionCreateComponent implements OnInit {
   }
 
   item_images(event) {
-    this.collectionObj.collection_images = event.target.files[0];
+    this.collectionObj.collection_images = []; // Clear the array before adding new files
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.collectionObj.collection_images.push(event.target.files[i]);
+    }
+    console.log(this.collectionObj.collection_images);
   }
 
   brochure(event) {

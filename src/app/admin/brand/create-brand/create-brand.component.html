@@ -14,9 +14,9 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12"  style="border: 1px solid black;">
                       <div class="form-group">
-                        <label for="brand">Brand Name*</label>
+                        <label for="brand">Brand Name</label>
                         <input type="text" class="form-control" name="brand" [(ngModel)]="brandObj.brand"
                           #brand="ngModel" [ngClass]="{ 'is-invalid': createBrandForm.submitted && brand.invalid }"
                           required />

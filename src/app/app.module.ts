@@ -45,6 +45,7 @@ import { LaminateCategoryListComponent } from './admin/laminate-category/laminat
 import { ItemCategoryListComponent } from './admin/item-category/item-category-list/item-category-list.component';
 import { ItemCategoryCreateComponent } from './admin/item-category/item-category-create/item-category-create.component';
 import { LeadsListComponent } from './admin/leads/leads-list/leads-list.component';
+import { LeadsAddComponent } from './admin/leads/leads-add/leads-add.component';
 
 
 
@@ -79,6 +80,7 @@ import { LeadsListComponent } from './admin/leads/leads-list/leads-list.componen
     ItemCategoryListComponent,
     ItemCategoryCreateComponent,
     LeadsListComponent,
+    LeadsAddComponent,
   ],
   imports: [
     FormsModule,

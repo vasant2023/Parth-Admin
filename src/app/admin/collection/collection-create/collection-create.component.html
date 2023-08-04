@@ -432,7 +432,7 @@
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
                           <img
-                            [src]="collectionObj.item_images"
+                            [src]="collectionObj.collection_images"
                             class="img categoryiconimg"
                             default="assets/images/profile.jpg"
                           />
@@ -451,6 +451,7 @@
                             name="images"
                             accept="image/*"
                             (change)="item_images($event)"
+                            multiple
                           />
                         </label>
                       </div>

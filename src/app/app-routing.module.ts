@@ -24,6 +24,7 @@ import { LaminateCategoryCreateComponent } from './admin/laminate-category/lamin
 import { ItemCategoryListComponent } from './admin/item-category/item-category-list/item-category-list.component';
 import { ItemCategoryCreateComponent } from './admin/item-category/item-category-create/item-category-create.component';
 import { LeadsListComponent } from './admin/leads/leads-list/leads-list.component';
+import { LeadsAddComponent } from './admin/leads/leads-add/leads-add.component';
 
 
 const routes: Routes = [
@@ -191,6 +192,11 @@ const routes: Routes = [
         {
           path: "leads",
           component: LeadsListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "leads/add",
+          component: LeadsAddComponent,
           data : {title : "Parth Hospitality"}
         },
 

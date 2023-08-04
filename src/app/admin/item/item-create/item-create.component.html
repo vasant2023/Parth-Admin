@@ -189,6 +189,18 @@
                     </div>
                   </div>
 
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>Laminates : </h2>
+                      <div class="form-group" *ngFor="let item of laminates_List">
+                        <label for="laminate_{{item.laminate_ID}}">
+                          <input type="checkbox" name="laminate_{{item.laminate_ID}}" [(checklist)]="itemObj.laminate_IDs" [checklistValue]="item.laminate_ID" id="laminate_{{item.laminate_ID}}" class="rounded-checkbox">
+                          <span class="commonSpan">{{ item.laminate }}&nbsp;</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
                   
                 </div>
               </div>

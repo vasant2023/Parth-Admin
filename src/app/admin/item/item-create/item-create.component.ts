@@ -42,7 +42,7 @@ export class ItemCreateComponent implements OnInit {
     label_to: "",
     description: "",
     short_description: "",
-    laminate: {},
+    laminate_IDs: [],
     hardware_IDs: [],
     category_IDs:[],
     categories: "",
@@ -106,6 +106,7 @@ export class ItemCreateComponent implements OnInit {
     this.itemDetails();
     this.getAllHardware();
     this.getItemCategories();
+    this.getLaminates();
   }
 
   public onChange({ editor }: ChangeEvent) {
@@ -114,6 +115,7 @@ export class ItemCreateComponent implements OnInit {
 
   hardwares_List: any = [];
   itemCategory: any = [];
+  laminates_List:any = [];
 
 
   getItemCategories() {
@@ -124,6 +126,20 @@ export class ItemCreateComponent implements OnInit {
           if (response.success == 1) {
             this.itemCategory = response.categories;
             // console.log(this.itemCategory, "item category")
+          } else {
+            this.toastr.error(response.message, "Error", {});
+          }
+        }
+      );
+  }
+
+  getLaminates(){
+    this.adminService
+      .getLaminates()
+      .subscribe(
+        (response: { success: number; message: string; laminates: [] }) => {
+          if (response.success == 1) {
+            this.laminates_List = response.laminates;
           } else {
             this.toastr.error(response.message, "Error", {});
           }
@@ -173,14 +189,19 @@ export class ItemCreateComponent implements OnInit {
           this.itemObj = response.item;
           this.itemObj.hardware_IDs = [];
           this.itemObj.category_IDs = [];
+          this.itemObj.laminate_IDs = [];
+
           this.itemObj.hardwares.forEach((value) => {
             this.itemObj.hardware_IDs.push(parseInt(value.hardware_ID));
           });
 
           this.itemObj.categories.forEach((value) => {
-            this.itemObj.category_IDs.push(parseInt(value));
-            console.log(this.itemObj.category_IDs, "ididididididid")
-          })
+            this.itemObj.category_IDs.push(parseInt(value.category_ID));
+          });
+
+          this.itemObj.laminates.forEach((value) => {
+            this.itemObj.laminate_IDs.push((parseInt(value.laminate_ID)));
+          });
         }
         console.log(this.itemObj, "Details");
       });
@@ -188,9 +209,6 @@ export class ItemCreateComponent implements OnInit {
 
   saveItem() {
 
-    // console.log(this.itemObj);
-    // return false
-    
     if (this.isLoading == false) {
       this.isLoading = true;
       let formData = new FormData();
@@ -209,6 +227,8 @@ export class ItemCreateComponent implements OnInit {
 
       var sort_order = 1;
       var hardwares = [];
+      var laminates = [];
+      var categories = [];
 
       this.itemObj.hardware_IDs.forEach((single_ID) => {
         var Obj = {
@@ -220,12 +240,27 @@ export class ItemCreateComponent implements OnInit {
         sort_order++;
       });
 
-      
+      this.itemObj.category_IDs.forEach((single_ID) => {
+        var Obj = {
+          category_ID : single_ID,
+        }
+        categories.push(Obj);
+      })
+
+      this.itemObj.laminate_IDs.forEach((single_ID) => {
+        var Obj = {
+          laminate_ID : single_ID,
+          sort_order : sort_order,
+        };
+
+        laminates.push(Obj)
+        sort_order++;
+      })
 
 
       formData.append("hardwares", JSON.stringify(hardwares));
-      formData.append("category",this.itemObj.categories);
-      formData.append("laminate_ID", this.itemObj.laminate_ID);
+      formData.append("laminates", JSON.stringify(laminates));
+      formData.append("category",JSON.stringify(categories));
       formData.append("warranty_detail", this.itemObj.warranty_detail);
       formData.append("meta_description", this.itemObj.meta_description);
       formData.append("meta_keywords", this.itemObj.meta_keywords);

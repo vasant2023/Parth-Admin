@@ -505,6 +505,30 @@ export class AdminServiceService {
 
   // Leads
 
+  createLead(data){
+    const url = environment.apiUrl + 'leads/lead-add';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('name', data.name);
+    body = body.append('email', data.email);
+    body = body.append('phone', data.phone);
+    body = body.append('message', data.message);
+    body = body.append('company_name', data.company_name);
+    body = body.append('city', data.city);
+    body = body.append('zip_code', data.zip_code);
+    body = body.append('country', data.country);
+    body = body.append('property_code', data.property_code);
+    body = body.append('rooms', data.rooms);
+
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
   getLeads(){
     const url = environment.apiUrl + 'leads/list';
     const apiId = environment.apiId;
