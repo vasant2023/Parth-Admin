@@ -10,7 +10,13 @@
               </div>
               <div class="flex button">
                 <div *ngFor="let status of statusList" class="submit_comon_btn">
-                  <button class="btn submit_btn">{{ status.status }}</button>
+                  <button class="btn submit_btn" (click)="statusFilter(status.status_id)">{{ status.status }}</button>
+                </div>
+                <div class="lead_start_input" style="padding-top: 0;">
+                  <input class="dashboard_form-control" type="text" ngxDaterangepickerMd [(ngModel)]="schedule_date"
+                      [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
+                      [linkedCalendars]="true" [showClearButton]="true" (rangeClicked)="rangeClicked($event)"
+                      (datesUpdated)="datesUpdated($event)" placeholder="dd/mm/yyyy - dd/mm/yyyy" />
                 </div>
                 <div style="position: absolute; right: 2.5%;">
                    <a class="btn submit_btn" routerLink="add">Add Lead </a>

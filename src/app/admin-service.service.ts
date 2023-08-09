@@ -529,12 +529,15 @@ export class AdminServiceService {
    return this.http.post(url, body, { headers: httpHeaders });
   }
 
-  getLeads(){
+  getLeads(data){
     const url = environment.apiUrl + 'leads/list';
     const apiId = environment.apiId;
 
     let body = new HttpParams();
     body = body.append('apiId', apiId);
+    body = body.append('fromDate', data.fromDate);
+    body = body.append('toDate', data.toDate);
+    body = body.append('status_id', data.status_id);
 
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'

@@ -2,7 +2,7 @@
   <div class="page-title">
     <h4>Items</h4>
   </div>
-  <form name="form" (ngSubmit)="saveItem()" #itemForm="ngForm">
+  <form name="form" (ngSubmit)="itemForm.form.valid && saveItem(itemForm.form)" #itemForm="ngForm">
     <div class="row">
       <div class="col-md-8">
         <div class="card">
@@ -164,6 +164,91 @@
                       </div>
                     </div>
                   </div>
+
+                  <!-- Size Variation -->
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h3 style="padding-bottom: 1rem">Details</h3>
+
+                      <div
+                        class="row"
+                        *ngFor="let size of sizeList; let i = index"
+                      >
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="width{{ i }}">Width</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [name]="'width' + i"
+                              [(ngModel)]="size.width"
+                              #width="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  itemForm.submitted && width.invalid
+                              }"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="height{{ i }}">Height</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [name]="'height' + i"
+                              #height="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  itemForm.submitted && height.invalid
+                              }"
+                              [(ngModel)]="size.height"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="dimension{{ i }}">Dimension</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [name]="'dimension' + i"
+                              #dimension="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  itemForm.submitted && dimension.invalid
+                              }"
+                              [(ngModel)]="size.dimension"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <button
+                            type="button"
+                            class="btn submit_btn"
+                            (click)="adddSize()"
+                          >
+                            Add More
+                          </button>
+
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            (click)="deleteSize(i)"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Siz Variation ends -->
 
                   <div class="row">
                     <div class="col-md-12">

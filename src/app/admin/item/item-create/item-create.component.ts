@@ -57,11 +57,20 @@ export class ItemCreateComponent implements OnInit {
     status: "",
     mark_as: "",
     tag_line: "",
+    sizeList: [],
+    size: {
+      height: "",
+      width: "",
+      dimension: ""
+    }
   };
 
   item_ID = "";
 
   itemForm: FormGroup;
+
+  sizeList: { width: string, height: string , dimension:string}[] = [{ width: '', height: '',dimension:'' }];
+
 
   configEditor = {
     removeButtons:
@@ -203,99 +212,113 @@ export class ItemCreateComponent implements OnInit {
             this.itemObj.laminate_IDs.push((parseInt(value.laminate_ID)));
           });
         }
-        console.log(this.itemObj, "Details");
+        // console.log(this.itemObj, "Details");
       });
   }
 
-  saveItem() {
+  adddSize(){
+    const newSize = { width: '', height: '', dimension: '' };
+    this.sizeList.push(newSize);
+    this.itemObj.sizeList = this.sizeList;
+    console.log(this.sizeList)
+  }
 
-    if (this.isLoading == false) {
-      this.isLoading = true;
-      let formData = new FormData();
-      formData.append("apiId", environment.apiId);
-      formData.append("from_app", "true");
-      formData.append("item", this.itemObj.item);
-      formData.append("title", this.itemObj.title);
-      formData.append("tags", this.itemObj.tags);
-      formData.append("price", this.itemObj.price);
-      formData.append("sale_price", this.itemObj.sale_price);
-      formData.append("label", this.itemObj.label);
-      formData.append("label_from", this.itemObj.label_from);
-      formData.append("label_to", this.itemObj.label_to);
-      formData.append("description", this.itemObj.description);
-      formData.append("short_description", this.itemObj.short_description);
+  deleteSize(index: number) {
+    this.sizeList.splice(index, 1);
+  }
 
-      var sort_order = 1;
-      var hardwares = [];
-      var laminates = [];
-      var categories = [];
-
-      this.itemObj.hardware_IDs.forEach((single_ID) => {
-        var Obj = {
-          hardware_ID: single_ID,
-          sort_order: sort_order,
-        };
-        hardwares.push(Obj);
-
-        sort_order++;
-      });
-
-      this.itemObj.category_IDs.forEach((single_ID) => {
-        var Obj = {
-          category_ID : single_ID,
+  saveItem(form) {
+    if(form.valid){
+      if (this.isLoading == false) {
+        this.isLoading = true;
+        let formData = new FormData();
+        formData.append("apiId", environment.apiId);
+        formData.append("from_app", "true");
+        formData.append("item", this.itemObj.item);
+        formData.append("title", this.itemObj.title);
+        formData.append("tags", this.itemObj.tags);
+        formData.append("price", this.itemObj.price);
+        formData.append("sale_price", this.itemObj.sale_price);
+        formData.append("label", this.itemObj.label);
+        formData.append("label_from", this.itemObj.label_from);
+        formData.append("label_to", this.itemObj.label_to);
+        formData.append("description", this.itemObj.description);
+        formData.append("short_description", this.itemObj.short_description);
+  
+        var sort_order = 1;
+        var hardwares = [];
+        var laminates = [];
+        var categories = [];
+  
+        this.itemObj.hardware_IDs.forEach((single_ID) => {
+          var Obj = {
+            hardware_ID: single_ID,
+            sort_order: sort_order,
+          };
+          hardwares.push(Obj);
+  
+          sort_order++;
+        });
+  
+        this.itemObj.category_IDs.forEach((single_ID) => {
+          var Obj = {
+            category_ID : single_ID,
+          }
+          categories.push(Obj);
+        })
+  
+        this.itemObj.laminate_IDs.forEach((single_ID) => {
+          var Obj = {
+            laminate_ID : single_ID,
+            sort_order : sort_order,
+          };
+  
+          laminates.push(Obj)
+          sort_order++;
+        })
+  
+  
+        formData.append("hardwares", JSON.stringify(hardwares));
+        formData.append("laminates", JSON.stringify(laminates));
+        formData.append("category",JSON.stringify(categories));
+        formData.append("warranty_detail", this.itemObj.warranty_detail);
+        formData.append("meta_description", this.itemObj.meta_description);
+        formData.append("meta_keywords", this.itemObj.meta_keywords);
+        formData.append("banner_image", this.itemObj.banner_image);
+        formData.append("banner_image_mobile", this.itemObj.banner_image_mobile);
+        formData.append("illustration_pdf", this.itemObj.illustration_pdf);
+        formData.append("item_images", this.itemObj.item_images);
+        formData.append("image_alttext", this.itemObj.image_alttext);
+        formData.append("sort_order", this.itemObj.sort_order);
+        formData.append("tag_line", this.itemObj.tag_line);
+        formData.append("status", this.itemObj.status);
+  
+  
+        if (this.item_ID) {
+          formData.append("item_ID", this.item_ID);
+          this.adminService
+            .updateItem(formData)
+            .subscribe((response: { success: number; message: string }) => {
+              if (response.success == 1) {
+                this.router.navigate(["admin/items"]);
+              }
+              this.isLoading = false;
+  
+            });
+        } else {
+          this.adminService
+            .createItem(formData)
+            .subscribe((response: { success: number; message: string }) => {
+              if (response.success == 1) {
+                this.router.navigate(["admin/items"]);
+              }
+              this.isLoading = false;
+  
+            });
         }
-        categories.push(Obj);
-      })
-
-      this.itemObj.laminate_IDs.forEach((single_ID) => {
-        var Obj = {
-          laminate_ID : single_ID,
-          sort_order : sort_order,
-        };
-
-        laminates.push(Obj)
-        sort_order++;
-      })
-
-
-      formData.append("hardwares", JSON.stringify(hardwares));
-      formData.append("laminates", JSON.stringify(laminates));
-      formData.append("category",JSON.stringify(categories));
-      formData.append("warranty_detail", this.itemObj.warranty_detail);
-      formData.append("meta_description", this.itemObj.meta_description);
-      formData.append("meta_keywords", this.itemObj.meta_keywords);
-      formData.append("banner_image", this.itemObj.banner_image);
-      formData.append("banner_image_mobile", this.itemObj.banner_image_mobile);
-      formData.append("illustration_pdf", this.itemObj.illustration_pdf);
-      formData.append("item_images", this.itemObj.item_images);
-      formData.append("image_alttext", this.itemObj.image_alttext);
-      formData.append("sort_order", this.itemObj.sort_order);
-      formData.append("tag_line", this.itemObj.tag_line);
-      formData.append("status", this.itemObj.status);
-
-
-      if (this.item_ID) {
-        formData.append("item_ID", this.item_ID);
-        this.adminService
-          .updateItem(formData)
-          .subscribe((response: { success: number; message: string }) => {
-            if (response.success == 1) {
-              this.router.navigate(["admin/items"]);
-            }
-            this.isLoading = false;
-
-          });
-      } else {
-        this.adminService
-          .createItem(formData)
-          .subscribe((response: { success: number; message: string }) => {
-            if (response.success == 1) {
-              this.router.navigate(["admin/items"]);
-            }
-            this.isLoading = false;
-
-          });
       }
     }
   }
+
+
 }

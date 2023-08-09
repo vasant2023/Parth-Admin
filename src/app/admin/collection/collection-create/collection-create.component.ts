@@ -59,6 +59,9 @@ export class CollectionCreateComponent implements OnInit {
     ],
   };
 
+  accordionList: { title: string, text: string }[] = [{ title: '', text: '' }];
+
+
   collectionObj: any = {
     collection: "",
     title: "",
@@ -85,6 +88,11 @@ export class CollectionCreateComponent implements OnInit {
     tag_line: "",
     warranty_duration: "",
     category_ID: [],
+    accordionList : [ ],
+    accordian: {
+      title: "",
+      text: "",
+    }
   };
   collection_ID = "";
 
@@ -124,11 +132,13 @@ export class CollectionCreateComponent implements OnInit {
   }
 
   item_images(event) {
-    this.collectionObj.collection_images = []; // Clear the array before adding new files
-    for (let i = 0; i < event.target.files.length; i++) {
-      this.collectionObj.collection_images.push(event.target.files[i]);
+    this.collectionObj.collection_images = []; 
+    var files = event.srcElement.files;
+    for (var key in files) {
+      if (typeof (files[key].type) != "undefined") {
+        this.collectionObj.collection_images.push(files[key]);
+      }
     }
-    console.log(this.collectionObj.collection_images);
   }
 
   brochure(event) {
@@ -183,86 +193,104 @@ export class CollectionCreateComponent implements OnInit {
       );
   }
 
-  saveCollection() {
-    if (this.isLoading == false) {
-      this.isLoading = true;
+  addAccordion() {
+    const newAccordion = { title: '', text: '' };
+    this.accordionList.push(newAccordion);
+    this.collectionObj.accordionList = this.accordionList;
+    console.log(this.accordionList)
+  }
+  
+  deleteAccordion(index: number) {
+    this.accordionList.splice(index, 1);
+  }
 
-      let formData = new FormData();
-      formData.append("apiId", environment.apiId);
-      formData.append("from_app", "true");
-      formData.append("collection", this.collectionObj.collection);
-      formData.append("title", this.collectionObj.title);
-      formData.append("tags", this.collectionObj.tags);
-      formData.append("price", this.collectionObj.price);
-      formData.append("sale_price", this.collectionObj.sale_price);
-      formData.append("label", this.collectionObj.label);
-      formData.append("label_from", this.collectionObj.label_from);
-      formData.append("label_to", this.collectionObj.label_to);
-      formData.append("description", this.collectionObj.description);
-      formData.append(
-        "short_description",
-        this.collectionObj.short_description
-      );
-
-      var sort_order = 1;
-      var items = [];
-
-      this.collectionObj.item_IDs.forEach((single_ID) => {
-        var Obj = {
-          item_ID: single_ID,
-          sort_order: sort_order,
-        };
-        items.push(Obj);
-        sort_order++;
-      });
-
-      formData.append("items", JSON.stringify(items));
-      formData.append("warranty_detail", this.collectionObj.warranty_detail);
-      formData.append("meta_description", this.collectionObj.meta_description);
-      formData.append("meta_keywords", this.collectionObj.meta_keywords);
-      formData.append("banner_image", this.collectionObj.banner_image);
-      formData.append(
-        "banner_image_mobile",
-        this.collectionObj.banner_image_mobile
-      );
-      formData.append("brochure", this.collectionObj.brochure);
-      formData.append(
-        "collection_images",
-        this.collectionObj.collection_images
-      );
-      formData.append("image_alttext", this.collectionObj.image_alttext);
-      formData.append("sort_order", this.collectionObj.sort_order);
-      formData.append("tag_line", this.collectionObj.tag_line);
-      formData.append("status", this.collectionObj.status);
-      formData.append("warranty_time", this.collectionObj.warranty_time);
-      formData.append(
-        "warranty_duration",
-        this.collectionObj.warranty_duration
-      );
-      formData.append("categories", this.collectionObj.category_ID);
-
-      if (this.collection_ID) {
-        formData.append("collection_ID", this.collection_ID);
-        this.adminService
-          .updateCollection(formData)
-          .subscribe((response: { success: number; message: string }) => {
-            if (response.success == 1) {
-              this.router.navigate(["admin/collections"]);
-            }
-            this.isLoading = false;
-
-          });
-      } else {
-        this.adminService
-          .createCollection(formData)
-          .subscribe((response: { success: number; message: string }) => {
-            if (response.success == 1) {
-              this.router.navigate(["admin/collections"]);
-            }
-            this.isLoading = false;
-
-          });
+  saveCollection(form) {
+    if(form.valid){
+      if (this.isLoading == false) {
+        this.isLoading = true;
+  
+        let formData = new FormData();
+        formData.append("apiId", environment.apiId);
+        formData.append("from_app", "true");
+        formData.append("collection", this.collectionObj.collection);
+        formData.append("title", this.collectionObj.title);
+        formData.append("tags", this.collectionObj.tags);
+        formData.append("price", this.collectionObj.price);
+        formData.append("sale_price", this.collectionObj.sale_price);
+        formData.append("label", this.collectionObj.label);
+        formData.append("label_from", this.collectionObj.label_from);
+        formData.append("label_to", this.collectionObj.label_to);
+        formData.append("description", this.collectionObj.description);
+        formData.append(
+          "short_description",
+          this.collectionObj.short_description
+        );
+  
+        var sort_order = 1;
+        var items = [];
+  
+        this.collectionObj.item_IDs.forEach((single_ID) => {
+          var Obj = {
+            item_ID: single_ID,
+            sort_order: sort_order,
+          };
+          items.push(Obj);
+          sort_order++;
+        });
+  
+        formData.append("items", JSON.stringify(items));
+        formData.append("warranty_detail", this.collectionObj.warranty_detail);
+        formData.append("meta_description", this.collectionObj.meta_description);
+        formData.append("meta_keywords", this.collectionObj.meta_keywords);
+        formData.append("banner_image", this.collectionObj.banner_image);
+        formData.append(
+          "banner_image_mobile",
+          this.collectionObj.banner_image_mobile
+        );
+        formData.append("brochure", this.collectionObj.brochure);
+  
+        for (var index in this.collectionObj.collection_images) {
+          formData.append("collection_images[" + index + "]", this.collectionObj.collection_images[index]);
+        }
+        // formData.append(
+        //   "collection_images",
+        //   this.collectionObj.collection_images
+        // );
+        formData.append("image_alttext", this.collectionObj.image_alttext);
+        formData.append("sort_order", this.collectionObj.sort_order);
+        formData.append("tag_line", this.collectionObj.tag_line);
+        formData.append("status", this.collectionObj.status);
+        formData.append("warranty_time", this.collectionObj.warranty_time);
+        formData.append(
+          "warranty_duration",
+          this.collectionObj.warranty_duration
+        );
+        formData.append("categories", this.collectionObj.category_ID);
+  
+        if (this.collection_ID) {
+          formData.append("collection_ID", this.collection_ID);
+          this.adminService
+            .updateCollection(formData)
+            .subscribe((response: { success: number; message: string }) => {
+              if (response.success == 1) {
+                this.router.navigate(["admin/collections"]);
+              }
+              this.isLoading = false;
+  
+            });
+        } else {
+          this.adminService
+            .createCollection(formData)
+            .subscribe((response: { success: number; message: string }) => {
+              if (response.success == 1) {
+                this.router.navigate(["admin/collections"]);
+              }
+              this.isLoading = false;
+  
+            });
+        }
       }
     }
   }
+
 }

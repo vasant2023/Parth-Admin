@@ -2,7 +2,7 @@
   <div class="page-title">
     <h4>Collections</h4>
   </div>
-  <form name="form" (ngSubmit)="saveCollection()" #collectionForm="ngForm">
+  <form name="form" (ngSubmit)="collectionForm.form.valid && saveCollection(collectionForm.form)" #collectionForm="ngForm">
     <div class="row">
       <div class="col-md-8">
         <div class="card">
@@ -319,12 +319,86 @@
                     </div>
                   </div>
 
+                  <!-- Accordian -->
+
                   <div class="row">
                     <div class="col-md-12">
-                      <h2>Items : </h2>
+                      <h3 style="padding-bottom: 1rem">Details</h3>
+
+                      <div
+                        class="row"
+                        *ngFor="let accordion of accordionList; let i = index"
+                      >
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="title{{ i }}">Title</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [name]="'title' + i"
+                              [(ngModel)]="accordion.title"
+                              #title="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted && title.invalid
+                              }"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="text{{ i }}">Accordion Text</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              [name]="'text' + i"
+                              #text="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted && text.invalid
+                              }"
+                              [(ngModel)]="accordion.text"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <button
+                            type="button"
+                            class="btn submit_btn"
+                            (click)="addAccordion()"
+                          >
+                            Add More
+                          </button>
+
+                          <button
+                            type="button"
+                            class="btn btn-danger"
+                            (click)="deleteAccordion(i)"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Accordian End -->
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h2>Items :</h2>
                       <div class="form-group" *ngFor="let item of itemList">
-                        <label for="item_{{item.category_ID}}">
-                          <input type="checkbox" name="item_{{item.item_ID}}" [(checklist)]="collectionObj.item_IDs" [checklistValue]="item.item_ID" id="item_{{item.item_ID}}" class="rounded-checkbox">
+                        <label for="item_{{ item.category_ID }}">
+                          <input
+                            type="checkbox"
+                            name="item_{{ item.item_ID }}"
+                            [(checklist)]="collectionObj.item_IDs"
+                            [checklistValue]="item.item_ID"
+                            id="item_{{ item.item_ID }}"
+                            class="rounded-checkbox"
+                          />
                           <span class="commonSpan">{{ item.item }}&nbsp;</span>
                         </label>
                       </div>
@@ -333,16 +407,24 @@
 
                   <div class="row">
                     <div class="col-md-12">
-                      <h2>Category : </h2>
+                      <h2>Category :</h2>
                       <div class="form-group" *ngFor="let item of categoryList">
-                        <label for="item_{{item.category_ID}}">
-                          <input type="checkbox" name="item_{{item.category_ID}}" [(checklist)]="collectionObj.category_ID" [checklistValue]="item.category_ID" id="item_{{item.category_ID}}" class="rounded-checkbox">
-                          <span class="commonSpan">{{ item.category }}&nbsp;</span>
+                        <label for="item_{{ item.category_ID }}">
+                          <input
+                            type="checkbox"
+                            name="item_{{ item.category_ID }}"
+                            [(checklist)]="collectionObj.category_ID"
+                            [checklistValue]="item.category_ID"
+                            id="item_{{ item.category_ID }}"
+                            class="rounded-checkbox"
+                          />
+                          <span class="commonSpan"
+                            >{{ item.category }}&nbsp;</span
+                          >
                         </label>
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
