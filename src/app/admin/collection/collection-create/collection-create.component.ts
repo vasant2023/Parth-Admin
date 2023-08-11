@@ -205,6 +205,7 @@ export class CollectionCreateComponent implements OnInit {
   }
 
   saveCollection(form) {
+    this.collectionObj.accordionList = this.accordionList;
     if(form.valid){
       if (this.isLoading == false) {
         this.isLoading = true;
@@ -266,6 +267,8 @@ export class CollectionCreateComponent implements OnInit {
           this.collectionObj.warranty_duration
         );
         formData.append("categories", this.collectionObj.category_ID);
+        formData.append("accordionList", JSON.stringify(this.collectionObj.accordionList));
+        
   
         if (this.collection_ID) {
           formData.append("collection_ID", this.collection_ID);

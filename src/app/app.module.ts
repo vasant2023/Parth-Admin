@@ -46,6 +46,7 @@ import { ItemCategoryListComponent } from './admin/item-category/item-category-l
 import { ItemCategoryCreateComponent } from './admin/item-category/item-category-create/item-category-create.component';
 import { LeadsListComponent } from './admin/leads/leads-list/leads-list.component';
 import { LeadsAddComponent } from './admin/leads/leads-add/leads-add.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -107,6 +108,7 @@ import { LeadsAddComponent } from './admin/leads/leads-add/leads-add.component';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     SafeHtmlModule,
+    NgSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

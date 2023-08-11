@@ -64,11 +64,15 @@ export class LeadsAddComponent implements OnInit {
   }
 
   isLoading = false;
-
+  countries:any=[];
+  states:any = [];
+  cities:any = []
   createContactForm: FormGroup;
 
   ngOnInit() {
+    this.getCountries();
   }
+
 
   submitContactForm(){
     console.log(this.contactObj);
@@ -80,6 +84,42 @@ export class LeadsAddComponent implements OnInit {
           this.router.navigate(["admin/leads"]);
         }
         this.isLoading = false
+      })
+    }
+  }
+
+  getCountries(){
+    this.adminService.getCountries().subscribe((response : {success:number, message: string, data:[]}) => {
+      if(response.success == 1){
+        this.countries = response.data;
+        console.log(this.countries)
+      } else {
+        console.log(response.message)
+      }
+    })
+  }
+
+  loadStates(country){
+    this.adminService.getStates(country).subscribe((response : {success:number, message: string, data:[]}) => {
+      if(response.success == 1){
+        this.states = response.data;
+        console.log(this.states)
+      } else {
+        console.log(response.message)
+      }
+    })
+  }
+
+  loadCities(state){
+    console.log(state)
+    if(state){
+      this.adminService.getCities(state).subscribe((response : {success:number, message:string, data:[]}) => {
+        if(response.success == 1){
+          this.cities = response.data;
+          console.log(this.cities)
+        } else {
+          console.log(response.message)
+        }
       })
     }
   }

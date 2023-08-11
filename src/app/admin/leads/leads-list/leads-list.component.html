@@ -1,83 +1,292 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-block">
-          <div class="check">
-            <div class="check">
-              <div class="">
-                <h4 class="card-title mrg-top-5">Leads &nbsp; &nbsp;</h4>
+  <div class="check">
+    <div class="">
+      <h4 class="card-title mrg-top-5">Leads &nbsp; &nbsp;</h4>
+    </div>
+    <div class="row relative">
+      <div class="" style="padding-top: 0">
+        <input
+          class="dashboard_form-control btn submit_btn btnDate"
+          type="text"
+          ngxDaterangepickerMd
+          [(ngModel)]="schedule_date"
+          [showCustomRangeLabel]="true"
+          [alwaysShowCalendars]="true"
+          [ranges]="ranges"
+          [linkedCalendars]="true"
+          [showClearButton]="true"
+          (rangeClicked)="rangeClicked($event)"
+          (datesUpdated)="datesUpdated($event)"
+          placeholder="Filter By Date"
+          readonly
+        />
+      </div>
+      <div class="select">
+        <select
+          name="statusFilter"
+          [(ngModel)]="statusId"
+          (change)="statusFilter()"
+          class="btn submit_btn"
+          style="padding-right: 32px; width: auto;"
+        >
+          <option value="">Select Status</option>
+          <option
+            [ngValue]="status.status_id"
+            *ngFor="let status of statusList"
+          >
+            {{ status.status }}
+          </option>
+        </select>
+      </div>
+      <div style="margin-left: auto;">
+        <a class="btn submit_btn" routerLink="add">Add Lead </a>
+      </div>
+    </div>
+    <div class="row space-between relative" style="padding-top: 1rem;">
+      <div class="flex-50" *ngIf="leadsList.length == 0">
+        <div class="noLeadData">
+          <h2>Whoops...No Data Found...🙁</h2>
+        </div>
+      </div>
+      <div class="flex-50" *ngIf="leadsList.length > 0">
+        <div
+          class="lead-card"
+          *ngFor="let lead of leadsList"
+          (click)="getDetails(lead.lead_ID)"
+        >
+          <div class="box-border" [class.active]="lead.lead_ID == detailObj.lead_ID">
+            <div class="flex space-between align-center" >
+              <div class="flex align-center">
+                <!-- <div><span class="material-symbols-outlined"> person </span></div> -->
+                <div>
+                  <p class="name">{{ lead.name }}</p>
+                </div>
               </div>
-              <div class="flex button">
-                <div *ngFor="let status of statusList" class="submit_comon_btn">
-                  <button class="btn submit_btn" (click)="statusFilter(status.status_id)">{{ status.status }}</button>
+              <div class="flex align-center">
+                <div>
+                  <span class="material-symbols-outlined"> detector_status </span>
                 </div>
-                <div class="lead_start_input" style="padding-top: 0;">
-                  <input class="dashboard_form-control" type="text" ngxDaterangepickerMd [(ngModel)]="schedule_date"
-                      [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [ranges]="ranges"
-                      [linkedCalendars]="true" [showClearButton]="true" (rangeClicked)="rangeClicked($event)"
-                      (datesUpdated)="datesUpdated($event)" placeholder="dd/mm/yyyy - dd/mm/yyyy" />
-                </div>
-                <div style="position: absolute; right: 2.5%;">
-                   <a class="btn submit_btn" routerLink="add">Add Lead </a>
+                <div>
+                  <p>{{ lead.status }}</p>
                 </div>
               </div>
             </div>
+            <div class="flex align-center">
+              <div><span class="material-symbols-outlined"> mail </span></div>
+              <div>
+                <p>{{ lead.email }}</p>
+              </div>
+            </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> phone_iphone </span>
+              </div>
+              <div>
+                <p>{{ lead.phone }}</p>
+              </div>
+            </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> apartment </span>
+              </div>
+              <div>
+                <p>{{ lead.company_name }}</p>
+              </div>
+            </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> chat_bubble </span>
+              </div>
+              <div>
+                <p innerHTML="{{ lead.message }}"></p>
+              </div>
+            </div>
+            <div
+              class="socialLinks flex space-between align-center"
+              style="padding: 1rem"
+            >
+              <div class="mail" style="width: 33%; text-align: center; text-align: center; color: #333; font-size: 2rem; font-weight: 700;">
+                <a href="mailto:{{lead.email}}">
+                  <span class="material-symbols-outlined" >
+                    mail
+                  </span>
+                </a>
+              </div>
+              <div class="watsapp" style="width: 33%;  text-align: center; text-align: center; color: #333; font-size: 1.5rem; font-weight: 700;">
+                <a href="https://wa.me/{{lead.phone}}" target="_blank">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </a>
+              </div>
+              <div class="call" style="width: 33%;  text-align: center; color: #333; font-size: 2rem; font-weight: 700;">
+                <a href="tel:{{lead.phone}}">
+                  <span class="material-symbols-outlined"> call </span>
+                </a>
+              </div>
+            </div>
           </div>
-          <div class="clearfix"></div>
-          <div class="table-overflow">
-            <table class="table table-hover">
-              <tbody *ngIf="leadsList.length == 0 && isloading == false">
-                <tr>
-                  <td colspan="6">
-                    <div class="nodata">
-                      <p class="text-center font-size-22">
-                        <i class="ei-sad"></i>
-                      </p>
-                      <p class="text-center">No Leads found!</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-              <tbody *ngIf="leadsList.length > 0">
-                <tr *ngFor="let lead of leadsList; let i = index">
-                  <td>
-                    <span>{{ i + 1 }}</span>
-                  </td>
-                  <td>
-                    <span>{{ lead.first_name }} {{ lead.last_name }}</span>
-                    <p
-                      class="status-check"
-                      (click)="handleChange(lead.lead_ID)"
-                    >
-                      {{ lead.status }}
-                    </p>
-                  </td>
-                  <td>
-                    <span>{{ lead.email }}</span>
-                  </td>
-                  <td>
-                    <span>{{ lead.contact_no }}</span>
-                  </td>
-                  <td>
-                    <span>{{ lead.comments }}</span>
-                  </td>
-                  <!-- <td>
-                    <span>{{ lead.status }}</span>
-                  </td> -->
-                </tr>
-                <tr *ngIf="leadsList.length == 0">
-                  <td colspan="6">
-                    <div class="nodata">
-                      <p class="text-center font-size-22">
-                        <i class="ei-sad"></i>
-                      </p>
-                      <p class="text-center">No Leads found!</p>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        </div>
+      </div>
+      <div class="flex-45">
+        <div class="leadDetail" *ngIf="!leadFlag" style="text-align: center; vertical-align: middle;">
+          <h2>No Record Selected...</h2>
+        </div>
+        <div class="leadDetail" *ngIf="leadFlag">
+
+          <div class="flex space-between align-center">
+            <div class="flex align-center">
+              <!-- <div><span class="material-symbols-outlined"> person </span></div> -->
+              <div>
+                <p class="name"> {{ detailObj.name }}</p>
+              </div>
+            </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> detector_status </span>
+              </div>
+              <div>
+                <p>Status : {{ detailObj.status }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex align-center">
+            <div><span class="material-symbols-outlined"> mail </span></div>
+            <div>
+              <p>Email : {{ detailObj.email }}</p>
+            </div>
+          </div>
+          <div class="flex align-center">
+            <div><span class="material-symbols-outlined"> call </span></div>
+            <div>
+              <p>Contact No: {{ detailObj.phone }}</p>
+            </div>
+          </div>
+          
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> apartment </span>
+            </div>
+            <div>
+              <p> Comapany Name: {{ detailObj.company_name }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> real_estate_agent </span>
+            </div>
+            <div>
+              <p> Property Code : {{ detailObj.property_code }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> king_bed </span>
+            </div>
+            <div>
+              <p> Rooms : {{ detailObj.rooms }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> chat_bubble </span>
+            </div>
+            <div>
+              <p innerHTML="{{ detailObj.message }}"> Message : </p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> public </span>
+            </div>
+            <div>
+              <p>Country : {{ detailObj.country }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> flag </span>
+            </div>
+            <div>
+              <p> State : {{ detailObj.state }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> near_me </span>
+            </div>
+            <div>
+              <p>City : {{ detailObj.city ? detailObj.city : "no record found" }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> numbers </span>
+            </div>
+            <div>
+              <p> Zip Code : {{ detailObj.zip_code }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> schedule </span>
+            </div>
+            <div>
+              <p>Time : {{ detailObj.timestemp }}</p>
+            </div>
+          </div>
+
+          <div class="flex align-center">
+            <div>
+              <span class="material-symbols-outlined"> calendar_month </span>
+            </div>
+            <div>
+              <p>FOllow Up Date : {{ detailObj.next_followup_date }}</p>
+            </div>
+          </div>
+
+          <div class="flex">
+            <div>
+              <span class="material-symbols-outlined"> reviews </span>
+            </div>
+            <div>
+              <p>Follow Up Comment : {{ detailObj.followup_comments }}</p>
+            </div>
+          </div>
+          <hr>
+
+          <div class="followup-history">
+            <div class="plus-followup-flex">
+              <div class="plus">
+                +
+              </div>
+              <div class="button">
+                <button
+                  type="submit"
+                  class="btn submit_btn"
+                  (click)="handleChange(detailObj.lead_ID)"
+                >
+                  Follow Up
+                </button>
+              </div>
+            </div>
+            <div class="history-card" *ngFor="let history of detailObj.histroy">
+              <div class="line-container">
+                <div class="date">
+                  <p>{{history.timestamp}}</p>
+                </div>
+                <div class="lead-status">
+                  <p style="font-size: 1.3rem; color: black; font-weight: 700;">{{history.status}}</p>
+                  <p>{{history.followup_comments}}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

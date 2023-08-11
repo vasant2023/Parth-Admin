@@ -558,6 +558,20 @@ export class AdminServiceService {
    return this.http.post(url, body, { headers: httpHeaders });
   }
 
+  getDetails(id){
+    const url = environment.apiUrl + 'leads/details';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('lead_ID', id);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
   followUp(leadObj){
     const url = environment.apiUrl + 'leads/lead-followup';
     const apiId = environment.apiId;
@@ -573,6 +587,49 @@ export class AdminServiceService {
       'Content-Type': 'application/x-www-form-urlencoded'
    });
    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Countries
+
+  getCountries(){
+    const url = environment.apiUrl + 'countries';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  getStates(country){
+    const url = environment.apiUrl + "states";
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+    body = body.append("country_id", country);
+
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  getCities(state){
+    const url = environment.apiUrl + "cities";
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+    body = body.append("state_id", state);
+
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
   }
 
 }

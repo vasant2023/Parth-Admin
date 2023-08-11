@@ -18,6 +18,8 @@ export class LeadsListComponent implements OnInit {
 
   searchText : any;
   isloading = false;
+  leadFlag = false;
+  statusId = "";
 
   leadsObj:any = {
     status_id: "",
@@ -26,6 +28,12 @@ export class LeadsListComponent implements OnInit {
     lead_ID :"",
     fromDate: "",
     toDate: ""
+  }
+
+  schedule_date:""
+
+  detailObj:any={
+    lead_ID: ""
   }
 
   handleStatus:boolean = false;
@@ -53,7 +61,6 @@ export class LeadsListComponent implements OnInit {
     this.getStatus();
   }
 
-
   // Date range 
 
   rangeClicked(range) {
@@ -68,7 +75,6 @@ export class LeadsListComponent implements OnInit {
     } else {
       this.leadsObj.toDate = "";
     }
-    console.log(this.leadsObj.fromDate, this.leadsObj.toDate)
     // this.getLeads();
   }
 
@@ -84,22 +90,30 @@ export class LeadsListComponent implements OnInit {
     } else {
       this.leadsObj.toDate = "";
     }
-    console.log(this.leadsObj.fromDate, this.leadsObj.toDate)
 
     this.getLeads();
   }
 
   // Date range ended
 
-
-
-  leadsList:any = {};
+  leadsList:any = [];
   statusList:any = [];
 
   getLeads(){
     this.adminService.getLeads(this.leadsObj).subscribe((response : {success:number, message:string, data:[]}) => {
       if(response.success == 1){
+        console.log(this.leadsList.length)
         this.leadsList = response.data;
+      }
+    })
+  }
+
+  getDetails(id){
+    this.adminService.getDetails(id).subscribe((response : {success:number, message:string, data:any}) => {
+      if(response.success == 1){
+        this.leadFlag = true
+        this.detailObj = response.data;
+        console.log(this.detailObj);
       }
     })
   }
@@ -108,21 +122,18 @@ export class LeadsListComponent implements OnInit {
     this.adminService.getStatus().subscribe((response: {success:number, message: string, data:[]}) => {
       if(response.success == 1){
         this.statusList = response.data;
-        console.log(this.statusList)
       }
     })
   }
 
-  statusFilter(id){
-    console.log(id);
-    this.leadsObj.status_id = id;
-    this.getLeads()
+  statusFilter(){
+    this.leadsObj.status_id = this.statusId;
+    this.getLeads();
   }
 
   handleChange(lead_ID){
     this.handleStatus = !this.handleStatus;
     this.leadsObj.lead_ID = lead_ID;
-    console.log(this.leadsObj.lead_ID)
   }
 
   submitFollowUp(){
@@ -134,10 +145,15 @@ export class LeadsListComponent implements OnInit {
 
       
       this.isloading = true;
+
+      // console.log(this.leadsObj);
+      // return false;
       this.adminService.followUp(this.leadsObj).subscribe((response: {success:number, message:string, }) => {
         if(response.success == 1){
           this.handleStatus = false;
+          this.leadsObj.status_id = "";
           this.getLeads();
+          this.getDetails(this.detailObj.lead_ID);
         }
         this.isloading = false;
       })

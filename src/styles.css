@@ -1,4 +1,6 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 @font-face {
    font-family: 'colfaxblack';
    src: url('assets/fonts/colfax/colfax-black-webfont.woff2') format('woff2'),
@@ -45355,3 +45357,7 @@ table thead tr, table tfoot tr {
  
  /** Extending 5 columns end **/
  .mainHiddenClass { display: none !important;}
+
+ .ng-select.ng-select-opened.ng-select-bottom>.ng-select-container, .ng-select .ng-select-container{
+   border-color: transparent!important;
+ }

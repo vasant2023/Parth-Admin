@@ -61,7 +61,8 @@ export class ItemCreateComponent implements OnInit {
     size: {
       height: "",
       width: "",
-      dimension: ""
+      dimension: "",
+      price:""
     }
   };
 
@@ -69,7 +70,7 @@ export class ItemCreateComponent implements OnInit {
 
   itemForm: FormGroup;
 
-  sizeList: { width: string, height: string , dimension:string}[] = [{ width: '', height: '',dimension:'' }];
+  sizeList: { width: string, height: string , dimension:string, price:string}[] = [{ width: '', height: '',dimension:'', price:'' }];
 
 
   configEditor = {
@@ -217,10 +218,9 @@ export class ItemCreateComponent implements OnInit {
   }
 
   adddSize(){
-    const newSize = { width: '', height: '', dimension: '' };
+    const newSize = { width: '', height: '', dimension: '', price:'' };
     this.sizeList.push(newSize);
     this.itemObj.sizeList = this.sizeList;
-    console.log(this.sizeList)
   }
 
   deleteSize(index: number) {
@@ -228,6 +228,8 @@ export class ItemCreateComponent implements OnInit {
   }
 
   saveItem(form) {
+    this.itemObj.sizeList = this.sizeList;
+    
     if(form.valid){
       if (this.isLoading == false) {
         this.isLoading = true;
@@ -292,6 +294,7 @@ export class ItemCreateComponent implements OnInit {
         formData.append("sort_order", this.itemObj.sort_order);
         formData.append("tag_line", this.itemObj.tag_line);
         formData.append("status", this.itemObj.status);
+        formData.append('sizes', JSON.stringify(this.itemObj.sizeList));
   
   
         if (this.item_ID) {

@@ -199,6 +199,7 @@
                               type="text"
                               class="form-control"
                               [name]="'height' + i"
+                              [(ngModel)]="size.height"
                               #height="ngModel"
                               [ngClass]="{
                                 'is-invalid':
@@ -217,12 +218,31 @@
                               type="text"
                               class="form-control"
                               [name]="'dimension' + i"
+                              [(ngModel)]="size.dimension"
                               #dimension="ngModel"
                               [ngClass]="{
                                 'is-invalid':
                                   itemForm.submitted && dimension.invalid
                               }"
                               [(ngModel)]="size.dimension"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="price{{ i }}">Price</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              [name]="'price' + i"
+                              [(ngModel)]="size.price"
+                              #price="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  itemForm.submitted && price.invalid
+                              }"
+                              [(ngModel)]="size.price"
                               required
                             />
                           </div>

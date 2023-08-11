@@ -10112,3 +10112,7 @@ anglar-datepicker input {
 .submit_comon_btn .btn{
     padding: 8px 10px;
 }
+
+.ng-select.ng-select-opened.ng-select-bottom>.ng-select-container, .ng-select .ng-select-container{
+    border-color: transparent!important;
+  }
