@@ -74,16 +74,17 @@ export class CollectionCreateComponent implements OnInit {
     description: "",
     short_description: "",
     item_IDs: [],
+    laminate_IDs:[],
+    hardware_IDs:[],
     warranty_detail: "",
     meta_description: "",
     meta_keywords: "",
     banner_image: (File = null),
-    banner_image_mobile: (File = null),
+    specification_image: (File = null),
     brochure: (File = null),
-    // collection_images: (File = null),
     collection_images : [],
     sort_order: "",
-    status: "",
+    status: 1,
     warranty_time: "",
     tag_line: "",
     warranty_duration: "",
@@ -110,13 +111,17 @@ export class CollectionCreateComponent implements OnInit {
 
   isLoading = false;
   itemList: any = [];
+  laminatesList:any =[];
   categoryList: any = [];
+  hardwaresList:any = [];
 
   ngOnInit() {
     this.getCollectionID();
     this.collectionDetails();
     this.getAllItems();
     this.getCategories();
+    this.getAllLaminates();
+    this.getAllHardwares();
   }
 
   public onChange({ editor }: ChangeEvent) {
@@ -127,8 +132,8 @@ export class CollectionCreateComponent implements OnInit {
     this.collectionObj.banner_image = event.target.files[0];
   }
 
-  handleInputChangeMobileImage(event) {
-    this.collectionObj.banner_image_mobile = event.target.files[0];
+  handleInputChangeSpecificationImage(event) {
+    this.collectionObj.specification_image = event.target.files[0];
   }
 
   item_images(event) {
@@ -175,6 +180,23 @@ export class CollectionCreateComponent implements OnInit {
       );
   }
 
+  getAllLaminates(){
+    this.adminService.getLaminates().subscribe((response:{success:number, message:string, laminates:[]}) => {
+      if(response.success == 1) {
+        this.laminatesList = response.laminates;
+      }
+    })
+  }
+
+  getAllHardwares(){
+    this.adminService.getHardwares().subscribe((response:{success:number, message:string, hardwares:[]}) => {
+      if(response.success == 1){
+        this.hardwaresList = response.hardwares;
+        console.log(this.hardwaresList)
+      }
+    })
+  }
+
   collectionDetails() {
     this.adminService
       .collectionDetails(this.collection_ID)
@@ -205,6 +227,8 @@ export class CollectionCreateComponent implements OnInit {
   }
 
   saveCollection(form) {
+    console.log(this.collectionObj);
+    // return false
     this.collectionObj.accordionList = this.accordionList;
     if(form.valid){
       if (this.isLoading == false) {
@@ -229,6 +253,8 @@ export class CollectionCreateComponent implements OnInit {
   
         var sort_order = 1;
         var items = [];
+        var laminates = [];
+        var hardwares = [];
   
         this.collectionObj.item_IDs.forEach((single_ID) => {
           var Obj = {
@@ -238,8 +264,28 @@ export class CollectionCreateComponent implements OnInit {
           items.push(Obj);
           sort_order++;
         });
+
+        this.collectionObj.laminate_IDs.forEach((single_ID) => {
+          var Obj = {
+            laminate_ID : single_ID,
+            sort_order: sort_order,
+          }
+          laminates.push(Obj);
+          sort_order++;
+        })
+
+        this.collectionObj.hardware_IDs.forEach((single_ID) => {
+          var Obj = {
+            hardware_ID : single_ID,
+            sort_order: sort_order,
+          }
+          hardwares.push(Obj);
+          sort_order++;
+        })
   
         formData.append("items", JSON.stringify(items));
+        formData.append("laminates", JSON.stringify(laminates));
+        formData.append("hardwares", JSON.stringify(hardwares));
         formData.append("warranty_detail", this.collectionObj.warranty_detail);
         formData.append("meta_description", this.collectionObj.meta_description);
         formData.append("meta_keywords", this.collectionObj.meta_keywords);
@@ -253,10 +299,6 @@ export class CollectionCreateComponent implements OnInit {
         for (var index in this.collectionObj.collection_images) {
           formData.append("collection_images[" + index + "]", this.collectionObj.collection_images[index]);
         }
-        // formData.append(
-        //   "collection_images",
-        //   this.collectionObj.collection_images
-        // );
         formData.append("image_alttext", this.collectionObj.image_alttext);
         formData.append("sort_order", this.collectionObj.sort_order);
         formData.append("tag_line", this.collectionObj.tag_line);

@@ -70,7 +70,7 @@ export class ItemCreateComponent implements OnInit {
 
   itemForm: FormGroup;
 
-  sizeList: { width: string, height: string , dimension:string, price:string}[] = [{ width: '', height: '',dimension:'', price:'' }];
+  sizeList: { width: string, height: string , dimension:string, price:string, name:string}[] = [{ width: '', height: '',dimension:'', price:'' , name:""}];
 
 
   configEditor = {
@@ -218,7 +218,7 @@ export class ItemCreateComponent implements OnInit {
   }
 
   adddSize(){
-    const newSize = { width: '', height: '', dimension: '', price:'' };
+    const newSize = { width: '', height: '', dimension: '', price:'', name:"" };
     this.sizeList.push(newSize);
     this.itemObj.sizeList = this.sizeList;
   }

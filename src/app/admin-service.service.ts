@@ -367,7 +367,15 @@ export class AdminServiceService {
 
   createCollection(formData){
     const url = environment.apiUrl + 'collections/create';
-    return this.http.post<any>(url, formData).pipe();
+    
+    const httpOptions = {
+       headers: new HttpHeaders({
+      'Content-Type': 'application/json;charset=utf-8'
+})
+      };
+
+    return this.http.post<any>(url, formData,httpOptions).pipe();
+    
   }
 
   updateCollection(formData){
