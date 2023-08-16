@@ -206,10 +206,20 @@ export class CollectionCreateComponent implements OnInit {
             this.collectionObj = response.collection;
 
             this.collectionObj.item_IDs = [];
+            this.collectionObj.laminate_IDs = [];
+            this.collectionObj.hardware_IDs = [];
 
             this.collectionObj.items.forEach((value) => {
               this.collectionObj.item_IDs.push(parseInt(value.item_ID));
             });
+
+            this.collectionObj.laminates.forEach((value) => {
+              this.collectionObj.laminate_IDs.push(parseInt(value.laminate_ID));
+            });
+
+            this.collectionObj.hardwares.forEach((value) => {
+              this.collectionObj.hardware_IDs.push(parseInt(value.hardware_ID));
+            })
           }
         }
       );
@@ -290,6 +300,7 @@ export class CollectionCreateComponent implements OnInit {
         formData.append("meta_description", this.collectionObj.meta_description);
         formData.append("meta_keywords", this.collectionObj.meta_keywords);
         formData.append("banner_image", this.collectionObj.banner_image);
+        formData.append("specification_image", this.collectionObj.specification_image);
         formData.append(
           "banner_image_mobile",
           this.collectionObj.banner_image_mobile

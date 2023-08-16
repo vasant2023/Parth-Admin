@@ -380,7 +380,12 @@ export class AdminServiceService {
 
   updateCollection(formData){
     const url = environment.apiUrl + 'collections/update';
-    return this.http.post<any>(url, formData).pipe();
+    const httpOptions = {
+      // headers: new HttpHeaders({
+      // 'Content-Type': 'application/json;charset=utf-8'
+      // })
+  };
+    return this.http.post<any>(url, formData, httpOptions).pipe();
   }
 
   // Collection Categories

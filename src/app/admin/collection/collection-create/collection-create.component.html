@@ -37,19 +37,6 @@
                       </div>
 
                       <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label for="tags">Tags</label>
-                            <input type="text" class="form-control" name="tags" [(ngModel)]="collectionObj.tags"
-                              #tags="ngModel" [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted && tags.invalid
-                            }" required />
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
                         <div class="col-md-12 d-flex">
                           <div class="form-group col" style="padding-left: 0">
                             <label for="price">Price</label>
@@ -263,10 +250,11 @@
                             <label for="category">Banner Image</label>
                             <div class="clearfix"></div>
                             <div class="default_imageiconcategory">
-                              <img [src]="collectionObj.banner_image" class="img categoryiconimg"
-                                default="assets/images/profile.jpg" />
+                              <img [src]="(collectionObj.banner_image)?collectionObj.banner_image:'assets/images/default.png'" class="img categoryiconimg"
+                                default="assets/images/default.png" />
                             </div>
                             <div class="clearfix"></div>
+                            
                             <label for="img-icon-upload" class="pointer">
                               <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose file</span>
                               <input type="file" id="img-icon-upload" maxlength="" class="d-none" name="icon"
@@ -277,8 +265,8 @@
                             <label for="category">Specification Image</label>
                             <div class="clearfix"></div>
                             <div class="default_imageiconcategory">
-                              <img [src]="collectionObj.specification_image" class="img categoryiconimg"
-                                default="assets/images/profile.jpg" />
+                              <img [src]="(collectionObj.specification_image)?collectionObj.specification_image:'assets/images/default.png'" class="img categoryiconimg"
+                                default="assets/images/default.png" />
                             </div>
                             <div class="clearfix"></div>
                             <label for="img-upload" class="pointer">
@@ -295,8 +283,8 @@
                           <div class="form-group col" style="padding-left: 0">
                             <label for="category">Images</label>
                             <div class="clearfix"></div>
-                            <div class="default_imageiconcategory">
-                              <img [src]="collectionObj.collection_images" class="img categoryiconimg"
+                            <div class="default_imageiconcategory" *ngFor="let image of collectionObj.images">
+                              <img [src]="(image.image)?image.image:'assets/images/default.png'" class="img categoryiconimg"
                                 default="assets/images/profile.jpg" />
                             </div>
                             <div class="clearfix"></div>
@@ -309,9 +297,8 @@
                           <div class="form-group col" style="padding: 0">
                             <label for="category">Collection Pdf</label>
                             <div class="clearfix"></div>
-                            <div class="default_imageiconcategory">
-                              <img [src]="collectionObj.brochure" class="img categoryiconimg"
-                                default="assets/images/profile.jpg" />
+                            <div class="default_imageiconcategory" *ngIf="collectionObj.brochure">
+                              <a href="{{collectionObj.brochure}}" target="_blank" style="color: #333; text-decoration: none; padding: 1rem 0.75rem; margin: 1rem 0rem;">View PDF</a>
                             </div>
                             <div class="clearfix"></div>
                             <label for="pdf" class="pointer">
