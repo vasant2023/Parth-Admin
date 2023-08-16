@@ -369,10 +369,10 @@ export class AdminServiceService {
     const url = environment.apiUrl + 'collections/create';
     
     const httpOptions = {
-       headers: new HttpHeaders({
-      'Content-Type': 'application/json;charset=utf-8'
-})
-      };
+        // headers: new HttpHeaders({
+        // 'Content-Type': 'application/json;charset=utf-8'
+        // })
+    };
 
     return this.http.post<any>(url, formData,httpOptions).pipe();
     
