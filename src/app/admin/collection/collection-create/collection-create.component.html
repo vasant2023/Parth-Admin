@@ -326,8 +326,8 @@
                             <div class="default_imageiconcategory">
                               <img
                                 [src]="
-                                  collectionObj.banner_image_full
-                                    ? collectionObj.banner_image_full
+                                  collectionObj.banner_image
+                                    ? collectionObj.banner_image
                                     : 'assets/images/default.png'
                                 "
                                 class="img categoryiconimg"
@@ -358,8 +358,8 @@
                             <div class="default_imageiconcategory">
                               <img
                                 [src]="
-                                  collectionObj.specification_image_full
-                                    ? collectionObj.specification_image_full
+                                  collectionObj.specification_image
+                                    ? collectionObj.specification_image
                                     : 'assets/images/default.png'
                                 "
                                 class="img categoryiconimg"
@@ -399,8 +399,8 @@
                             >
                               <img
                                 [src]="
-                                  image.image_full
-                                    ? image.image_full
+                                  image.image
+                                    ? image.image
                                     : 'assets/images/default.png'
                                 "
                                 class="img categoryiconimg"
@@ -596,7 +596,7 @@
                                 </td>
                                 <td>
                                   <img
-                                    src="{{ item.banner_image_full }}"
+                                    src="{{ item.banner_image }}"
                                     class="img"
                                     style="height: 30px"
                                   />
@@ -666,7 +666,7 @@
                                 </td>
                                 <td>
                                   <img
-                                    src="{{ laminate.image_full }}"
+                                    src="{{ laminate.image }}"
                                     class="img"
                                     style="height: 30px; width: 30px"
                                   />
@@ -736,7 +736,7 @@
                                 </td>
                                 <td>
                                   <img
-                                    src="{{ hardware.image_full }}"
+                                    src="{{ hardware.image }}"
                                     class="img"
                                     style="height: 30px; width: 30px"
                                   />
