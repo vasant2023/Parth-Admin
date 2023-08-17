@@ -2,11 +2,14 @@
   <div class="page-title">
     <h4>Collections</h4>
   </div>
-  <form name="form" (ngSubmit)="
+  <form
+    name="form"
+    (ngSubmit)="
       collectionForm.form.valid && saveCollection(collectionForm.form)
-    " #collectionForm="ngForm">
-    <div class="d-flex" style="gap: 2rem;">
-
+    "
+    #collectionForm="ngForm"
+  >
+    <div class="d-flex" style="gap: 2rem">
       <div>
         <div class="row">
           <div class="col">
@@ -22,12 +25,24 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="collection">Collection Name*</label>
-                            <input type="text" class="form-control" name="collection"
-                              [(ngModel)]="collectionObj.collection" #collection="ngModel" [ngClass]="{
-                              'is-invalid':
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="collection"
+                              [(ngModel)]="collectionObj.collection"
+                              #collection="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted && collection.invalid
+                              }"
+                              required
+                            />
+                            <div
+                              *ngIf="
                                 collectionForm.submitted && collection.invalid
-                            }" required />
-                            <div *ngIf="collectionForm.submitted && collection.invalid" class="invalid-feedback">
+                              "
+                              class="invalid-feedback"
+                            >
                               <div *ngIf="collection.errors.required">
                                 Collection Name is required
                               </div>
@@ -40,19 +55,60 @@
                         <div class="col-md-12 d-flex">
                           <div class="form-group col" style="padding-left: 0">
                             <label for="price">Price</label>
-                            <input type="number" class="form-control" name="price" [(ngModel)]="collectionObj.price"
-                              #price="ngModel" [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted && price.invalid
-                            }" required />
+                            <input
+                              type="number"
+                              class="form-control"
+                              name="price"
+                              [(ngModel)]="collectionObj.price"
+                              #price="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted && price.invalid
+                              }"
+                              required
+                            />
                           </div>
                           <div class="form-group col" style="padding: 0">
                             <label for="sale_price">Sale Price</label>
-                            <input type="number" class="form-control" name="sale_price"
-                              [(ngModel)]="collectionObj.sale_price" #sale_price="ngModel" [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted && sale_price.invalid
-                            }" required />
+                            <input
+                              type="number"
+                              class="form-control"
+                              name="sale_price"
+                              [(ngModel)]="collectionObj.sale_price"
+                              #sale_price="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted && sale_price.invalid
+                              }"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="collection_category"
+                              >Select Collection Category</label
+                            >
+                            <select
+                              class="form-control"
+                              name="collection_category"
+                              [(ngModel)]="collectionObj.category_ID"
+                              #collection_category="ngModel"
+                            >
+                              <option value="">
+                                Select Collection Category
+                              </option>
+                              <option
+                                value="{{ list.category_ID }}"
+                                [innerHTML]="list.category"
+                                *ngFor="let list of categoryList"
+                              >
+                                {{ list.category }}
+                              </option>
+                            </select>
                           </div>
                         </div>
                       </div>
@@ -80,19 +136,29 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label for="short_description">Short Description</label>
+                            <label for="short_description"
+                              >Short Description</label
+                            >
                             <!-- <ckeditor
                             [editor]="Editor"
                             [(ngModel)]="collectionObj.short_description"
                             name="short_description"
                             #short_description="ngModel"
                           ></ckeditor> -->
-                            <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="short_description"
-                              #keypoints="ngModel" [(ngModel)]="collectionObj.short_description" [className]="
-                              collectionForm.submitted && !collectionObj.keypoints
-                                ? 'error-editor'
-                                : ''
-                            ">
+                            <ck-editor
+                              skin="moono-lisa"
+                              language="en"
+                              [config]="configEditor"
+                              name="short_description"
+                              #keypoints="ngModel"
+                              [(ngModel)]="collectionObj.short_description"
+                              [className]="
+                                collectionForm.submitted &&
+                                !collectionObj.keypoints
+                                  ? 'error-editor'
+                                  : ''
+                              "
+                            >
                             </ck-editor>
                           </div>
                         </div>
@@ -108,12 +174,20 @@
                             name="description"
                             #description="ngModel"
                           ></ckeditor> -->
-                            <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
-                              #keypoints="ngModel" [(ngModel)]="collectionObj.description" [className]="
-                              collectionForm.submitted && !collectionObj.keypoints
-                                ? 'error-editor'
-                                : ''
-                            ">
+                            <ck-editor
+                              skin="moono-lisa"
+                              language="en"
+                              [config]="configEditor"
+                              name="keypoints"
+                              #keypoints="ngModel"
+                              [(ngModel)]="collectionObj.description"
+                              [className]="
+                                collectionForm.submitted &&
+                                !collectionObj.keypoints
+                                  ? 'error-editor'
+                                  : ''
+                              "
+                            >
                             </ck-editor>
                           </div>
                         </div>
@@ -250,29 +324,65 @@
                             <label for="category">Banner Image</label>
                             <div class="clearfix"></div>
                             <div class="default_imageiconcategory">
-                              <img [src]="(collectionObj.banner_image_full)?collectionObj.banner_image_full:'assets/images/default.png'" class="img categoryiconimg"
-                                default="assets/images/default.png" />
+                              <img
+                                [src]="
+                                  collectionObj.banner_image_full
+                                    ? collectionObj.banner_image_full
+                                    : 'assets/images/default.png'
+                                "
+                                class="img categoryiconimg"
+                                default="assets/images/default.png"
+                              />
                             </div>
                             <div class="clearfix"></div>
-                            
+
                             <label for="img-icon-upload" class="pointer">
-                              <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose file</span>
-                              <input type="file" id="img-icon-upload" maxlength="" class="d-none" name="icon"
-                                accept="image/*" (change)="handleInputChangeBannerImage($event)" />
+                              <span
+                                class="btn choose_btn btn-default display-block no-mrg-btm"
+                                >Choose file</span
+                              >
+                              <input
+                                type="file"
+                                id="img-icon-upload"
+                                maxlength=""
+                                class="d-none"
+                                name="icon"
+                                accept="image/*"
+                                (change)="handleInputChangeBannerImage($event)"
+                              />
                             </label>
                           </div>
                           <div class="form-group col" style="padding: 0">
                             <label for="category">Specification Image</label>
                             <div class="clearfix"></div>
                             <div class="default_imageiconcategory">
-                              <img [src]="(collectionObj.specification_image_full)?collectionObj.specification_image_full:'assets/images/default.png'" class="img categoryiconimg"
-                                default="assets/images/default.png" />
+                              <img
+                                [src]="
+                                  collectionObj.specification_image_full
+                                    ? collectionObj.specification_image_full
+                                    : 'assets/images/default.png'
+                                "
+                                class="img categoryiconimg"
+                                default="assets/images/default.png"
+                              />
                             </div>
                             <div class="clearfix"></div>
                             <label for="img-upload" class="pointer">
-                              <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose file</span>
-                              <input type="file" id="img-upload" maxlength="" class="d-none" name="img-upload"
-                                accept="image/*" (change)="handleInputChangeSpecificationImage($event)" />
+                              <span
+                                class="btn choose_btn btn-default display-block no-mrg-btm"
+                                >Choose file</span
+                              >
+                              <input
+                                type="file"
+                                id="img-upload"
+                                maxlength=""
+                                class="d-none"
+                                name="img-upload"
+                                accept="image/*"
+                                (change)="
+                                  handleInputChangeSpecificationImage($event)
+                                "
+                              />
                             </label>
                           </div>
                         </div>
@@ -283,28 +393,71 @@
                           <div class="form-group col" style="padding-left: 0">
                             <label for="category">Images</label>
                             <div class="clearfix"></div>
-                            <div class="default_imageiconcategory" *ngFor="let image of collectionObj.images">
-                              <img [src]="(image.image_full)?image.image_full:'assets/images/default.png'" class="img categoryiconimg"
-                                default="assets/images/profile.jpg" />
+                            <div
+                              class="default_imageiconcategory"
+                              *ngFor="let image of collectionObj.images"
+                            >
+                              <img
+                                [src]="
+                                  image.image_full
+                                    ? image.image_full
+                                    : 'assets/images/default.png'
+                                "
+                                class="img categoryiconimg"
+                                default="assets/images/profile.jpg"
+                              />
                             </div>
                             <div class="clearfix"></div>
                             <label for="images" class="pointer">
-                              <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose file</span>
-                              <input type="file" id="images" maxlength="" class="d-none" name="images" accept="image/*"
-                                (change)="item_images($event)" multiple />
+                              <span
+                                class="btn choose_btn btn-default display-block no-mrg-btm"
+                                >Choose file</span
+                              >
+                              <input
+                                type="file"
+                                id="images"
+                                maxlength=""
+                                class="d-none"
+                                name="images"
+                                accept="image/*"
+                                (change)="item_images($event)"
+                                multiple
+                              />
                             </label>
                           </div>
                           <div class="form-group col" style="padding: 0">
                             <label for="category">Collection Pdf</label>
                             <div class="clearfix"></div>
-                            <div class="default_imageiconcategory" *ngIf="collectionObj.brochure">
-                              <a href="{{collectionObj.brochure}}" target="_blank" style="color: #333; text-decoration: none; padding: 1rem 0.75rem; margin: 1rem 0rem;">View PDF</a>
+                            <div
+                              class="default_imageiconcategory"
+                              *ngIf="collectionObj.brochure"
+                            >
+                              <a
+                                href="{{ collectionObj.brochure }}"
+                                target="_blank"
+                                style="
+                                  color: #333;
+                                  text-decoration: none;
+                                  padding: 1rem 0.75rem;
+                                  margin: 1rem 0rem;
+                                "
+                                >View PDF</a
+                              >
                             </div>
                             <div class="clearfix"></div>
                             <label for="pdf" class="pointer">
-                              <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose file</span>
-                              <input type="file" id="pdf" maxlength="" class="d-none" name="pdf"
-                                (change)="brochure($event)" />
+                              <span
+                                class="btn choose_btn btn-default display-block no-mrg-btm"
+                                >Choose file</span
+                              >
+                              <input
+                                type="file"
+                                id="pdf"
+                                maxlength=""
+                                class="d-none"
+                                name="pdf"
+                                (change)="brochure($event)"
+                              />
                             </label>
                           </div>
                         </div>
@@ -316,7 +469,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div>
@@ -333,13 +485,22 @@
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <label for="meta_description">Meta Description</label>
-                            <input type="text" class="form-control" name="meta_description"
-                              [(ngModel)]="collectionObj.meta_description" #meta_description="ngModel" [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted &&
-                                meta_description.invalid
-                            }" required />
+                            <label for="meta_description"
+                              >Meta Description</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="meta_description"
+                              [(ngModel)]="collectionObj.meta_description"
+                              #meta_description="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted &&
+                                  meta_description.invalid
+                              }"
+                              required
+                            />
                           </div>
                         </div>
                       </div>
@@ -348,11 +509,19 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="meta_keywords">Meta Keywords</label>
-                            <input type="text" class="form-control" name="meta_keywords"
-                              [(ngModel)]="collectionObj.meta_keywords" #meta_keywords="ngModel" [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted && meta_keywords.invalid
-                            }" required />
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="meta_keywords"
+                              [(ngModel)]="collectionObj.meta_keywords"
+                              #meta_keywords="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted &&
+                                  meta_keywords.invalid
+                              }"
+                              required
+                            />
                           </div>
                         </div>
                       </div>
@@ -361,11 +530,18 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="tag_line">Tag Line</label>
-                            <input type="text" class="form-control" name="tag_line" [(ngModel)]="collectionObj.tag_line"
-                              #tag_line="ngModel" [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted && tag_line.invalid
-                            }" required />
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="tag_line"
+                              [(ngModel)]="collectionObj.tag_line"
+                              #tag_line="ngModel"
+                              [ngClass]="{
+                                'is-invalid':
+                                  collectionForm.submitted && tag_line.invalid
+                              }"
+                              required
+                            />
                           </div>
                         </div>
                       </div>
@@ -380,32 +556,57 @@
         <div class="row">
           <div class="col">
             <div class="card">
-              <div class="card-heading">
-                <h4 class="card-title">Select Items</h4>
+              <div class="card-heading d-flex align-items-center">
+                <div>
+                  <h4 class="card-title">Select Items</h4>
+                </div>
+                <div style="margin-left: 1rem">
+                  <!-- <input type="search" name="item" id="item" placeholder="Search items" class="form-control"> -->
+                  <input
+                    type="search"
+                    name="item"
+                    id="item"
+                    placeholder="Search items"
+                    class="form-control"
+                    [(ngModel)]="searchItem"
+                    (input)="filterItems()"
+                  />
+                </div>
               </div>
-              <div class="card-block" style="padding-top: 0;">
+              <div class="card-block" style="padding-top: 0">
                 <div class="row">
-                  <div class="col" style="height: 300px; overflow: auto;">
+                  <div class="col" style="height: 300px; overflow: auto">
                     <div class="row">
                       <div class="col">
-                        <!-- <h2>Select Items :</h2> -->
                         <div class="">
                           <table class="table table-hover">
                             <tbody>
-                              <tr *ngFor="let item of itemList">
+                              <tr *ngFor="let item of filteredItemList">
                                 <td>
                                   <label for="item_{{ item.category_ID }}">
-                                    <input type="checkbox" name="item_{{ item.item_ID }}"
-                                      [(checklist)]="collectionObj.item_IDs" [checklistValue]="item.item_ID"
-                                      id="item_{{ item.item_ID }}" class="rounded-checkbox" />
+                                    <input
+                                      type="checkbox"
+                                      name="item_{{ item.item_ID }}"
+                                      [(checklist)]="collectionObj.item_IDs"
+                                      [checklistValue]="item.item_ID"
+                                      id="item_{{ item.item_ID }}"
+                                      class="rounded-checkbox"
+                                    />
                                   </label>
                                 </td>
                                 <td>
-                                  <img src="{{ item.banner_image_full }}" class="img" style="height: 30px" />
+                                  <img
+                                    src="{{ item.banner_image_full }}"
+                                    class="img"
+                                    style="height: 30px"
+                                  />
                                 </td>
                                 <td>
-                                  <span class="commonSpan" style="text-transform: uppercase">{{ item.item
-                                    }}&nbsp;</span>
+                                  <span
+                                    class="commonSpan"
+                                    style="text-transform: uppercase"
+                                    >{{ item.item }}&nbsp;</span
+                                  >
                                 </td>
                               </tr>
                             </tbody>
@@ -423,32 +624,59 @@
         <div class="row">
           <div class="col">
             <div class="card">
-              <div class="card-heading">
-                <h4 class="card-title">Select Laminates</h4>
+              <div class="card-heading d-flex align-items-center">
+                <div>
+                  <h4 class="card-title">Select Laminates</h4>
+                </div>
+                <div style="margin-left: 1rem">
+                  <input
+                    type="search"
+                    name="laminates"
+                    id="laminates"
+                    placeholder="Search Laminates"
+                    class="form-control"
+                    [(ngModel)]="searchLaminates"
+                    (input)="filterLaminates()"
+                  />
+                </div>
               </div>
-              <div class="card-block" style="padding-top: 0;">
+              <div class="card-block" style="padding-top: 0">
                 <div class="row">
-                  <div class="col" style="height: 300px; overflow: auto;">
+                  <div class="col" style="height: 300px; overflow: auto">
                     <div class="row">
                       <div class="col">
                         <!-- <h2>Select Items :</h2> -->
                         <div class="">
                           <table class="table table-hover">
                             <tbody>
-                              <tr *ngFor="let laminate of laminatesList">
+                              <tr *ngFor="let laminate of filteredLaminateList">
                                 <td>
-                                  <label for="laminate{{ laminate.laminate_ID }}">
-                                    <input type="checkbox" name="item_{{ laminate.laminate_ID }}"
-                                      [(checklist)]="collectionObj.laminate_IDs" [checklistValue]="laminate.laminate_ID"
-                                      id="item_{{ laminate.laminate_ID }}" class="rounded-checkbox" />
+                                  <label
+                                    for="laminate{{ laminate.laminate_ID }}"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      name="item_{{ laminate.laminate_ID }}"
+                                      [(checklist)]="collectionObj.laminate_IDs"
+                                      [checklistValue]="laminate.laminate_ID"
+                                      id="item_{{ laminate.laminate_ID }}"
+                                      class="rounded-checkbox"
+                                    />
                                   </label>
                                 </td>
                                 <td>
-                                  <img src="{{ laminate.image_full }}" class="img" style="height: 30px; width: 30px;" />
+                                  <img
+                                    src="{{ laminate.image_full }}"
+                                    class="img"
+                                    style="height: 30px; width: 30px"
+                                  />
                                 </td>
                                 <td>
-                                  <span class="commonSpan" style="text-transform: uppercase">{{ laminate.laminate
-                                    }}&nbsp;</span>
+                                  <span
+                                    class="commonSpan"
+                                    style="text-transform: uppercase"
+                                    >{{ laminate.laminate }}&nbsp;</span
+                                  >
                                 </td>
                               </tr>
                             </tbody>
@@ -466,32 +694,59 @@
         <div class="row">
           <div class="col">
             <div class="card">
-              <div class="card-heading">
-                <h4 class="card-title">Select Hardwares</h4>
+              <div class="card-heading d-flex align-items-center">
+                <div>
+                  <h4 class="card-title">Select Hardwares</h4>
+                </div>
+                <div style="margin-left: 1rem">
+                  <input
+                    type="search"
+                    name="hardwares"
+                    id="hardwares"
+                    placeholder="Search Hardwares"
+                    class="form-control"
+                    [(ngModel)]="searchHardwares"
+                    (input)="filterHardwares()"
+                  />
+                </div>
               </div>
-              <div class="card-block" style="padding-top: 0;">
+              <div class="card-block" style="padding-top: 0">
                 <div class="row">
-                  <div class="col" style="height: 300px; overflow: auto;">
+                  <div class="col" style="height: 300px; overflow: auto">
                     <div class="row">
                       <div class="col">
                         <!-- <h2>Select Items :</h2> -->
                         <div class="">
                           <table class="table table-hover">
                             <tbody>
-                              <tr *ngFor="let hardware of hardwaresList">
+                              <tr *ngFor="let hardware of filteredHardwareList">
                                 <td>
-                                  <label for="hardware{{ hardware.hardware_ID }}">
-                                    <input type="checkbox" name="item_{{ hardware.hardware_ID }}"
-                                      [(checklist)]="collectionObj.hardware_IDs" [checklistValue]="hardware.hardware_ID"
-                                      id="item_{{ hardware.hardware_ID }}" class="rounded-checkbox" />
+                                  <label
+                                    for="hardware{{ hardware.hardware_ID }}"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      name="item_{{ hardware.hardware_ID }}"
+                                      [(checklist)]="collectionObj.hardware_IDs"
+                                      [checklistValue]="hardware.hardware_ID"
+                                      id="item_{{ hardware.hardware_ID }}"
+                                      class="rounded-checkbox"
+                                    />
                                   </label>
                                 </td>
                                 <td>
-                                  <img src="{{ hardware.image_full }}" class="img" style="height: 30px; width: 30px;" />
+                                  <img
+                                    src="{{ hardware.image_full }}"
+                                    class="img"
+                                    style="height: 30px; width: 30px"
+                                  />
                                 </td>
                                 <td>
-                                  <span class="commonSpan" style="text-transform: uppercase">{{ hardware.hardware
-                                    }}&nbsp;</span>
+                                  <span
+                                    class="commonSpan"
+                                    style="text-transform: uppercase"
+                                    >{{ hardware.hardware }}&nbsp;</span
+                                  >
                                 </td>
                               </tr>
                             </tbody>
