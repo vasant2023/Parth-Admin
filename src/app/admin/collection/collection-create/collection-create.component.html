@@ -604,9 +604,10 @@
                                 <td>
                                   <span
                                     class="commonSpan"
-                                    style="text-transform: uppercase"
+                                    style="text-transform: uppercase; padding: 0;"
                                     >{{ item.item }}&nbsp;</span
                                   >
+                                  <p *ngFor="let size of item.sizes">Width : {{size.width}} x Height : {{size.height}} x Dimension : {{size.dimension}}</p>
                                 </td>
                               </tr>
                             </tbody>
