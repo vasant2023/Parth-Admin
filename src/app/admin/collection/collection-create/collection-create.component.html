@@ -583,7 +583,8 @@
                             <tbody>
                               <tr *ngFor="let item of filteredItemList">
                                 <td>
-                                  <label for="item_{{ item.category_ID }}">
+                                  <!-- <label for="item_{{ item.category_ID }}">
+
                                     <input
                                       type="checkbox"
                                       name="item_{{ item.item_ID }}"
@@ -592,7 +593,7 @@
                                       id="item_{{ item.item_ID }}"
                                       class="rounded-checkbox"
                                     />
-                                  </label>
+                                  </label> -->
                                 </td>
                                 <td>
                                   <img
@@ -607,7 +608,20 @@
                                     style="text-transform: uppercase; padding: 0;"
                                     >{{ item.item }}&nbsp;</span
                                   >
-                                  <p *ngFor="let size of item.sizes">Width : {{size.width}} x Height : {{size.height}} x Dimension : {{size.dimension}}</p>
+                                  <p *ngFor="let size of item.sizes">
+                                    <label for="size_{{ size.id }}">
+                                      <input
+                                        type="checkbox"
+                                        name="size_{{ size.id }}"
+                                        [(checklist)]="collectionObj.itemSizesIDs"
+                                        [checklistValue]="size.id"
+                                        id="size_{{ size.id }}"
+                                        class="rounded-checkbox"
+                                      />
+                                    </label>
+
+                                    Width : {{size.width}} x Height : {{size.height}} x Dimension : {{size.dimension}}
+                                  </p>
                                 </td>
                               </tr>
                             </tbody>
@@ -655,6 +669,7 @@
                                   <label
                                     for="laminate{{ laminate.laminate_ID }}"
                                   >
+                                  <!-- {{collectionObj.laminate_IDs}} -->
                                     <input
                                       type="checkbox"
                                       name="item_{{ laminate.laminate_ID }}"

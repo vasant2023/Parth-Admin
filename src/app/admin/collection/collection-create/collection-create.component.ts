@@ -73,6 +73,7 @@ export class CollectionCreateComponent implements OnInit {
     description: "",
     short_description: "",
     item_IDs: [],
+    itemSizesIDs:[],
     laminate_IDs: [],
     hardware_IDs: [],
     warranty_detail: "",
@@ -197,7 +198,7 @@ export class CollectionCreateComponent implements OnInit {
         (response: { success: number; message: string; categories: [] }) => {
           if (response.success == 1) {
             this.categoryList = response.categories;
-            console.log(this.categoryList);
+            // console.log(this.categoryList);
           }
         }
       );
@@ -210,6 +211,7 @@ export class CollectionCreateComponent implements OnInit {
         (response: { success: number; message: string; items: [] }) => {
           if (response.success == 1) {
             this.itemList = response.items;
+            // console.log(this.itemList)
             this.filteredItemList = this.itemList
           }
         }
@@ -253,6 +255,7 @@ export class CollectionCreateComponent implements OnInit {
             this.collectionObj.item_IDs = [];
             this.collectionObj.laminate_IDs = [];
             this.collectionObj.hardware_IDs = [];
+            this.collectionObj.itemSizesIDs = [];
 
             this.collectionObj.items.forEach((value) => {
               this.collectionObj.item_IDs.push(parseInt(value.item_ID));
@@ -264,6 +267,13 @@ export class CollectionCreateComponent implements OnInit {
 
             this.collectionObj.hardwares.forEach((value) => {
               this.collectionObj.hardware_IDs.push(parseInt(value.hardware_ID));
+            });
+
+            this.collectionObj.items.forEach((singleItem) => {
+              singleItem.sizes.forEach((value) => {
+                this.collectionObj.itemSizesIDs.push(value.id)
+                console.log(this.collectionObj.itemSizesIDs)
+              })  
             });
           }
         }
@@ -282,8 +292,6 @@ export class CollectionCreateComponent implements OnInit {
   }
 
   saveCollection(form) {
-    console.log(this.collectionObj);
-    // return false
     this.collectionObj.accordionList = this.accordionList;
     if (form.valid) {
       if (this.isLoading == false) {
@@ -310,6 +318,16 @@ export class CollectionCreateComponent implements OnInit {
         var items = [];
         var laminates = [];
         var hardwares = [];
+        var itemSizeId = [];
+
+        this.collectionObj.itemSizesIDs.forEach((single_ID) => {
+          var Obj = {
+            item_size_ID : single_ID,
+            sort_order : sort_order
+          }
+          itemSizeId.push(Obj);
+          sort_order++;
+        })
 
         this.collectionObj.item_IDs.forEach((single_ID) => {
           var Obj = {
@@ -338,9 +356,10 @@ export class CollectionCreateComponent implements OnInit {
           sort_order++;
         });
 
-        formData.append("items", JSON.stringify(items));
+        formData.append("items", JSON.stringify(itemSizeId));
         formData.append("laminates", JSON.stringify(laminates));
         formData.append("hardwares", JSON.stringify(hardwares));
+        // formData.append("item_sizes", JSON.stringify(itemSizeId));
         formData.append("warranty_detail", this.collectionObj.warranty_detail);
         formData.append(
           "meta_description",
