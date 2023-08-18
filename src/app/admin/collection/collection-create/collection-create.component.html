@@ -561,7 +561,6 @@
                   <h4 class="card-title">Select Items</h4>
                 </div>
                 <div style="margin-left: 1rem">
-                  <!-- <input type="search" name="item" id="item" placeholder="Search items" class="form-control"> -->
                   <input
                     type="search"
                     name="item"
@@ -583,8 +582,7 @@
                             <tbody>
                               <tr *ngFor="let item of filteredItemList">
                                 <td>
-                                  <!-- <label for="item_{{ item.category_ID }}">
-
+                                  <label for="item_{{ item.category_ID }}">
                                     <input
                                       type="checkbox"
                                       name="item_{{ item.item_ID }}"
@@ -592,8 +590,10 @@
                                       [checklistValue]="item.item_ID"
                                       id="item_{{ item.item_ID }}"
                                       class="rounded-checkbox"
+                                      (change)="parentIdChange(item.item_ID)"
+                                      
                                     />
-                                  </label> -->
+                                  </label>
                                 </td>
                                 <td>
                                   <img
@@ -610,6 +610,7 @@
                                   >
                                   <p *ngFor="let size of item.sizes">
                                     <label for="size_{{ size.id }}">
+                                      <!-- {{collectionObj.itemSizesIDs}} -->
                                       <input
                                         type="checkbox"
                                         name="size_{{ size.id }}"
@@ -617,7 +618,8 @@
                                         [checklistValue]="size.id"
                                         id="size_{{ size.id }}"
                                         class="rounded-checkbox"
-                                      />
+
+                                      />                                
                                     </label>
 
                                     Width : {{size.width}} x Height : {{size.height}} x Dimension : {{size.dimension}}

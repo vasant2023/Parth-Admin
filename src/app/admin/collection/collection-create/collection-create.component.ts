@@ -73,7 +73,7 @@ export class CollectionCreateComponent implements OnInit {
     description: "",
     short_description: "",
     item_IDs: [],
-    itemSizesIDs:[],
+    itemSizesIDs: [],
     laminate_IDs: [],
     hardware_IDs: [],
     warranty_detail: "",
@@ -117,12 +117,12 @@ export class CollectionCreateComponent implements OnInit {
 
   // Testing
 
-  filteredItemList: any[] = []; 
-  filteredLaminateList: any[] = []; 
-  filteredHardwareList: any[] = []; 
+  filteredItemList: any[] = [];
+  filteredLaminateList: any[] = [];
+  filteredHardwareList: any[] = [];
   searchItem: string;
-  searchLaminates:string;
-  searchHardwares:string;
+  searchLaminates: string;
+  searchHardwares: string;
 
   ngOnInit() {
     this.getCollectionID();
@@ -143,16 +143,16 @@ export class CollectionCreateComponent implements OnInit {
     }
   }
 
-  filterLaminates(){
-    if(this.searchLaminates) {
+  filterLaminates() {
+    if (this.searchLaminates) {
       this.filteredLaminateList = this.laminatesList.filter(laminate => laminate.laminate.toLowerCase().includes(this.searchLaminates.toLocaleLowerCase()))
     } else {
       this.filteredLaminateList = this.laminatesList
     }
   }
 
-  filterHardwares(){
-    if(this.searchHardwares) {
+  filterHardwares() {
+    if (this.searchHardwares) {
       this.filteredHardwareList = this.hardwaresList.filter(hardware => hardware.hardware.toLowerCase().includes(this.searchHardwares.toLocaleLowerCase()))
     } else {
       this.filteredHardwareList = this.hardwaresList
@@ -251,15 +251,10 @@ export class CollectionCreateComponent implements OnInit {
         (response: { success: number; message: string; collection: [] }) => {
           if (response.success == 1) {
             this.collectionObj = response.collection;
-
             this.collectionObj.item_IDs = [];
             this.collectionObj.laminate_IDs = [];
             this.collectionObj.hardware_IDs = [];
             this.collectionObj.itemSizesIDs = [];
-
-            this.collectionObj.items.forEach((value) => {
-              this.collectionObj.item_IDs.push(parseInt(value.item_ID));
-            });
 
             this.collectionObj.laminates.forEach((value) => {
               this.collectionObj.laminate_IDs.push(parseInt(value.laminate_ID));
@@ -270,11 +265,16 @@ export class CollectionCreateComponent implements OnInit {
             });
 
             this.collectionObj.items.forEach((singleItem) => {
+              // console.log(singleItem.size_lenght);
+              if(singleItem.size_lenght === singleItem.sizes.length){
+              this.collectionObj.item_IDs.push(parseInt(singleItem.item_ID));
+
+              }
               singleItem.sizes.forEach((value) => {
                 this.collectionObj.itemSizesIDs.push(value.id)
-                console.log(this.collectionObj.itemSizesIDs)
-              })  
+              })
             });
+            
           }
         }
       );
@@ -293,6 +293,8 @@ export class CollectionCreateComponent implements OnInit {
 
   saveCollection(form) {
     this.collectionObj.accordionList = this.accordionList;
+    // console.log(this.collectionObj);
+    // return false
     if (form.valid) {
       if (this.isLoading == false) {
         this.isLoading = true;
@@ -322,8 +324,8 @@ export class CollectionCreateComponent implements OnInit {
 
         this.collectionObj.itemSizesIDs.forEach((single_ID) => {
           var Obj = {
-            item_size_ID : single_ID,
-            sort_order : sort_order
+            item_size_ID: single_ID,
+            sort_order: sort_order
           }
           itemSizeId.push(Obj);
           sort_order++;
@@ -421,4 +423,42 @@ export class CollectionCreateComponent implements OnInit {
       }
     }
   }
+
+  parentIdChange(itemid) {
+    if (this.collectionObj.item_IDs.includes(itemid)) {
+      var itemId = this.collectionObj.item_IDs;
+      itemId.forEach((singleId) => {
+        const singleItem = this.itemList.find(item => item.item_ID === singleId);
+
+        if (singleItem) {
+          console.log(singleItem)
+          var sizesIds = [];
+          singleItem.sizes.forEach((eachSize) => {
+            sizesIds.push(eachSize.id);
+          })
+
+          sizesIds.forEach((id) => {
+            this.collectionObj.itemSizesIDs.push(id);
+            const uniqueSizeIDs = Array.from(new Set(this.collectionObj.itemSizesIDs));
+            this.collectionObj.itemSizesIDs = uniqueSizeIDs;
+          })
+        }
+      })
+    }
+    else {
+      const singleItem = this.itemList.find(item => item.item_ID === itemid);
+      if (singleItem) {
+        var sizesIds = [];
+        singleItem.sizes.forEach((eachSize) => {
+          sizesIds.push(eachSize.id);
+        })
+        sizesIds.forEach((singleId) => {
+          this.collectionObj.itemSizesIDs = this.collectionObj.itemSizesIDs.filter(id => id !== singleId);
+        })
+      }
+    }
+
+  }
+
+
 }
