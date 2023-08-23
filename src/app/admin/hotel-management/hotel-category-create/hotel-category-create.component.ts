@@ -9,11 +9,11 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 @Component({
-  selector: 'app-colletion-category-create',
-  templateUrl: './colletion-category-create.component.html',
-  styleUrls: ['./colletion-category-create.component.css']
+  selector: 'app-hotel-category-create',
+  templateUrl: './hotel-category-create.component.html',
+  styleUrls: ['./hotel-category-create.component.css']
 })
-export class ColletionCategoryCreateComponent implements OnInit {
+export class HotelCategoryCreateComponent implements OnInit {
 
   categoryObj: any = {
     category: "",
@@ -32,7 +32,7 @@ export class ColletionCategoryCreateComponent implements OnInit {
     category_ID: ""
   }
 
-  nestedCollectionCategory: any = []
+  nestedCategory: any = []
   category_ID = "";
   isLoading = false;
 
@@ -70,7 +70,7 @@ export class ColletionCategoryCreateComponent implements OnInit {
   ngOnInit() {
     this.getCategoryId();
     this.categoryDetails();
-    this.nestedCollectionCategoryList();
+    this.nestedCategoryList();
   }
 
   public onChange({ editor }: ChangeEvent) {
@@ -89,11 +89,11 @@ export class ColletionCategoryCreateComponent implements OnInit {
     this.category_ID = this.route.snapshot.params['category_ID'] ? this.route.snapshot.params['category_ID'] : "";
   }
 
-  nestedCollectionCategoryList() {
-    this.adminService.nestedCategoryList().subscribe((response: { success: number, message: string, categories: [] }) => {
+  nestedCategoryList() {
+    this.adminService.nestedHotelCategoryList().subscribe((response: { success: number, message: string, categories: [] }) => {
       if (response.success == 1) {
-        this.nestedCollectionCategory = response.categories;
-        console.log(this.nestedCollectionCategory)
+        this.nestedCategory = response.categories;
+        console.log(this.nestedCategory)
       }
     })
   }
@@ -110,6 +110,8 @@ export class ColletionCategoryCreateComponent implements OnInit {
   }
 
   submitCategory() {
+    // console.log(this.categoryObj);
+    // return false
     if (this.isLoading == false) {
       this.isLoading = true;
 
@@ -130,13 +132,13 @@ export class ColletionCategoryCreateComponent implements OnInit {
       formData.append('category_ID', this.category_ID);
       formData.append('category_icon_file', this.categoryObj.category_icon_file);
       formData.append('category_banner_file', this.categoryObj.category_banner_file);
-      formData.append('type', 'collection');
+      formData.append('type', 'hotel');
 
       if (this.category_ID) {
         formData.append('category_ID', this.category_ID);
         this.adminService.updateCategory(formData).subscribe((response: { success: number, message: string }) => {
           if (response.success == 1) {
-            this.router.navigate(['admin/collections-category']);
+            this.router.navigate(['admin/hotel-category']);
           }
           this.isLoading = false;
 
@@ -145,7 +147,7 @@ export class ColletionCategoryCreateComponent implements OnInit {
         // console.log(formData)
         this.adminService.createCategory(formData).subscribe((response: { success: number, message: string, category: [] }) => {
           if (response.success == 1) {
-            this.router.navigate(['admin/collections-category']);
+            this.router.navigate(['admin/hotel-category']);
           }
           this.isLoading = false;
 
@@ -154,5 +156,6 @@ export class ColletionCategoryCreateComponent implements OnInit {
     }
 
   }
+
 
 }

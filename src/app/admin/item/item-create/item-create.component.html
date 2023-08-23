@@ -157,13 +157,58 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="status">status</label>
-                        <input type="number" class="form-control" name="status" [(ngModel)]="itemObj.status"
-                          #status="ngModel" [ngClass]="{ 'is-invalid': itemForm.submitted && status.invalid }"
-                          required />
+                        <label for="parent_category"
+                          >Hotel Category</label
+                        >
+                        <select
+                          class="form-control"
+                          name="parent_category"
+                          [(ngModel)]="itemObj.hotel_category"
+                          #parent_category="ngModel"
+                        >
+                          <option value="">Select Hotel Category</option>
+                          <ng-container *ngFor="let list of nestedCategory">
+                            <option [value]="list.category_ID" [disabled]="list.children.length > 0">
+                              {{ list.category }}
+                            </option>
+                            <!-- <option *ngFor="let child of list.children" [value]="child.category_ID">
+                                          &nbsp; -{{ child.category }}
+                                      </option> -->
+                            <ng-container *ngFor="let child of list.children">
+                              <option [value]="child.category_ID" [disabled]="child.children.length > 0">
+                                &nbsp;&nbsp; --{{ child.category }}
+                              </option>
+
+                              <ng-container *ngFor="let c of child.children">
+                                <option [value]="c.category_ID">
+                                  &nbsp;&nbsp;&nbsp;&nbsp; ---{{ c.category }}
+                                </option>
+
+                                <!-- <ng-container *ngFor="let c of c.children">
+                                            <option [value]="c.category_ID">
+                                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ----{{ c.category }}
+                                            </option>
+                                          </ng-container> -->
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+                        </select>
                       </div>
                     </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="status">Status*</label>
+                        <select class="form-control" name="status" id=""  [(ngModel)]="itemObj.status" #status="ngModel">
+                          <option value="">Select Status</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>    
 
                   <!-- Size Variation -->
 

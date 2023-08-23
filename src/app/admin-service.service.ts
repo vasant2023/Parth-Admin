@@ -321,6 +321,36 @@ export class AdminServiceService {
    return this.http.post(url, body, { headers: httpHeaders });
   }
 
+  nestedCollectionCategoryList(){
+    const url = environment.apiUrl + 'categories/list_nested';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', "collection");
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  nestedHotelCategoryList(){
+    const url = environment.apiUrl + 'categories/list_nested';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', "hotel");
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
   // Collection Function
 
   getCollection(){
@@ -391,7 +421,7 @@ export class AdminServiceService {
   // Collection Categories
 
   getCollectioncategories(){
-    const url = environment.apiUrl + 'categories/list';
+    const url = environment.apiUrl + 'categories/list_nested';
     const apiId = environment.apiId;
 
     let body = new HttpParams();
@@ -404,6 +434,7 @@ export class AdminServiceService {
    });
    return this.http.post(url, body, { headers: httpHeaders });
   }
+
 
   deleteCollectionCategory(category_ID){
     const url = environment.apiUrl + 'categories/remove';
@@ -643,6 +674,38 @@ export class AdminServiceService {
       "Content-Type": "application/x-www-form-urlencoded",
     });
     return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Hotel Categories
+
+  getHotelcategories(){
+    const url = environment.apiUrl + 'categories/list_nested';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', 'hotel');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteHotelCategory(category_ID){
+    const url = environment.apiUrl + 'categories/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('category_ID', category_ID);
+    body = body.append('type', 'hotel');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
   }
 
 }

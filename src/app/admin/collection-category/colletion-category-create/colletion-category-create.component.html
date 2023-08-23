@@ -32,16 +32,14 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="status">Status*</label>
-                          <input type="number" class="form-control" name="status" [(ngModel)]="categoryObj.status"
-                            #status="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && status.invalid }"
-                            required />
-                          <div *ngIf="createCategoryForm.submitted && status.invalid" class="invalid-feedback">
-                            <div *ngIf="status.errors.required"> Status is required
-                            </div>
-                          </div>
+                          <select class="form-control" name="status" id=""  [(ngModel)]="categoryObj.status" #status="ngModel">
+                            <option value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                          </select>
                         </div>
                       </div>
-                    </div>
+                    </div>                    
   
                     <div class="row">
                       <div class="col-md-12">
@@ -87,7 +85,7 @@
                       </div>
                     </div>
   
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-md-12">
                           <div class="form-group">
                               <label for="parent_category">Mark As Parent Category</label>
@@ -96,18 +94,60 @@
                                   #parent_category="ngModel">
                                   <option value="">Select Parent Category</option>
                                   <option value="{{list.category_ID}}" [innerHTML]="list.category"
-                                      *ngFor="let list of nestedCategory">{{list.category}}</option>
-                                  <!-- <option *ngFor="let list of categories" value="{{list.category_ID}}" [innerHTML]="list.category" [disabled]="list.is_disabled"></option> -->
+                                      *ngFor="let list of nestedCollectionCategory">{{list.category}}</option>
                               </select>
                           </div>
                       </div>
-                  </div>
+                    </div> -->
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="parent_category"
+                            >Mark As Parent Category</label
+                          >
+                          <select
+                            class="form-control"
+                            name="parent_category"
+                            [(ngModel)]="categoryObj.parent_category"
+                            #parent_category="ngModel"
+                          >
+                            <option value="">Select Parent Category</option>
+                            <ng-container *ngFor="let list of nestedCollectionCategory">
+                              <option [value]="list.category_ID">
+                                {{ list.category }}
+                              </option>
+                              <!-- <option *ngFor="let child of list.children" [value]="child.category_ID">
+                                            &nbsp; -{{ child.category }}
+                                        </option> -->
+                              <ng-container *ngFor="let child of list.children">
+                                <option [value]="child.category_ID">
+                                  &nbsp;&nbsp; --{{ child.category }}
+                                </option>
+  
+                                <!-- <ng-container *ngFor="let c of child.children">
+                                  <option [value]="c.category_ID">
+                                    &nbsp;&nbsp;&nbsp;&nbsp; ---{{ c.category }}
+                                  </option> -->
+  
+                                  <!-- <ng-container *ngFor="let c of c.children">
+                                              <option [value]="c.category_ID">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ----{{ c.category }}
+                                              </option>
+                                            </ng-container> -->
+                                <!-- </ng-container> -->
+                              </ng-container>
+                            </ng-container>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
   
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="sort_order">Sort Order</label>
-                          <input type="text" class="form-control" name="sort_order" [(ngModel)]="categoryObj.sort_order"
+                          <input type="number" class="form-control" name="sort_order" [(ngModel)]="categoryObj.sort_order"
                             #sort_order="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && sort_order.invalid }"
                             required />
                         </div>
@@ -119,9 +159,10 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="short_description">Short description</label>
-                          <input type="text" class="form-control" name="short_description" [(ngModel)]="categoryObj.short_description"
+                          <textarea type="text" class="form-control" name="short_description" [(ngModel)]="categoryObj.short_description"
                             #short_description="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && short_description.invalid }"
-                            required />
+                          >
+                          </textarea>
                         </div>
                       </div>
                     </div>

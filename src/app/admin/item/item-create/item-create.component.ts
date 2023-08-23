@@ -41,6 +41,7 @@ export class ItemCreateComponent implements OnInit {
     label_from: "",
     label_to: "",
     description: "",
+    hotel_category:"",
     short_description: "",
     laminate_IDs: [],
     hardware_IDs: [],
@@ -117,6 +118,7 @@ export class ItemCreateComponent implements OnInit {
     this.getAllHardware();
     this.getItemCategories();
     this.getLaminates();
+    this.nestedCategoryList();
   }
 
   public onChange({ editor }: ChangeEvent) {
@@ -126,6 +128,7 @@ export class ItemCreateComponent implements OnInit {
   hardwares_List: any = [];
   itemCategory: any = [];
   laminates_List:any = [];
+  nestedCategory:any = [];
 
 
   getItemCategories() {
@@ -167,6 +170,15 @@ export class ItemCreateComponent implements OnInit {
           }
         }
       );
+  }
+
+  nestedCategoryList() {
+    this.adminService.nestedHotelCategoryList().subscribe((response: { success: number, message: string, categories: [] }) => {
+      if (response.success == 1) {
+        this.nestedCategory = response.categories;
+        console.log(this.nestedCategory)
+      }
+    })
   }
 
   handleInputChangeBannerImage(event) {
@@ -246,7 +258,8 @@ export class ItemCreateComponent implements OnInit {
         formData.append("label_to", this.itemObj.label_to);
         formData.append("description", this.itemObj.description);
         formData.append("short_description", this.itemObj.short_description);
-  
+        formData.append("hotel_category", this.itemObj.hotel_category);
+        
         var sort_order = 1;
         var hardwares = [];
         var laminates = [];

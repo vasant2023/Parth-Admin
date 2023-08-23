@@ -27,18 +27,16 @@
                         </div>
                       </div>
                     </div>
-  
+
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="status">Status*</label>
-                          <input type="number" class="form-control" name="status" [(ngModel)]="categoryObj.status"
-                            #status="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && status.invalid }"
-                            required />
-                          <div *ngIf="createCategoryForm.submitted && status.invalid" class="invalid-feedback">
-                            <div *ngIf="status.errors.required"> Status is required
-                            </div>
-                          </div>
+                          <select class="form-control" name="status" id=""  [(ngModel)]="categoryObj.status" #status="ngModel">
+                            <option value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">Inactive</option>
+                          </select>
                         </div>
                       </div>
                     </div>

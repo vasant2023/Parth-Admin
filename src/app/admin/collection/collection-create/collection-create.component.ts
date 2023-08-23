@@ -72,6 +72,7 @@ export class CollectionCreateComponent implements OnInit {
     label_to: "",
     description: "",
     short_description: "",
+    hotel_category:"",
     item_IDs: [],
     itemSizesIDs: [],
     laminate_IDs: [],
@@ -114,6 +115,7 @@ export class CollectionCreateComponent implements OnInit {
   laminatesList: any = [];
   categoryList: any = [];
   hardwaresList: any = [];
+  nestedCategory:any=[]
 
   // Testing
 
@@ -128,9 +130,10 @@ export class CollectionCreateComponent implements OnInit {
     this.getCollectionID();
     this.collectionDetails();
     this.getAllItems();
-    this.getCategories();
+    this.getCollectionCategories();
     this.getAllLaminates();
     this.getAllHardwares();
+    this.nestedCategoryList();
   }
 
   filterItems() {
@@ -191,17 +194,28 @@ export class CollectionCreateComponent implements OnInit {
       : "";
   }
 
-  getCategories() {
+  getCollectionCategories() {
     this.adminService
       .getCollectioncategories()
       .subscribe(
         (response: { success: number; message: string; categories: [] }) => {
           if (response.success == 1) {
             this.categoryList = response.categories;
-            // console.log(this.categoryList);
+            console.log(this.categoryList);
           }
         }
       );
+  }
+
+  nestedCategoryList() {
+    this.adminService
+    .nestedHotelCategoryList()
+    .subscribe((response: { success: number, message: string, categories: [] }) => {
+      if (response.success == 1) {
+        this.nestedCategory = response.categories;
+        console.log(this.nestedCategory)
+      }
+    })
   }
 
   getAllItems() {
@@ -293,8 +307,6 @@ export class CollectionCreateComponent implements OnInit {
 
   saveCollection(form) {
     this.collectionObj.accordionList = this.accordionList;
-    // console.log(this.collectionObj);
-    // return false
     if (form.valid) {
       if (this.isLoading == false) {
         this.isLoading = true;
@@ -305,6 +317,7 @@ export class CollectionCreateComponent implements OnInit {
         formData.append("collection", this.collectionObj.collection);
         formData.append("title", this.collectionObj.title);
         formData.append("tags", this.collectionObj.tags);
+        formData.append("hotel_category", this.collectionObj.hotel_category);
         formData.append("price", this.collectionObj.price);
         formData.append("sale_price", this.collectionObj.sale_price);
         formData.append("label", this.collectionObj.label);

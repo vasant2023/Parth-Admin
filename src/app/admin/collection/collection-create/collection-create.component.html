@@ -87,10 +87,10 @@
                       </div>
 
                       <div class="row">
-                        <div class="col">
+                        <div class="col-md-12">
                           <div class="form-group">
                             <label for="collection_category"
-                              >Select Collection Category</label
+                              >Collection Category</label
                             >
                             <select
                               class="form-control"
@@ -98,16 +98,64 @@
                               [(ngModel)]="collectionObj.category_ID"
                               #collection_category="ngModel"
                             >
-                              <option value="">
-                                Select Collection Category
-                              </option>
-                              <option
-                                value="{{ list.category_ID }}"
-                                [innerHTML]="list.category"
-                                *ngFor="let list of categoryList"
-                              >
-                                {{ list.category }}
-                              </option>
+                              <option value="">Select Collection Category</option>
+                              <ng-container *ngFor="let list of categoryList">
+                                <option [value]="list.category_ID" [disabled]="list.children.length > 0">
+                                  {{ list.category }}
+                                </option>
+                                <ng-container *ngFor="let child of list.children">
+                                  <option [value]="child.category_ID" [disabled]="child.children.length > 0">
+                                    &nbsp;&nbsp; --{{ child.category }}
+                                  </option>
+    
+                                  <ng-container *ngFor="let c of child.children">
+                                    <option [value]="c.category_ID">
+                                      &nbsp;&nbsp;&nbsp;&nbsp; ---{{ c.category }}
+                                    </option>
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="collection_category"
+                              >Hotel Category</label
+                            >
+                            <select
+                              class="form-control"
+                              name="parent_category"
+                              [(ngModel)]="collectionObj.hotel_category"
+                              #parent_category="ngModel"
+                            >
+                              <option value="">Select Hotel Category</option>
+                              <ng-container *ngFor="let list of nestedCategory">
+                                <option [value]="list.category_ID" [disabled]="list.children.length > 0">
+                                  {{ list.category }}
+                                </option>
+                                <ng-container *ngFor="let child of list.children">
+                                  <option [value]="child.category_ID" [disabled]="child.children.length > 0">
+                                    &nbsp;&nbsp; --{{ child.category }}
+                                  </option>
+    
+                                  <ng-container *ngFor="let c of child.children">
+                                    <option [value]="c.category_ID">
+                                      &nbsp;&nbsp;&nbsp;&nbsp; ---{{ c.category }}
+                                    </option>
+    
+                                    <!-- <ng-container *ngFor="let c of c.children">
+                                                <option [value]="c.category_ID">
+                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ----{{ c.category }}
+                                                </option>
+                                              </ng-container> -->
+                                  </ng-container>
+                                </ng-container>
+                              </ng-container>
                             </select>
                           </div>
                         </div>

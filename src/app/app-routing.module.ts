@@ -25,6 +25,8 @@ import { ItemCategoryListComponent } from './admin/item-category/item-category-l
 import { ItemCategoryCreateComponent } from './admin/item-category/item-category-create/item-category-create.component';
 import { LeadsListComponent } from './admin/leads/leads-list/leads-list.component';
 import { LeadsAddComponent } from './admin/leads/leads-add/leads-add.component';
+import { HotelCategoryCreateComponent } from './admin/hotel-management/hotel-category-create/hotel-category-create.component';
+import { HotelCategoryListComponent } from './admin/hotel-management/hotel-category-list/hotel-category-list.component';
 
 
 const routes: Routes = [
@@ -142,6 +144,21 @@ const routes: Routes = [
         {
           path: "collections-category/create/:category_ID",
           component: ColletionCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "hotel-category",
+          component: HotelCategoryListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "hotel-category/create",
+          component: HotelCategoryCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "hotel-category/create/:category_ID",
+          component: HotelCategoryCreateComponent,
           data : {title : "Parth Hospitality"}
         },
         {
