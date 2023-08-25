@@ -104,7 +104,7 @@ export class HardwareCreateComponent implements OnInit {
         formData.append('price', this.hardwareObj.price);
         formData.append('description', this.hardwareObj.description);
         formData.append('hardware_ID', this.hardwareObj.hardware_ID);
-        formData.append('image', this.hardwareObj.image, this.hardwareObj.image.name);
+        formData.append('image', this.hardwareObj.image);
         this.adminService.updateHardware(formData).subscribe((response: { success: number, message: string }) => {
           if (response.success == 1) {
             this.router.navigate(['admin/hardwares']);

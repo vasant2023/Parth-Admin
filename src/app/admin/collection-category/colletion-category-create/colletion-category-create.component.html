@@ -63,13 +63,30 @@
                       </div>
                     </div>
   
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="tags">Tags</label>
                           <input type="text" class="form-control" name="tags" [(ngModel)]="categoryObj.tags"
                             #tags="ngModel" [ngClass]="{ 'is-invalid': createCategoryForm.submitted && tags.invalid }"
                             required />
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="meta_keywords">Tags</label>
+                          <tag-input
+                            name="tags"
+                            class="form-control tags_wrap"
+                            (onTextChange)="setKeywords()"
+                            [addOnBlur]="true"
+                            [(ngModel)]="categoryObj.tagList"
+                            #tags="ngModel"
+                          >
+                          </tag-input>
                         </div>
                       </div>
                     </div>
@@ -117,20 +134,20 @@
                               <option [value]="list.category_ID">
                                 {{ list.category }}
                               </option>
-                              <!-- <option *ngFor="let child of list.children" [value]="child.category_ID">
+                              <!-- <option *ngFor="let child of list.childrence" [value]="child.category_ID">
                                             &nbsp; -{{ child.category }}
                                         </option> -->
-                              <ng-container *ngFor="let child of list.children">
+                              <ng-container *ngFor="let child of list.childrence">
                                 <option [value]="child.category_ID">
                                   &nbsp;&nbsp; --{{ child.category }}
                                 </option>
   
-                                <!-- <ng-container *ngFor="let c of child.children">
+                                <!-- <ng-container *ngFor="let c of child.childrence">
                                   <option [value]="c.category_ID">
                                     &nbsp;&nbsp;&nbsp;&nbsp; ---{{ c.category }}
                                   </option> -->
   
-                                  <!-- <ng-container *ngFor="let c of c.children">
+                                  <!-- <ng-container *ngFor="let c of c.childrence">
                                               <option [value]="c.category_ID">
                                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ----{{ c.category }}
                                               </option>
@@ -204,7 +221,7 @@
                           <label for="category">Icon Image</label>
                           <div class="clearfix"></div>
                           <div class="default_imageiconcategory">
-                            <img [src]="categoryObj.icon" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                            <img [src]="categoryObj.icon ? categoryObj.icon : 'assets/images/default.png'" class="img categoryiconimg" default="assets/images/profile.jpg" />
                           </div>
                           <div class="clearfix"></div>
                           <label for="img-icon-upload" class="pointer">
@@ -222,7 +239,7 @@
                           <label for="category">Image</label>
                           <div class="clearfix"></div>
                           <div class="default_imageiconcategory">
-                            <img [src]="categoryObj.image" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                            <img [src]="categoryObj.image ? categoryObj.image : 'assets/images/default.png'" class="img categoryiconimg" default="assets/images/profile.jpg" />
                           </div>
                           <div class="clearfix"></div>
                           <label for="category_banner_file" class="pointer">

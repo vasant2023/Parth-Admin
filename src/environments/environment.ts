@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  // apiUrl: 'http://192.168.50.50/parth-hospitality/api/',
-  // front_apiUrl: 'http://192.168.50.50/parth-hospitality/api/',
+  apiUrl: 'http://192.168.50.50/parth-hospitality-api/api/',
+  front_apiUrl: 'http://192.168.50.50/parth-hospitality-api/api/',
 
-  apiUrl: 'http://localhost:8080/parth-hospitality/api/',
-  front_apiUrl: 'http://localhost:8080/parth-hospitality/api/',
+  // apiUrl: 'http://localhost:8080/parth-hospitality/api/',
+  // front_apiUrl: 'http://localhost:8080/parth-hospitality/api/',
 
   
 

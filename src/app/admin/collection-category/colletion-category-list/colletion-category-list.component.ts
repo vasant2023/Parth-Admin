@@ -29,7 +29,7 @@ export class ColletionCategoryListComponent implements OnInit {
   }
 
   nestedCategoryList(){
-    this.adminService.nestedCategoryList().subscribe((response : {success: number, message: string, categories:[]}) => {
+    this.adminService.nestedCollectionCategoryList().subscribe((response : {success: number, message: string, categories:[]}) => {
       if(response.success == 1){
         this.nestedCategory = response.categories;
       }

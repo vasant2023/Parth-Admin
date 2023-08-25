@@ -34,18 +34,19 @@ export class ItemCreateComponent implements OnInit {
   itemObj: any = {
     item: "",
     title: "",
-    tags: "",
+    tagList: [],
     price: "",
     sale_price: "",
     label: "",
     label_from: "",
     label_to: "",
     description: "",
-    hotel_category:"",
+    hotel_category: "",
     short_description: "",
+    categoryId: "",
     laminate_IDs: [],
     hardware_IDs: [],
-    category_IDs:[],
+    category_IDs: [],
     categories: "",
     warranty_detail: "",
     meta_description: "",
@@ -53,7 +54,7 @@ export class ItemCreateComponent implements OnInit {
     banner_image: (File = null),
     banner_image_mobile: (File = null),
     illustration_pdf: (File = null),
-    item_images: (File = null),
+    item_images: [],
     sort_order: "",
     status: "",
     mark_as: "",
@@ -63,7 +64,7 @@ export class ItemCreateComponent implements OnInit {
       height: "",
       width: "",
       dimension: "",
-      price:""
+      price: ""
     }
   };
 
@@ -71,7 +72,7 @@ export class ItemCreateComponent implements OnInit {
 
   itemForm: FormGroup;
 
-  sizeList: { width: string, height: string , dimension:string, price:string, name:string}[] = [{ width: '', height: '',dimension:'', price:'' , name:""}];
+  sizeList: { width: string, height: string, dimension: string, price: string, name: string }[] = [{ width: '', height: '', dimension: '', price: '', name: "" }];
 
 
   configEditor = {
@@ -108,7 +109,7 @@ export class ItemCreateComponent implements OnInit {
     private toastr: ToastrService,
     private http: HttpClient,
     private dragulaService: DragulaService
-  ) {}
+  ) { }
 
   isLoading = false;
 
@@ -127,8 +128,8 @@ export class ItemCreateComponent implements OnInit {
 
   hardwares_List: any = [];
   itemCategory: any = [];
-  laminates_List:any = [];
-  nestedCategory:any = [];
+  laminates_List: any = [];
+  nestedCategory: any = [];
 
 
   getItemCategories() {
@@ -138,7 +139,7 @@ export class ItemCreateComponent implements OnInit {
         (response: { success: number; message: string; categories: [] }) => {
           if (response.success == 1) {
             this.itemCategory = response.categories;
-            // console.log(this.itemCategory, "item category")
+            console.log(this.itemCategory, "item category")
           } else {
             this.toastr.error(response.message, "Error", {});
           }
@@ -146,7 +147,7 @@ export class ItemCreateComponent implements OnInit {
       );
   }
 
-  getLaminates(){
+  getLaminates() {
     this.adminService
       .getLaminates()
       .subscribe(
@@ -176,7 +177,7 @@ export class ItemCreateComponent implements OnInit {
     this.adminService.nestedHotelCategoryList().subscribe((response: { success: number, message: string, categories: [] }) => {
       if (response.success == 1) {
         this.nestedCategory = response.categories;
-        console.log(this.nestedCategory)
+        // console.log(this.nestedCategory)
       }
     })
   }
@@ -191,6 +192,13 @@ export class ItemCreateComponent implements OnInit {
 
   item_images(event) {
     this.itemObj.item_images = event.target.files[0];
+    this.itemObj.item_images = [];
+    var files = event.srcElement.files;
+    for (var key in files) {
+      if (typeof files[key].type != "undefined") {
+        this.itemObj.item_images.push(files[key]);
+      }
+    }
   }
 
   illustration_pdf(event) {
@@ -212,6 +220,19 @@ export class ItemCreateComponent implements OnInit {
           this.itemObj.hardware_IDs = [];
           this.itemObj.category_IDs = [];
           this.itemObj.laminate_IDs = [];
+          this.itemObj.tagList = [];
+          this.sizeList = [];
+
+          this.itemObj.sizes.forEach((singlSize) => {
+            this.sizeList.push(singlSize);
+          })
+
+          this.itemObj.tagList = []; 
+          if (this.itemObj.tags && this.itemObj.tags.length > 0) { 
+            this.itemObj.tags.forEach(word => { 
+              this.itemObj.tagList.push({ 'display': word, 'value': word }); 
+            }); 
+          }
 
           this.itemObj.hardwares.forEach((value) => {
             this.itemObj.hardware_IDs.push(parseInt(value.hardware_ID));
@@ -229,8 +250,8 @@ export class ItemCreateComponent implements OnInit {
       });
   }
 
-  adddSize(){
-    const newSize = { width: '', height: '', dimension: '', price:'', name:"" };
+  adddSize() {
+    const newSize = { width: '', height: '', dimension: '', price: '', name: "" };
     this.sizeList.push(newSize);
     this.itemObj.sizeList = this.sizeList;
   }
@@ -241,8 +262,7 @@ export class ItemCreateComponent implements OnInit {
 
   saveItem(form) {
     this.itemObj.sizeList = this.sizeList;
-    
-    if(form.valid){
+    if (form.valid) {
       if (this.isLoading == false) {
         this.isLoading = true;
         let formData = new FormData();
@@ -250,7 +270,6 @@ export class ItemCreateComponent implements OnInit {
         formData.append("from_app", "true");
         formData.append("item", this.itemObj.item);
         formData.append("title", this.itemObj.title);
-        formData.append("tags", this.itemObj.tags);
         formData.append("price", this.itemObj.price);
         formData.append("sale_price", this.itemObj.sale_price);
         formData.append("label", this.itemObj.label);
@@ -259,57 +278,71 @@ export class ItemCreateComponent implements OnInit {
         formData.append("description", this.itemObj.description);
         formData.append("short_description", this.itemObj.short_description);
         formData.append("hotel_category", this.itemObj.hotel_category);
-        
+
         var sort_order = 1;
         var hardwares = [];
         var laminates = [];
         var categories = [];
-  
+        var tags = [];
+
+        this.itemObj.tagList.forEach((singletag) => {
+          // console.log(singletag)
+          tags.push(singletag.value);
+          // console.log(tags)
+        })
+
         this.itemObj.hardware_IDs.forEach((single_ID) => {
           var Obj = {
             hardware_ID: single_ID,
             sort_order: sort_order,
           };
           hardwares.push(Obj);
-  
+
           sort_order++;
         });
-  
+
         this.itemObj.category_IDs.forEach((single_ID) => {
           var Obj = {
-            category_ID : single_ID,
+            category_ID: single_ID,
           }
           categories.push(Obj);
         })
-  
+
         this.itemObj.laminate_IDs.forEach((single_ID) => {
           var Obj = {
-            laminate_ID : single_ID,
-            sort_order : sort_order,
+            laminate_ID: single_ID,
+            sort_order: sort_order,
           };
-  
+
           laminates.push(Obj)
           sort_order++;
         })
-  
-  
+
+        formData.append("tags", JSON.stringify(tags));
         formData.append("hardwares", JSON.stringify(hardwares));
         formData.append("laminates", JSON.stringify(laminates));
-        formData.append("category",JSON.stringify(categories));
+        formData.append("category", JSON.stringify(categories));
         formData.append("warranty_detail", this.itemObj.warranty_detail);
         formData.append("meta_description", this.itemObj.meta_description);
         formData.append("meta_keywords", this.itemObj.meta_keywords);
         formData.append("banner_image", this.itemObj.banner_image);
         formData.append("banner_image_mobile", this.itemObj.banner_image_mobile);
         formData.append("illustration_pdf", this.itemObj.illustration_pdf);
-        formData.append("item_images", this.itemObj.item_images);
+        // formData.append("item_images", this.itemObj.item_images);
+
+        for (var index in this.itemObj.item_images) {
+          formData.append(
+            "item_images[" + index + "]",
+            this.itemObj.item_images[index]
+          );
+        }
         formData.append("image_alttext", this.itemObj.image_alttext);
         formData.append("sort_order", this.itemObj.sort_order);
         formData.append("tag_line", this.itemObj.tag_line);
         formData.append("status", this.itemObj.status);
         formData.append('sizes', JSON.stringify(this.itemObj.sizeList));
-  
-  
+
+
         if (this.item_ID) {
           formData.append("item_ID", this.item_ID);
           this.adminService
@@ -319,7 +352,7 @@ export class ItemCreateComponent implements OnInit {
                 this.router.navigate(["admin/items"]);
               }
               this.isLoading = false;
-  
+
             });
         } else {
           this.adminService
@@ -329,10 +362,19 @@ export class ItemCreateComponent implements OnInit {
                 this.router.navigate(["admin/items"]);
               }
               this.isLoading = false;
-  
+
             });
         }
       }
+    }
+  }
+
+  setKeywords() {
+    var keyword_string = [];
+    if (this.itemObj.tagList) {
+      this.itemObj.tagList.forEach(word => {
+        keyword_string.push(word.display);
+      });
     }
   }
 

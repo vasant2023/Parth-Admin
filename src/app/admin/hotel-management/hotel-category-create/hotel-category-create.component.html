@@ -106,18 +106,15 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="tags">Tags</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="tags"
-                          [(ngModel)]="categoryObj.tags"
-                          #tags="ngModel"
-                          [ngClass]="{
-                            'is-invalid':
-                              createCategoryForm.submitted && tags.invalid
-                          }"
-                          required
-                        />
+                        <tag-input
+                        name="tags"
+                        class="form-control tags_wrap"
+                        (onTextChange)="setKeywords()"
+                        [addOnBlur]="true"
+                        [(ngModel)]="categoryObj.tagList"
+                        #tags="ngModel"
+                      >
+                      </tag-input>
                       </div>
                     </div>
                   </div>
@@ -275,7 +272,7 @@
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
                           <img
-                            [src]="categoryObj.icon"
+                            [src]="categoryObj.icon ? categoryObj.icon : 'assets/images/default.png'"
                             class="img categoryiconimg"
                             default="assets/images/profile.jpg"
                           />
@@ -306,7 +303,7 @@
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
                           <img
-                            [src]="categoryObj.image"
+                            [src]="categoryObj.image ? categoryObj.image : 'assets/images/default.png'"
                             class="img categoryiconimg"
                             default="assets/images/profile.jpg"
                           />

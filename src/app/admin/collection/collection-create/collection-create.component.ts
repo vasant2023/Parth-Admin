@@ -201,7 +201,7 @@ export class CollectionCreateComponent implements OnInit {
         (response: { success: number; message: string; categories: [] }) => {
           if (response.success == 1) {
             this.categoryList = response.categories;
-            console.log(this.categoryList);
+            // console.log(this.categoryList);
           }
         }
       );
@@ -213,7 +213,7 @@ export class CollectionCreateComponent implements OnInit {
     .subscribe((response: { success: number, message: string, categories: [] }) => {
       if (response.success == 1) {
         this.nestedCategory = response.categories;
-        console.log(this.nestedCategory)
+        // console.log(this.nestedCategory)
       }
     })
   }
@@ -265,6 +265,7 @@ export class CollectionCreateComponent implements OnInit {
         (response: { success: number; message: string; collection: [] }) => {
           if (response.success == 1) {
             this.collectionObj = response.collection;
+            
             this.collectionObj.item_IDs = [];
             this.collectionObj.laminate_IDs = [];
             this.collectionObj.hardware_IDs = [];

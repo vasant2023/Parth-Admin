@@ -32,13 +32,11 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="status">Status*</label>
-                        <input type="number" class="form-control" name="status" [(ngModel)]="laminateObj.status"
-                          #status="ngModel" [ngClass]="{ 'is-invalid': createLaminateForm.submitted && status.invalid }"
-                          required />
-                        <div *ngIf="createLaminateForm.submitted && status.invalid" class="invalid-feedback">
-                          <div *ngIf="status.errors.required"> Status is required
-                          </div>
-                        </div>
+                        <select class="form-control" name="status" id=""  [(ngModel)]="laminateObj.status" #status="ngModel">
+                          <option value="">Select Status</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -168,8 +166,9 @@
                         <label for="category">Icon Image</label>
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
-                          <img [src]="laminateObj.image" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                          <img [src]="laminateObj.image ? laminateObj.image : 'assets/images/default.png'" class="img categoryiconimg" default="assets/images/profile.jpg" />
                         </div>
+                        
                         <div class="clearfix"></div>
                         <label for="img-icon-upload" class="pointer">
                           <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose

@@ -37,16 +37,11 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="status">Status*</label>
-                        <input type="number" class="form-control" name="status" [(ngModel)]="categoryObj.status"
-                          #status="ngModel" [ngClass]="{
-                            'is-invalid':
-                              createCategoryForm.submitted && status.invalid
-                          }" required />
-                        <div *ngIf="createCategoryForm.submitted && status.invalid" class="invalid-feedback">
-                          <div *ngIf="status.errors.required">
-                            Status is required
-                          </div>
-                        </div>
+                        <select class="form-control" name="status" id=""  [(ngModel)]="categoryObj.status" #status="ngModel">
+                          <option value="">Select Status</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -80,12 +75,16 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label for="tags">Tags</label>
-                        <input type="text" class="form-control" name="tags" [(ngModel)]="categoryObj.tags"
-                          #tags="ngModel" [ngClass]="{
-                            'is-invalid':
-                              createCategoryForm.submitted && tags.invalid
-                          }" required />
+                        <label for="meta_keywords">Tags</label>
+                        <tag-input
+                          name="tags"
+                          class="form-control tags_wrap"
+                          (onTextChange)="setKeywords()"
+                          [addOnBlur]="true"
+                          [(ngModel)]="categoryObj.tagList"
+                          #tags="ngModel"
+                        >
+                        </tag-input>
                       </div>
                     </div>
                   </div>
@@ -138,12 +137,13 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label for="short_description">Short description</label>
-                        <input type="text" class="form-control" name="short_description"
+                        <textarea type="text" class="form-control" name="short_description"
                           [(ngModel)]="categoryObj.short_description" #short_description="ngModel" [ngClass]="{
                             'is-invalid':
                               createCategoryForm.submitted &&
                               short_description.invalid
-                          }" required />
+                          }">
+                          </textarea>
                       </div>
                     </div>
                   </div>
@@ -188,7 +188,7 @@
                         <label for="category">Icon Image</label>
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
-                          <img [src]="categoryObj.icon" class="img categoryiconimg"
+                          <img [src]="categoryObj.icon ? categoryObj.icon : 'assets/images/default.png'" class="img categoryiconimg"
                             default="assets/images/profile.jpg" />
                         </div>
                         <div class="clearfix"></div>
@@ -206,7 +206,7 @@
                         <label for="category">Image</label>
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
-                          <img [src]="categoryObj.image" class="img categoryiconimg"
+                          <img [src]="categoryObj.image ? categoryObj.image : 'assets/images/default.png'" class="img categoryiconimg"
                             default="assets/images/profile.jpg" />
                         </div>
                         <div class="clearfix"></div>

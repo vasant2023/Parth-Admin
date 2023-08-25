@@ -1,45 +1,47 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-block">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="check">
             <div class="check">
-              <div class="check">
-                <div class="">
-                  <h4 class="card-title mrg-top-5">Collection Category &nbsp; &nbsp;</h4>
-                </div>
-                <div class="">
-                  <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Category" />
-                </div>
+              <div class="">
+                <h4 class="card-title mrg-top-5">Collection Category &nbsp; &nbsp;</h4>
               </div>
-              <div class="button">
-                  <div class="submit_comon_btn">
-                    <a routerLink="/admin/collections-category/create" class="btn submit_btn">ADD NEW</a>
-                  </div>
+              <div class="">
+                <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off"
+                  placeholder="Search Category" />
               </div>
             </div>
-            <div class="clearfix"></div>
-            <div class="table-overflow">
-              <table class="table table-hover">
-                <!-- <thead>
+            <div class="button">
+              <div class="submit_comon_btn">
+                <a routerLink="/admin/collections-category/create" class="btn submit_btn">ADD NEW</a>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="table-overflow">
+            <table class="table table-hover">
+              <!-- <thead>
                   <tr>
                     <th>Category</th>
                     <th></th>
                   </tr>
                 </thead> -->
-                <tbody *ngIf="category_list.length == 0 && isloading == false">
+              <tbody *ngIf="nestedCategory.length == 0 && isloading == false">
+                <tr>
+                  <td colspan="6">
+                    <div class="nodata">
+                      <p class="text-center font-size-22"><i class="ei-sad"></i></p>
+                      <p class="text-center">No Category found!</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+
+              <tbody *ngIf="nestedCategory.length > 0">
+                <ng-container *ngFor="let category of nestedCategory">
                   <tr>
-                    <td colspan="6">
-                      <div class="nodata">
-                        <p class="text-center font-size-22"><i class="ei-sad"></i></p>
-                        <p class="text-center">No Category found!</p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-                <tbody *ngIf="category_list.length > 0">
-                  <tr *ngFor="let category of category_list | filter:searchText" [class]="{'inactive' : category.status == 0}">
-  
                     <td class="categoryImageWrapper">
                       <img src="{{category.icon}}" class="img" style="height:50px" />
                     </td>
@@ -49,17 +51,13 @@
                     <td>
                       <span innerHTML="{{category.description}}"></span>
                     </td>
-                    <td>
-                      <span>{{category.color}}</span>
-                    </td>
-  
                     <td class="submit_comon_btn manage_list text-right">
                       <a routerLink="/admin/collections-category/create/{{category.category_ID}}">
                         <span class="mrg-right-5 submit_btn btn-sm btn list_icons">
                           <span class="material-symbols-outlined">edit</span>
                         </span>
                       </a> &nbsp;
-  
+
                       <a href="JavaScript:void(0);" data-toggle="tooltip" data-placement="top" title=""
                         data-original-title="Delete" (click)="deleteCategory(category.category_ID);">
                         <span class="submit_btn_danger btn-sm btn list_icons">
@@ -68,20 +66,127 @@
                       </a>
                     </td>
                   </tr>
-                  <tr *ngIf="category_list.length == 0">
-                    <td colspan="6">
-                      <div class="nodata">
-                        <p class="text-center font-size-22"><i class="ei-sad"></i></p>
-                        <p class="text-center">No categorys found!</p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                  <ng-container *ngFor="let child of category.children">
+                    <tr>
+                      <td class="categoryImageWrapper" style="display: flex; align-items: center;">
+                        <div>
+                          <span style="margin-left: 2rem;">--</span>
+                        </div>
+                        <div>
+                          <img src="{{child.icon}}" class="img" style="height:50px; display: inline-block;" />
+                        </div>
+                      </td>
+                      <td>
+                        <span>{{child.category}}</span>
+                      </td>
+                      <td>
+                        <span innerHTML="{{child.description}}"></span>
+                      </td>
+                      <td class="submit_comon_btn manage_list text-right">
+                        <a routerLink="/admin/collections-category/create/{{child.category_ID}}">
+                          <span class="mrg-right-5 submit_btn btn-sm btn list_icons">
+                            <span class="material-symbols-outlined">edit</span>
+                          </span>
+                        </a> &nbsp;
+
+                        <a href="JavaScript:void(0);" data-toggle="tooltip" data-placement="top" title=""
+                          data-original-title="Delete" (click)="deleteCategory(child.category_ID);">
+                          <span class="submit_btn_danger btn-sm btn list_icons">
+                            <span class="material-symbols-outlined">delete</span>
+                          </span>
+                        </a>
+                      </td>
+                    </tr>
+                    <ng-container *ngFor="let c of child.children">
+                      <tr>
+                        <td class="categoryImageWrapper" style="display: flex; align-items: center;">
+                          <div>
+                            <span style="margin-left: 4rem;">--</span>
+                          </div>
+                          <div>
+                            <img src="{{c.icon}}" class="img" style="height:50px; display: inline-block;" />
+                          </div>
+                        </td>
+                        <td>
+                          <span>{{c.category}}</span>
+                        </td>
+                        <td>
+                          <span innerHTML="{{c.description}}"></span>
+                        </td>
+                        <td class="submit_comon_btn manage_list text-right">
+                          <a routerLink="/admin/collections-category/create/{{c.category_ID}}">
+                            <span class="mrg-right-5 submit_btn btn-sm btn list_icons">
+                              <span class="material-symbols-outlined">edit</span>
+                            </span>
+                          </a> &nbsp;
+
+                          <a href="JavaScript:void(0);" data-toggle="tooltip" data-placement="top" title=""
+                            data-original-title="Delete" (click)="deleteCategory(c.category_ID);">
+                            <span class="submit_btn_danger btn-sm btn list_icons">
+                              <span class="material-symbols-outlined">delete</span>
+                            </span>
+                          </a>
+                        </td>
+                      </tr>
+
+                      <ng-container *ngFor="let lastChild of c.children">
+                        <tr>
+                          <td class="categoryImageWrapper" style="display: flex; align-items: center;">
+                            <div>
+                              <span style="margin-left: 6rem;">--</span>
+                            </div>
+                            <div>
+                              <img src="{{lastChild.icon}}" class="img" style="height:50px; display: inline-block;" />
+                            </div>
+                          </td>
+                          <td>
+                            <span>{{lastChild.category}}</span>
+                          </td>
+                          <td>
+                            <span innerHTML="{{lastChild.description}}"></span>
+                          </td>
+                          <td class="submit_comon_btn manage_list text-right">
+                            <a routerLink="/admin/collections-category/create/{{lastChild.category_ID}}">
+                              <span class="mrg-right-5 submit_btn btn-sm btn list_icons">
+                                <span class="material-symbols-outlined">edit</span>
+                              </span>
+                            </a> &nbsp;
+
+                            <a href="JavaScript:void(0);" data-toggle="tooltip" data-placement="top" title=""
+                              data-original-title="Delete" (click)="deleteCategory(lastChild.category_ID);">
+                              <span class="submit_btn_danger btn-sm btn list_icons">
+                                <span class="material-symbols-outlined">delete</span>
+                              </span>
+                            </a>
+                          </td>
+                        </tr>
+                      </ng-container>
+
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+
+                <tr *ngIf="nestedCategory.length == 0">
+                  <td colspan="6">
+                    <div class="nodata">
+                      <p class="text-center font-size-22"><i class="ei-sad"></i></p>
+                      <p class="text-center">No categorys found!</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tr *ngIf="nestedCategory.length == 0">
+                <td colspan="6">
+                  <div class="nodata">
+                    <p class="text-center font-size-22"><i class="ei-sad"></i></p>
+                    <p class="text-center">No categorys found!</p>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

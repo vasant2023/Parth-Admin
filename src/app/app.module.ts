@@ -49,6 +49,7 @@ import { LeadsAddComponent } from './admin/leads/leads-add/leads-add.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HotelCategoryListComponent } from './admin/hotel-management/hotel-category-list/hotel-category-list.component';
 import { HotelCategoryCreateComponent } from './admin/hotel-management/hotel-category-create/hotel-category-create.component';
+import { TagsInputModule } from 'ngx-tags-input/dist';
 
 
 
@@ -104,6 +105,7 @@ import { HotelCategoryCreateComponent } from './admin/hotel-management/hotel-cat
     ChecklistModule,
     Ng4LoadingSpinnerModule,
     DragulaModule.forRoot(),
+    TagsInputModule.forRoot(),
     CKEditorModule,
     CKEditorModule2,
     ColorPickerModule,

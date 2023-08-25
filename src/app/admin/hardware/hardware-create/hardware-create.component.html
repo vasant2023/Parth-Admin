@@ -137,7 +137,7 @@
                         <label for="category">Icon Image</label>
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
-                          <img [src]="hardwareObj.image" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                          <img [src]="hardwareObj.image ? hardwareObj.image : 'assets/images/default.png'" class="img categoryiconimg" default="assets/images/profile.jpg" />
                         </div>
                         <div class="clearfix"></div>
                         <label for="img-icon-upload" class="pointer">

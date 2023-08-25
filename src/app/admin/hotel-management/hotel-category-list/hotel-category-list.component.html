@@ -34,7 +34,7 @@
                 <tbody *ngIf="category_list.length > 0">
                   <ng-container *ngFor="let category of category_list">
                     <tr>
-                      <td class="categoryImageWrapper">
+                      <td class="categoryImageWrapper" *ngIf="category.icon">
                         <img src="{{category.icon}}" class="img" style="height:50px" />
                       </td>
                       <td>
@@ -93,7 +93,7 @@
                         <tr>
                           <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                             <div>
-                              <span style="margin-left: 2rem;">--</span>
+                              <span style="margin-left: 4rem;">--</span>
                             </div>
                             <div>
                               <img src="{{c.icon}}" class="img" style="height:50px; display: inline-block;"/>
@@ -125,7 +125,7 @@
                           <tr>
                             <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                               <div>
-                                <span style="margin-left: 2rem;">--</span>
+                                <span style="margin-left: 6rem;">--</span>
                               </div>
                               <div>
                                 <img src="{{lastChild.icon}}" class="img" style="height:50px; display: inline-block;"/>

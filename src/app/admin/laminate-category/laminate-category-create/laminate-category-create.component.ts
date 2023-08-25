@@ -30,7 +30,7 @@ export class LaminateCategoryCreateComponent implements OnInit {
     sub_title: "",
     short_description: "",
     description: "",
-    tags: "",
+    tagList: [],
     meta_description: "",
     meta_keywords: "",
     parent_category: "",
@@ -79,7 +79,7 @@ export class LaminateCategoryCreateComponent implements OnInit {
     private route: ActivatedRoute,
     private http: HttpClient,
     public adminService: AdminServiceService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getCategoryId();
@@ -125,9 +125,15 @@ export class LaminateCategoryCreateComponent implements OnInit {
         (response: { success: number; message: string; category: any }) => {
           if (response.success == 1) {
             this.categoryObj = response.category;
-            this.categoryObj.parent_category = parseInt(
+            this.categoryObj.parent_category =
               response.category.parent_category
-            );
+            this.categoryObj.tagList = [];
+
+            if (this.categoryObj.tags && this.categoryObj.tags.length > 0) {
+              this.categoryObj.tags.forEach(word => {
+                this.categoryObj.tagList.push({ 'display': word, 'value': word });
+              });
+            }
           } else {
             // alert(response.message);
           }
@@ -147,7 +153,13 @@ export class LaminateCategoryCreateComponent implements OnInit {
       formData.append("short_description", this.categoryObj.short_description);
       formData.append("description", this.categoryObj.description);
       formData.append("meta_description", this.categoryObj.meta_description);
-      formData.append("tags", this.categoryObj.tags);
+      var tags = [];
+      this.categoryObj.tagList.forEach((singletag) => {
+        // console.log(singletag)
+        tags.push(singletag.value);
+        // console.log(tags)
+      })
+      formData.append('tags', JSON.stringify(tags));
       formData.append("meta_keywords", this.categoryObj.meta_keywords);
       formData.append("parent_category", this.categoryObj.parent_category);
       formData.append("sort_order", this.categoryObj.sort_order);
@@ -189,5 +201,15 @@ export class LaminateCategoryCreateComponent implements OnInit {
           );
       }
     }
+  }
+
+  setKeywords() {
+    var keyword_string = [];
+    if (this.categoryObj.tagList) {
+      this.categoryObj.tagList.forEach(word => {
+        keyword_string.push(word.display);
+      });
+    }
+    console.log(keyword_string);
   }
 }
