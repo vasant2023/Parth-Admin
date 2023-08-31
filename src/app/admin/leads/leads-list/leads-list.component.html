@@ -159,8 +159,7 @@
             <div>
               <p>Contact No: {{ detailObj.phone }}</p>
             </div>
-          </div>
-          
+          </div>          
           <div class="flex align-center">
             <div>
               <span class="material-symbols-outlined"> apartment </span>
@@ -187,7 +186,6 @@
               <p> Rooms : {{ detailObj.rooms }}</p>
             </div>
           </div>
-
           <div class="flex align-center">
             <div>
               <span class="material-symbols-outlined"> chat_bubble </span>
@@ -197,67 +195,102 @@
             </div>
           </div>
 
-          <div class="flex align-center">
-            <div>
-              <span class="material-symbols-outlined"> public </span>
+          <div class="readmore" *ngIf="readMore">
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> public </span>
+              </div>
+              <div>
+                <p>Country : {{ detailObj.country }}</p>
+              </div>
             </div>
-            <div>
-              <p>Country : {{ detailObj.country }}</p>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> flag </span>
+              </div>
+              <div>
+                <p> State : {{ detailObj.state }}</p>
+              </div>
             </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> near_me </span>
+              </div>
+              <div>
+                <p>City : {{ detailObj.city ? detailObj.city : "no record found" }}</p>
+              </div>
+            </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> numbers </span>
+              </div>
+              <div>
+                <p> Zip Code : {{ detailObj.zip_code }}</p>
+              </div>
+            </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> schedule </span>
+              </div>
+              <div>
+                <p>Time : {{ detailObj.timestemp }}</p>
+              </div>
+            </div>
+            <div class="flex align-center">
+              <div>
+                <span class="material-symbols-outlined"> calendar_month </span>
+              </div>
+              <div>
+                <p>FOllow Up Date : {{ detailObj.next_followup_date }}</p>
+              </div>
+            </div>
+            <div class="flex">
+              <div>
+                <span class="material-symbols-outlined"> reviews </span>
+              </div>
+              <div>
+                <p>Follow Up Comment : {{ detailObj.followup_comments }}</p>
+              </div>
+            </div>
+
+            <div class="listing-view" *ngIf="detailObj.items.length">
+              <h2>Products</h2>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let item of detailObj.items">
+                  <span class="list-span-name">{{ (item.name)?item.name:item.item }}</span>
+                  <span>{{ item.dimension }}" X {{ item.height }}" X {{ item.width }}" &nbsp;&nbsp;&nbsp; ${{ item.price }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="listing-view" *ngIf="detailObj.laminates.length">
+              <h2>Finishes</h2>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let laminate of detailObj.laminates">
+                  <span class="list-span-name">{{ laminate.laminate }}</span>
+                  <span>{{ laminate.size }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="listing-view" *ngIf="detailObj.floorings.length">
+              <h2>Floorings</h2>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let flooring of detailObj.floorings">{{ flooring.item }}</li>
+              </ul>
+            </div>
+
+            <div class="listing-view" *ngIf="detailObj.addons.length">
+              <h2>Addons</h2>
+              <ul class="list-group">
+                <li class="list-group-item" *ngFor="let addon of detailObj.addons">{{ addon.item }}</li>
+              </ul>
+            </div>
+
           </div>
 
-          <div class="flex align-center">
-            <div>
-              <span class="material-symbols-outlined"> flag </span>
-            </div>
-            <div>
-              <p> State : {{ detailObj.state }}</p>
-            </div>
-          </div>
-
-          <div class="flex align-center">
-            <div>
-              <span class="material-symbols-outlined"> near_me </span>
-            </div>
-            <div>
-              <p>City : {{ detailObj.city ? detailObj.city : "no record found" }}</p>
-            </div>
-          </div>
-
-          <div class="flex align-center">
-            <div>
-              <span class="material-symbols-outlined"> numbers </span>
-            </div>
-            <div>
-              <p> Zip Code : {{ detailObj.zip_code }}</p>
-            </div>
-          </div>
-
-          <div class="flex align-center">
-            <div>
-              <span class="material-symbols-outlined"> schedule </span>
-            </div>
-            <div>
-              <p>Time : {{ detailObj.timestemp }}</p>
-            </div>
-          </div>
-
-          <div class="flex align-center">
-            <div>
-              <span class="material-symbols-outlined"> calendar_month </span>
-            </div>
-            <div>
-              <p>FOllow Up Date : {{ detailObj.next_followup_date }}</p>
-            </div>
-          </div>
-
-          <div class="flex">
-            <div>
-              <span class="material-symbols-outlined"> reviews </span>
-            </div>
-            <div>
-              <p>Follow Up Comment : {{ detailObj.followup_comments }}</p>
-            </div>
+          <div class="readmorelink" style="padding-bottom: 10px;">
+            <a href="javascript:;" (click)="readMoreDetails()">{{ (readMore)?'Read Less':'Read More' }}</a>
           </div>
           <hr>
 

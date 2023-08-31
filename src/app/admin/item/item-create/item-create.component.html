@@ -726,24 +726,30 @@
           <div class="col">
             <div class="card">
               <div class="card-heading border bottom">
-                <h4 class="card-title">Select For Add On</h4>
+                <h4 class="card-title">Item Add On</h4>
               </div>
               <div class="card-block">
                 <div class="row">
                   <div class="col">
                     <div class="form-group">
-                      <label for="addon">
-                        <input
-                          type="checkbox"
-                          name="addon"
-                          id="addon"
-                          [checked]="itemObj.addon == 1"
-                          class="rounded-checkbox"
-                          (change)="handleAddon()"
-                        />
-                        <span class="commonSpan">Select this Item as an Add On</span>
-                      </label>
-                      
+                      <select
+                        class="form-control"
+                        name="item_addon"
+                        [(ngModel)]="itemObj.addon"
+                        #item_addon="ngModel"
+                      >
+                        <option value="0">Select Item Addon</option>
+                        <ng-container *ngFor="let list of itemAddon">
+                          {{ list.category }}
+
+                          <option
+                            [value]="list.category_ID"
+                            [disabled]="list.children.length > 0"
+                          >
+                            {{ list.category }}
+                          </option>
+                        </ng-container>
+                      </select>
                     </div>
                   </div>
                 </div>

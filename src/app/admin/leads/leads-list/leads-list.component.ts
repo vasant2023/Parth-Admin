@@ -20,6 +20,7 @@ export class LeadsListComponent implements OnInit {
   isloading = false;
   leadFlag = false;
   statusId = "";
+  readMore = false;
 
   leadsObj:any = {
     status_id: "",
@@ -61,8 +62,11 @@ export class LeadsListComponent implements OnInit {
     this.getStatus();
   }
 
-  // Date range 
+  readMoreDetails(){
+    this.readMore = !this.readMore;
+  }
 
+  // Date range 
   rangeClicked(range) {
     if (range.startDate) {
       this.leadsObj.fromDate = range.startDate.format("YYYY-MM-DD");

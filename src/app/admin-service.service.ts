@@ -562,6 +562,37 @@ export class AdminServiceService {
    return this.http.post(url, body, { headers: httpHeaders });
   }
 
+  //Addons
+  getItemaddons(){
+    const url = environment.apiUrl + 'categories/list_nested';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('flag', "all");
+    body = body.append('type', 'addon');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteItemAddon(category_ID){
+    const url = environment.apiUrl + 'categories/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('category_ID', category_ID);
+    body = body.append('type', 'addon');
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
   // Leads
 
   createLead(data){

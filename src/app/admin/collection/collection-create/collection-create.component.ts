@@ -75,6 +75,7 @@ export class CollectionCreateComponent implements OnInit {
     hotel_category:"",
     item_IDs: [],
     itemSizesIDs: [],
+    addon_IDs: [],
     laminate_IDs: [],
     hardware_IDs: [],
     warranty_detail: "",
@@ -113,6 +114,7 @@ export class CollectionCreateComponent implements OnInit {
   isLoading = false;
   itemList: any = [];
   laminatesList: any = [];
+  addonsList: any = [];
   categoryList: any = [];
   hardwaresList: any = [];
   nestedCategory:any=[]
@@ -121,9 +123,11 @@ export class CollectionCreateComponent implements OnInit {
 
   filteredItemList: any[] = [];
   filteredLaminateList: any[] = [];
+  filteredAddonList: any[] = [];
   filteredHardwareList: any[] = [];
   searchItem: string;
   searchLaminates: string;
+  searchAddons: string;
   searchHardwares: string;
 
   ngOnInit() {
@@ -132,6 +136,7 @@ export class CollectionCreateComponent implements OnInit {
     this.getAllItems();
     this.getCollectionCategories();
     this.getAllLaminates();
+    this.getAllAddons();
     this.getAllHardwares();
     this.nestedCategoryList();
   }
@@ -151,6 +156,14 @@ export class CollectionCreateComponent implements OnInit {
       this.filteredLaminateList = this.laminatesList.filter(laminate => laminate.laminate.toLowerCase().includes(this.searchLaminates.toLocaleLowerCase()))
     } else {
       this.filteredLaminateList = this.laminatesList
+    }
+  }
+
+  filterAddons() {
+    if (this.searchAddons) {
+      this.filteredAddonList = this.addonsList.filter(addon => addon.category.toLowerCase().includes(this.searchAddons.toLocaleLowerCase()))
+    } else {
+      this.filteredAddonList = this.addonsList
     }
   }
 
@@ -245,6 +258,17 @@ export class CollectionCreateComponent implements OnInit {
       );
   }
 
+  getAllAddons() {
+    this.adminService.getItemaddons().subscribe((response : {success : number, message: string, categories:[]}) => {
+      if(response.success == 1){
+        this.addonsList = response.categories;
+        this.filteredAddonList = this.addonsList
+      } else {
+        alert(response.message)
+      }
+    })
+  }
+
   getAllHardwares() {
     this.adminService
       .getHardwares()
@@ -269,6 +293,7 @@ export class CollectionCreateComponent implements OnInit {
             this.collectionObj.item_IDs = [];
             this.collectionObj.laminate_IDs = [];
             this.collectionObj.hardware_IDs = [];
+            this.collectionObj.addon_IDs = [];
             this.collectionObj.itemSizesIDs = [];
 
             this.collectionObj.laminates.forEach((value) => {
@@ -277,6 +302,10 @@ export class CollectionCreateComponent implements OnInit {
 
             this.collectionObj.hardwares.forEach((value) => {
               this.collectionObj.hardware_IDs.push(parseInt(value.hardware_ID));
+            });
+
+            this.collectionObj.addons.forEach((value) => {
+              this.collectionObj.addon_IDs.push(parseInt(value.item_ID));
             });
 
             this.collectionObj.items.forEach((singleItem) => {
@@ -333,6 +362,7 @@ export class CollectionCreateComponent implements OnInit {
         var sort_order = 1;
         var items = [];
         var laminates = [];
+        var addons = [];
         var hardwares = [];
         var itemSizeId = [];
 
@@ -363,6 +393,15 @@ export class CollectionCreateComponent implements OnInit {
           sort_order++;
         });
 
+        this.collectionObj.addon_IDs.forEach((single_ID) => {
+          var Obj = {
+            item_ID: single_ID,
+            sort_order: sort_order,
+          };
+          addons.push(Obj);
+          sort_order++;
+        });
+
         this.collectionObj.hardware_IDs.forEach((single_ID) => {
           var Obj = {
             hardware_ID: single_ID,
@@ -375,6 +414,7 @@ export class CollectionCreateComponent implements OnInit {
         formData.append("items", JSON.stringify(itemSizeId));
         formData.append("laminates", JSON.stringify(laminates));
         formData.append("hardwares", JSON.stringify(hardwares));
+        formData.append("addons", JSON.stringify(addons));
         // formData.append("item_sizes", JSON.stringify(itemSizeId));
         formData.append("warranty_detail", this.collectionObj.warranty_detail);
         formData.append(

@@ -27,6 +27,8 @@ import { LeadsListComponent } from './admin/leads/leads-list/leads-list.componen
 import { LeadsAddComponent } from './admin/leads/leads-add/leads-add.component';
 import { HotelCategoryCreateComponent } from './admin/hotel-management/hotel-category-create/hotel-category-create.component';
 import { HotelCategoryListComponent } from './admin/hotel-management/hotel-category-list/hotel-category-list.component';
+import { AddonListComponent } from './admin/addon/addon-list/addon-list.component';
+import { AddonCreateComponent } from './admin/addon/addon-create/addon-create.component';
 
 
 const routes: Routes = [
@@ -207,6 +209,21 @@ const routes: Routes = [
           data : {title : "Parth Hospitality"}
         },
         {
+          path: "item-addon",
+          component: AddonListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "item-addon/create",
+          component: AddonCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "item-addon/create/:category_ID",
+          component: AddonCreateComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
           path: "leads",
           component: LeadsListComponent,
           data : {title : "Parth Hospitality"}
@@ -215,8 +232,7 @@ const routes: Routes = [
           path: "leads/add",
           component: LeadsAddComponent,
           data : {title : "Parth Hospitality"}
-        },
-
+        }
       ],
       data: { title: 'Parth Admin' },
   },

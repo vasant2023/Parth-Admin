@@ -121,6 +121,7 @@ export class ItemCreateComponent implements OnInit {
     this.getItemCategories();
     this.getLaminates();
     this.nestedCategoryList();
+    this.getItemAddon();
   }
 
   public onChange({ editor }: ChangeEvent) {
@@ -129,6 +130,7 @@ export class ItemCreateComponent implements OnInit {
 
   hardwares_List: any = [];
   itemCategory: any = [];
+  itemAddon: any = [];
   laminates_List: any = [];
   nestedCategory: any = [];
 
@@ -141,6 +143,20 @@ export class ItemCreateComponent implements OnInit {
           if (response.success == 1) {
             this.itemCategory = response.categories;
             console.log(this.itemCategory, "item category")
+          } else {
+            this.toastr.error(response.message, "Error", {});
+          }
+        }
+      );
+  }
+
+  getItemAddon() {
+    this.adminService
+      .getItemaddons()
+      .subscribe(
+        (response: { success: number; message: string; categories: [] }) => {
+          if (response.success == 1) {
+            this.itemAddon = response.categories;
           } else {
             this.toastr.error(response.message, "Error", {});
           }
