@@ -10,7 +10,7 @@
               </div>
               <div class="">
                 <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off"
-                  placeholder="Search Hardwares" />
+                  placeholder="Search Products" />
               </div>
               <div class="category-input">
                 <select name="item_category" [(ngModel)]="selectedCategoryID" (change)="onCategoryChange()">
@@ -52,7 +52,7 @@
                 </tr>
               </tbody>
               <tbody *ngIf="item_list.length > 0">
-                <tr *ngFor="let item of item_list | filter : searchText" [class]="{ inactive: item.status == 0 }">
+                <tr *ngFor="let item of item_list | filter : searchText | paginate: { itemsPerPage: 10, currentPage: p }" [class]="{ inactive: item.status == 0 }" >
                   <td>
                     <label for="item_{{ item.item_ID }}">
                       <input type="checkbox" class="rounded-checkbox" [(checklist)]="marked_IDs"
@@ -102,6 +102,7 @@
             </table>
           </div>
         </div>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </div>
     </div>
   </div>

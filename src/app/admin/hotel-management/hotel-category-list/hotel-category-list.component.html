@@ -32,7 +32,7 @@
                   </tr>
                 </tbody>
                 <tbody *ngIf="category_list.length > 0">
-                  <ng-container *ngFor="let category of category_list">
+                  <ng-container *ngFor="let category of category_list | filter : searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                     <tr>
                       <td class="categoryImageWrapper" *ngIf="category.icon">
                         <img src="{{category.icon}}" class="img" style="height:50px" />
@@ -58,7 +58,7 @@
                         </a>
                       </td>
                     </tr>
-                    <ng-container *ngFor="let child of category.children">
+                    <ng-container *ngFor="let child of category.children | filter : searchText">
                       <tr>
                         <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                           <div>
@@ -89,7 +89,7 @@
                           </a>
                         </td>
                       </tr>
-                      <ng-container *ngFor="let c of child.children">
+                      <ng-container *ngFor="let c of child.children | filter : searchText">
                         <tr>
                           <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                             <div>
@@ -121,7 +121,7 @@
                           </td>
                         </tr>
 
-                        <ng-container *ngFor="let lastChild of c.children">
+                        <ng-container *ngFor="let lastChild of c.children | filter : searchText">
                           <tr>
                             <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                               <div>
@@ -169,6 +169,9 @@
                 </tbody>
               </table>
             </div>
+          </div>
+          <div *ngIf="category_list.length >= 10">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>

@@ -40,7 +40,7 @@
               </tbody>
 
               <tbody *ngIf="nestedCategory.length > 0">
-                <ng-container *ngFor="let category of nestedCategory">
+                <ng-container *ngFor="let category of nestedCategory | filter : searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                   <tr>
                     <td class="categoryImageWrapper">
                       <img src="{{category.icon}}" class="img" style="height:50px" />
@@ -66,7 +66,7 @@
                       </a>
                     </td>
                   </tr>
-                  <ng-container *ngFor="let child of category.children">
+                  <ng-container *ngFor="let child of category.children | filter : searchText">
                     <tr>
                       <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                         <div>
@@ -97,7 +97,7 @@
                         </a>
                       </td>
                     </tr>
-                    <ng-container *ngFor="let c of child.children">
+                    <ng-container *ngFor="let c of child.children | filter : searchText">
                       <tr>
                         <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                           <div>
@@ -129,7 +129,7 @@
                         </td>
                       </tr>
 
-                      <ng-container *ngFor="let lastChild of c.children">
+                      <ng-container *ngFor="let lastChild of c.children | filter : searchText">
                         <tr>
                           <td class="categoryImageWrapper" style="display: flex; align-items: center;">
                             <div>
@@ -185,6 +185,9 @@
               </tr>
             </table>
           </div>
+        </div>
+        <div *ngIf="nestedCategory.length >= 10">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
     </div>

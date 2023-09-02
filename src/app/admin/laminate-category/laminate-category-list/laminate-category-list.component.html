@@ -38,7 +38,7 @@
                   </tr>
                 </tbody>
                 <tbody *ngIf="category_list.length > 0">
-                  <tr *ngFor="let category of category_list | filter:searchText" [class]="{'inactive' : category.status == 0}">
+                  <tr *ngFor="let category of category_list | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }" [class]="{'inactive' : category.status == 0}">
   
                     <td class="categoryImageWrapper">
                       <img src="{{category.icon}}" class="img" style="height:50px" />
@@ -79,6 +79,9 @@
                 </tbody>
               </table>
             </div>
+          </div>
+          <div *ngIf="category_list.length >= 10">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>

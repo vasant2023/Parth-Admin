@@ -4,17 +4,17 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.50.50/parth-hospitality-api/api/',
-  front_apiUrl: 'http://192.168.50.50/parth-hospitality-api/api/',
+  // apiUrl: 'http://192.168.50.50/parth-hospitality-api/api/',
+  // front_apiUrl: 'http://192.168.50.50/parth-hospitality-api/api/',
 
   // apiUrl: 'http://localhost:8080/parth-hospitality/api/',
   // front_apiUrl: 'http://localhost:8080/parth-hospitality/api/',
 
   
 
-  // apiUrl: 'https://www.saltpixels.in/parth/api/',
+  apiUrl: 'https://www.saltpixels.in/parth/api/',
 
-  // front_apiUrl: 'https://www.saltpixels.in/parth/api/',
+  front_apiUrl: 'https://www.saltpixels.in/parth/api/',
 
   apiId: 'ZTQ2NzZmMmYwZWFjNmY3YjIwYzdmNWZmODkwNzBhMWM='
 };

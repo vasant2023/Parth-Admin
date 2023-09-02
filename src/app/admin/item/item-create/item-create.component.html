@@ -345,43 +345,42 @@
                       class="col"
                       style="margin-bottom: 2rem; padding-left: 0"
                     >
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="category{{i}}">Item Image</label>
+                            <div class="clearfix"></div>
+                            <div class="default_imageiconcategory">
+                              <img
+                                [src]="
+                                  size.image
+                                    ? size.image
+                                    : 'assets/images/default.png'
+                                "
+                                class="img categoryiconimg"
+                                default="assets/images/default.png"
+                              />
+                            </div>
+                            <div class="clearfix"></div>
+                            <label for="img-upload{{i}}" class="pointer">
+                              <span class="btn choose_btn btn-default display-block no-mrg-btm">
+                                Choose file
+                              </span>
 
-                    <div class="row">
-                      <div class="col">
-                        <div class="form-group">
-                          <label for="category">Item Image</label>
-                          <div class="clearfix"></div>
-                          <div class="default_imageiconcategory">
-                            <img
-                              [src]="
-                                size.image
-                                  ? size.image
-                                  : 'assets/images/default.png'
-                              "
-                              class="img categoryiconimg"
-                              default="assets/images/default.png"
-                            />
-                          </div>
-                          <div class="clearfix"></div>
-                          <label for="img-upload" class="pointer">
-                            <span
-                              class="btn choose_btn btn-default display-block no-mrg-btm"
-                              >Choose file</span
-                            >
-                            <input
+                              <input
                               type="file"
-                              id="img-upload"
+                              id="img-upload{{i}}"
                               maxlength=""
                               class="d-none"
-                              name="img-upload"
+                              name="img-upload{{i}}"
                               accept="image/*"
-                              (change)="handleInputChangeItemImage($event)"
-                            />
-                          </label>
+                              (change)="handleInputChangeItemImage($event, i)"
+                              />
+
+                            </label>
+                          </div>
                         </div>
                       </div>
-                    </div>
-
 
                       <button
                         type="button"

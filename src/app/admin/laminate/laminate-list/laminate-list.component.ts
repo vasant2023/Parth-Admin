@@ -16,6 +16,7 @@ export class LaminateListComponent implements OnInit {
 
   searchText = "";
   isloading: boolean;
+  p:number = 1
 
   constructor(
     public adminService: AdminServiceService,

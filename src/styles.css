@@ -45361,3 +45361,11 @@ table thead tr, table tfoot tr {
  .ng-select.ng-select-opened.ng-select-bottom>.ng-select-container, .ng-select .ng-select-container{
    border-color: transparent!important;
  }
+
+ .ngx-pagination {
+   margin-left: 0;
+   margin-bottom: 1rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}

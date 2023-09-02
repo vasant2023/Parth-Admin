@@ -22,6 +22,9 @@ export class ItemListComponent implements OnInit {
     private loaderService: Ng4LoadingSpinnerService
   ) {}
 
+
+  p: number = 1;
+
   item_list: any = [];
   itemCategory: any = [];
   isPopupActive: boolean = false;

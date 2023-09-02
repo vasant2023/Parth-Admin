@@ -18,6 +18,7 @@ export class LaminateCategoryListComponent implements OnInit {
   category_list : any = [];
   searchText : any;
   isloading:any;
+  p:number = 1
 
 
   constructor(

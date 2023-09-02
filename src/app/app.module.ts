@@ -52,7 +52,7 @@ import { HotelCategoryCreateComponent } from './admin/hotel-management/hotel-cat
 import { AddonListComponent } from './admin/addon/addon-list/addon-list.component';
 import { AddonCreateComponent } from './admin/addon/addon-create/addon-create.component';
 import { LeadDetailsComponent } from './admin/leads/lead-details/lead-details.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -119,7 +119,8 @@ import { LeadDetailsComponent } from './admin/leads/lead-details/lead-details.co
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     SafeHtmlModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

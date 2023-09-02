@@ -45,7 +45,7 @@
               <tbody *ngIf="collectionList.length > 0">
                 <tr
                   *ngFor="
-                    let collection of collectionList | filter : searchText
+                    let collection of collectionList | filter : searchText | paginate: { itemsPerPage: 10, currentPage: p }
                   "
                   [class]="{ inactive: collection.status == 0 }"
                 >
@@ -107,6 +107,9 @@
               </tbody>
             </table>
           </div>
+        </div>
+        <div *ngIf="collectionList.length >= 10">
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
       </div>
     </div>

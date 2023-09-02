@@ -16,8 +16,9 @@ export class ColletionCategoryListComponent implements OnInit {
 
   nestedCategory : any = []
   category_list : any = [];
-  searchText : any;
+  searchText : "";
   isloading:any;
+  p:number = 1;
 
   constructor(
     public adminService: AdminServiceService,

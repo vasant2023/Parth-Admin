@@ -21,6 +21,7 @@ export class LeadsListComponent implements OnInit {
   leadFlag = false;
   statusId = "";
   readMore = false;
+  p:number = 1;
 
   leadsObj:any = {
     status_id: "",
@@ -79,7 +80,6 @@ export class LeadsListComponent implements OnInit {
     } else {
       this.leadsObj.toDate = "";
     }
-    // this.getLeads();
   }
 
   datesUpdated(range) {
@@ -146,12 +146,8 @@ export class LeadsListComponent implements OnInit {
       dateToConvert.setHours(0, 0, 0, 0);
       const timestamp = Math.floor(dateToConvert.getTime() / 1000);
       this.leadsObj.next_followup_date = timestamp;
-
       
       this.isloading = true;
-
-      // console.log(this.leadsObj);
-      // return false;
       this.adminService.followUp(this.leadsObj).subscribe((response: {success:number, message:string, }) => {
         if(response.success == 1){
           this.handleStatus = false;

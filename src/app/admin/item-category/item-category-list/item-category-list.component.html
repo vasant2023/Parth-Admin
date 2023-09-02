@@ -78,7 +78,7 @@
                   </tr>
                 </tbody> -->
                 <tbody *ngIf="category_list.length > 0">
-                  <ng-container *ngFor="let category of category_list">
+                  <ng-container *ngFor="let category of category_list | filter : searchText | paginate: { itemsPerPage: 10, currentPage: p }">
                     <tr>
                       <td class="categoryImageWrapper">
                         <img src="{{category.icon}}" class="img" style="height:50px" />
@@ -215,6 +215,9 @@
                 </tbody>
               </table>
             </div>
+          </div>
+          <div *ngIf="category_list.length >= 10">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
         </div>
       </div>

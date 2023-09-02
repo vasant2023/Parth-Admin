@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 export class BrandListComponent implements OnInit {
   searchText = "";
   isloading: boolean;
+  p:number = 1;
   
   constructor(
     public adminService: AdminServiceService,

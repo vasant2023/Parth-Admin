@@ -73,7 +73,9 @@ export class ItemCreateComponent implements OnInit {
 
   itemForm: FormGroup;
 
-  sizeList: { width: string, height: string, dimension: string, price: string, name: string, image:any }[] = [{ width: '', height: '', dimension: '', price: '', name: "",image: "" }];
+  sizeList: { width: string, height: string, dimension: string, price: string, name: string, image:any, id:any  }[] = [{ width: '', height: '', dimension: '', price: '', name: "",image: "", id:"" }];
+
+  // sizeList: { width: string, height: string, dimension: string, price: string, name: string, image:any, id:any  }[] = [];
 
 
   configEditor = {
@@ -142,7 +144,7 @@ export class ItemCreateComponent implements OnInit {
         (response: { success: number; message: string; categories: [] }) => {
           if (response.success == 1) {
             this.itemCategory = response.categories;
-            console.log(this.itemCategory, "item category")
+            // console.log(this.itemCategory, "item category")
           } else {
             this.toastr.error(response.message, "Error", {});
           }
@@ -207,25 +209,19 @@ export class ItemCreateComponent implements OnInit {
     this.itemObj.banner_image_mobile = event.target.files[0];
   }
 
-  // handleInputChangeItemImage(event){
-  //   this.sizeList.forEach((item) => {
-  //     item.image = event.target.files[0];
-  //   });
-  // }
+  handleInputChangeItemImage(event: any, index:number) {
 
-  handleInputChangeItemImage(event: any) {
     const selectedFile = event.target.files[0];
-  
     if (selectedFile) {
       const reader = new FileReader();
-  
       reader.onload = (e: any) => {
         const base64Image = e.target.result;
-        this.sizeList.forEach((item) => {
-          item.image = base64Image;
+        this.sizeList.forEach((item, i) => {
+          if(i == index){
+            item.image = base64Image;
+          }
         });
       };
-  
       reader.readAsDataURL(selectedFile);
     }
   }
@@ -292,11 +288,11 @@ export class ItemCreateComponent implements OnInit {
   }
 
   adddSize() {
-    const newSize = { width: '', height: '', dimension: '', price: '', name: "" ,image : ""};
+    const newSize = { width: '', height: '', dimension: '', price: '', name: "" ,image : "" , id:""};
     this.sizeList.push(newSize);
     this.itemObj.sizeList = this.sizeList;
   }
-
+  
   deleteSize(index: number) {
     this.sizeList.splice(index, 1);
   }

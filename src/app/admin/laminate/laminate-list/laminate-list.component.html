@@ -38,7 +38,7 @@
                               </tr>
                           </tbody>
                           <tbody *ngIf="laminate_list.length > 0" >
-                              <tr *ngFor="let laminate of laminate_list | filter:searchText" [class] = "{'inactive' : laminate.status == 0}">
+                              <tr *ngFor="let laminate of laminate_list | filter:searchText | paginate: { itemsPerPage: 10, currentPage: p }" [class] = "{'inactive' : laminate.status == 0}">
 
                                 <td class="categoryImageWrapper">
                                     <img src="{{laminate.image}}" class="img" style="height:50px" />
@@ -80,6 +80,7 @@
                       </table>
                   </div>
               </div>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
       </div>
   </div>
