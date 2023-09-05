@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="page-title">
+    <h4>User Group</h4>
+  </div>
+  <form name="form" (ngSubmit)="addUserGroup()" #createUserGroupform="ngForm">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Basic Details</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="name">Group Name*</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="name"
+                          [(ngModel)]="groupObj.name"
+                          #name="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              createUserGroupform.submitted && name.invalid
+                          }"
+                          required
+                        />
+                        <div
+                          *ngIf="createUserGroupform.submitted && name.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="name.errors.required">
+                            Group Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row d-flex">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="status">Status*</label>
+                        <select
+                          class="form-control"
+                          name="status"
+                          id=""
+                          [(ngModel)]="groupObj.status"
+                          #status="ngModel"
+                        >
+                          <option value="">Select Status</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="sort_order">Sort Order</label>
+                        <input
+                          type="number"
+                          class="form-control"
+                          name="sort_order"
+                          [(ngModel)]="groupObj.sort_order"
+                          #sort_order="ngModel"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="roles" style="padding-bottom: 1rem; font-size: 1.2rem; font-weight: 600;">Select Roles : </label>
+                        <div *ngFor="let role of roles" style="margin-bottom: 1rem;">
+                          <label for="roles_{{ role.role_ID }}">
+                            <input
+                              type="checkbox"
+                              name="roles_{{ role.role_ID }}"
+                              [(checklist)]="groupObj.roleIDs"
+                              [checklistValue]="role.role_ID"
+                              id="roles_{{ role.role_ID }}"
+                              class="rounded-checkbox"
+                            />
+                            <span class="commonSpan" style="padding-left: 2rem;"
+                              >{{ role.role }}</span
+                            >
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn submit_btn">Submit</button>
+  </form>
+</div>

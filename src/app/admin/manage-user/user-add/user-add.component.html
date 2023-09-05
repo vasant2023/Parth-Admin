@@ -1,0 +1,220 @@
+<div class="container-fluid">
+  <div class="page-title">
+    <h4>User</h4>
+  </div>
+  <form name="form" (ngSubmit)="addUser()" #createUserform="ngForm">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Basic Details</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row d-flex">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="first_name">First Name*</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="first_name"
+                          [(ngModel)]="userObj.first_name"
+                          #first_name="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              createUserform.submitted && first_name.invalid
+                          }"
+                          required
+                        />
+                        <div
+                          *ngIf="createUserform.submitted && first_name.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="first_name.errors.required">
+                            First Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="last_name">Last Name*</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="last_name"
+                          [(ngModel)]="userObj.last_name"
+                          #last_name="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              createUserform.submitted && last_name.invalid
+                          }"
+                          required
+                        />
+                        <div
+                          *ngIf="createUserform.submitted && last_name.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="status.errors.required">
+                            Last Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row d-flex">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          name="email"
+                          [(ngModel)]="userObj.email"
+                          #email="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              createUserform.submitted && email.invalid
+                          }"
+                          required
+                        />
+                        <div
+                          *ngIf="createUserform.submitted && email.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="status.errors.required">
+                            Last Name is required
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col" *ngIf="!user_id">
+                      <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          name="password"
+                          [(ngModel)]="userObj.password"
+                          #password="ngModel"
+                          [ngClass]="{
+                            'is-invalid':
+                              createUserform.submitted && password.invalid
+                          }"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row d-flex">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="status">Status*</label>
+                        <select
+                          class="form-control"
+                          name="status"
+                          id=""
+                          [(ngModel)]="userObj.status"
+                          #status="ngModel"
+                        >
+                          <option value="">Select Status</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="type">Type*</label>
+                        <select
+                          class="form-control"
+                          name="type"
+                          id=""
+                          [(ngModel)]="userObj.type"
+                          #type="ngModel"
+                        >
+                          <option value="">Select User Type</option>
+                          <option [ngValue]="group.name" *ngFor="let group of groupList">{{group.name}}</option>
+                        </select>
+                        <!-- <div
+                          *ngIf="createUserform.submitted && type.invalid"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="status.errors.required">
+                            Group Type is required
+                          </div>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-heading border bottom">
+            <h4 class="card-title">Image Uploads</h4>
+          </div>
+          <div class="card-block">
+            <div class="mrg-top-20">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="category">Profile Image</label>
+                        <div class="clearfix"></div>
+                        <div class="default_imageiconcategory">
+                          <img
+                            [src]="
+                              userObj.profile_pic
+                                ? userObj.profile_pic
+                                : 'assets/images/default.png'
+                            "
+                            class="img categoryiconimg"
+                            default="assets/images/profile.jpg"
+                          />
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="img-icon-upload" class="pointer">
+                          <span
+                            class="btn choose_btn btn-default display-block no-mrg-btm"
+                            >Choose file</span
+                          >
+                          <input
+                            type="file"
+                            id="img-icon-upload"
+                            maxlength=""
+                            class="d-none"
+                            name="icon"
+                            accept="image/*"
+                            (change)="handleInputChange($event)"
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn submit_btn">Submit</button>
+  </form>
+</div>

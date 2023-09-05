@@ -29,6 +29,10 @@ import { HotelCategoryCreateComponent } from './admin/hotel-management/hotel-cat
 import { HotelCategoryListComponent } from './admin/hotel-management/hotel-category-list/hotel-category-list.component';
 import { AddonListComponent } from './admin/addon/addon-list/addon-list.component';
 import { AddonCreateComponent } from './admin/addon/addon-create/addon-create.component';
+import { UserListComponent } from './admin/manage-user/user-list/user-list.component';
+import { UserAddComponent } from './admin/manage-user/user-add/user-add.component';
+import { UserGroupListComponent } from './admin/manage-user/user-group-list/user-group-list.component';
+import { UserGroupAddComponent } from './admin/manage-user/user-group-add/user-group-add.component';
 
 
 const routes: Routes = [
@@ -232,7 +236,37 @@ const routes: Routes = [
           path: "leads/add",
           component: LeadsAddComponent,
           data : {title : "Parth Hospitality"}
-        }
+        },
+        {
+          path: "user",
+          component: UserListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "user/create",
+          component: UserAddComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "user/create/:user_id",
+          component: UserAddComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "user-group",
+          component: UserGroupListComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "user-group/create",
+          component: UserGroupAddComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "user-group/create/:group_ID",
+          component: UserGroupAddComponent,
+          data : {title : "Parth Hospitality"}
+        },
       ],
       data: { title: 'Parth Admin' },
   },

@@ -48,17 +48,6 @@
             </ul>
           </li>
 
-
-          <!-- <li [class.open]="defaultActive == 'category-list' || activePath == 'category-list'" class="nav-item dropdown"
-            (click)="toggleSubMenu('category-list')">
-            <a class="dropdown-toggle" routerLink="/admin/categories">
-              <span class="material-symbols-outlined">
-                category
-              </span>
-              <span class="title">Categories</span>
-            </a>
-          </li> -->
-
           <li [class.open]="defaultActive == 'brands' || activePath == 'brands'" class="nav-item dropdown">
             <a class="dropdown-toggle" routerLink="/admin/brands">
               <span class="material-symbols-outlined">
@@ -148,6 +137,29 @@
               </span>
               <span class="title">Leads</span>
             </a>
+          </li>
+
+          <li [class.open]="defaultActive == 'users' || activePath == 'users'" class="nav-item dropdown"
+            (click)="toggleSubMenu('users')">
+            <a class="dropdown-toggle" href="javascript:void(0);">
+              <span class="material-symbols-outlined">
+                account_circle
+              </span>
+              <span class="arrow">
+                <i class="ti-angle-right"></i>
+              </span>
+              <span class="title">Manage Users</span>
+            </a>
+            <ul class="dropdown-menu">
+              <ng-container>
+                <li [class.active]="activeSubPath == 'user'">
+                  <a routerLink="/admin/user">User</a>
+                </li>
+                <li [class.active]="activeSubPath == 'user-group'">
+                  <a routerLink="/admin/user-group">User Group</a>
+                </li>
+              </ng-container>
+            </ul>
           </li>
 
 

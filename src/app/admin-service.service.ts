@@ -754,6 +754,126 @@ export class AdminServiceService {
    return this.http.post(url, body, { headers: httpHeaders });
   }
 
+  // Users
+
+  getUserList(){
+    const url = environment.apiUrl + 'user/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteUser(user_id){
+    const url = environment.apiUrl + 'user/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('user_id', user_id);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  userDetails(user_id){
+    const url = environment.apiUrl + 'user/details';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('user_id', user_id);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  updateUser(formData) {
+    const url = environment.apiUrl + "user/update";
+    return this.http.post<any>(url, formData).pipe();
+  }
+
+  createUser(formData) {
+    const url = environment.apiUrl + "user/create";
+    return this.http.post<any>(url, formData).pipe();
+  }
+
+  // User Groups
+
+  updateGroup(formData) {
+    const url = environment.apiUrl + "user-group/update";
+    return this.http.post<any>(url, formData).pipe();
+  }
+
+  createGroup(formData) {
+    const url = environment.apiUrl + "user-group/create";
+    return this.http.post<any>(url, formData).pipe();
+  }
+
+  getAllgrouptypes(){
+    const url = environment.apiUrl + 'user-group/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteUserGroup(group_ID){
+    const url = environment.apiUrl + 'user-group/remove';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('group_ID', group_ID);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  getGroupDetails(group_ID){
+    const url = environment.apiUrl + 'user-group/details';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+    body = body.append('group_ID', group_ID);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // User Roles
+
+  getUserRoles(){
+    const url = environment.apiUrl + 'user-roles/list';
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append('apiId', apiId);
+
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+   });
+   return this.http.post(url, body, { headers: httpHeaders });
+  }
 }
 
 

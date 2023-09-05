@@ -53,6 +53,10 @@ import { AddonListComponent } from './admin/addon/addon-list/addon-list.componen
 import { AddonCreateComponent } from './admin/addon/addon-create/addon-create.component';
 import { LeadDetailsComponent } from './admin/leads/lead-details/lead-details.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { UserAddComponent } from './admin/manage-user/user-add/user-add.component';
+import { UserListComponent } from './admin/manage-user/user-list/user-list.component';
+import { UserGroupAddComponent } from './admin/manage-user/user-group-add/user-group-add.component';
+import { UserGroupListComponent } from './admin/manage-user/user-group-list/user-group-list.component';
 
 
 
@@ -93,6 +97,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AddonListComponent,
     AddonCreateComponent,
     LeadDetailsComponent,
+    UserAddComponent,
+    UserListComponent,
+    UserGroupAddComponent,
+    UserGroupListComponent,
   ],
   imports: [
     FormsModule,
