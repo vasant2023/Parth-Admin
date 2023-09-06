@@ -41,6 +41,11 @@ export class AdminServiceService {
     return this.objservableadmin.asObservable();
   }
 
+  getLoggedInUser(){
+    const userData =  JSON.parse(localStorage.getItem('ParthAdminLoggedInId'));
+    return of(userData);
+  }
+
   removeObjservableUser() {
     this.objservableadmin.next();
     localStorage.removeItem("ParthAdminLoggedInId");
@@ -679,6 +684,11 @@ export class AdminServiceService {
    return this.http.post(url, body, { headers: httpHeaders });
   }
 
+  uploadLeads(formData){
+    const url = environment.apiUrl + "leads/import_lead";
+    return this.http.post<any>(url, formData).pipe();
+  }
+
   // Countries
 
   getCountries(){
@@ -873,6 +883,13 @@ export class AdminServiceService {
       'Content-Type': 'application/x-www-form-urlencoded'
    });
    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Update Profile
+
+  updateProfile(formData){
+    const url = environment.apiUrl + "user/updateProfile";
+    return this.http.post<any>(url, formData).pipe();
   }
 }
 

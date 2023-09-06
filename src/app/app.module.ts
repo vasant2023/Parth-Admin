@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { DatePipe } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminMasterComponent } from './admin/admin-master/admin-master.component';
@@ -52,11 +52,12 @@ import { HotelCategoryCreateComponent } from './admin/hotel-management/hotel-cat
 import { AddonListComponent } from './admin/addon/addon-list/addon-list.component';
 import { AddonCreateComponent } from './admin/addon/addon-create/addon-create.component';
 import { LeadDetailsComponent } from './admin/leads/lead-details/lead-details.component';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { UserAddComponent } from './admin/manage-user/user-add/user-add.component';
 import { UserListComponent } from './admin/manage-user/user-list/user-list.component';
 import { UserGroupAddComponent } from './admin/manage-user/user-group-add/user-group-add.component';
 import { UserGroupListComponent } from './admin/manage-user/user-group-list/user-group-list.component';
+import { UpdateProfileComponent } from './admin/update-profile/update-profile.component';
 
 
 
@@ -101,6 +102,7 @@ import { UserGroupListComponent } from './admin/manage-user/user-group-list/user
     UserListComponent,
     UserGroupAddComponent,
     UserGroupListComponent,
+    UpdateProfileComponent,
   ],
   imports: [
     FormsModule,
@@ -130,7 +132,9 @@ import { UserGroupListComponent } from './admin/manage-user/user-group-list/user
     NgSelectModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

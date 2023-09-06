@@ -33,6 +33,7 @@ import { UserListComponent } from './admin/manage-user/user-list/user-list.compo
 import { UserAddComponent } from './admin/manage-user/user-add/user-add.component';
 import { UserGroupListComponent } from './admin/manage-user/user-group-list/user-group-list.component';
 import { UserGroupAddComponent } from './admin/manage-user/user-group-add/user-group-add.component';
+import { UpdateProfileComponent } from './admin/update-profile/update-profile.component';
 
 
 const routes: Routes = [
@@ -235,6 +236,11 @@ const routes: Routes = [
         {
           path: "leads/add",
           component: LeadsAddComponent,
+          data : {title : "Parth Hospitality"}
+        },
+        {
+          path: "profile",
+          component: UpdateProfileComponent,
           data : {title : "Parth Hospitality"}
         },
         {

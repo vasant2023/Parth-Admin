@@ -26,6 +26,7 @@
     "anglar-datepicker": "0.0.1",
     "angular-checklist": "^1.5.0",
     "angular2-tag-input": "^1.2.3",
+    "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "moment": "^2.24.0",
     "ng-pick-datetime": "^7.0.0",
@@ -43,6 +44,7 @@
     "rxjs-compat": "6.4.0",
     "sweetalert2": "^11.4.17",
     "tslib": "^1.10.0",
+    "xlsx": "^0.16.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {

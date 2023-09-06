@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AdminServiceService } from '../../../admin-service.service';
 import { DragulaService } from "ng2-dragula";
@@ -8,6 +7,14 @@ import { ToastrService } from "ngx-toastr";
 import Swal from "sweetalert2";
 import { FormGroup } from '@angular/forms';
 import * as moment from 'moment';
+import {ExcelService} from '../../../_services/excel.service';
+import { environment } from 'src/environments/environment';
+
+import {
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from "@angular/router";
 
 @Component({
   selector: 'app-leads-list',
@@ -32,7 +39,9 @@ export class LeadsListComponent implements OnInit {
     toDate: ""
   }
 
-  schedule_date:""
+  schedule_date:"";
+
+  leads_file: "";
 
   detailObj:any={
     lead_ID: ""
@@ -40,6 +49,7 @@ export class LeadsListComponent implements OnInit {
 
   handleStatus:boolean = false;
   followUpForm: FormGroup;
+  uploadForm:FormGroup;
 
   ranges: any = {
     'Today': [moment(), moment()],
@@ -56,6 +66,9 @@ export class LeadsListComponent implements OnInit {
 
   constructor(
     public adminService: AdminServiceService,
+    private excelService: ExcelService,
+    private router: Router,
+
   ) { }
 
   ngOnInit() {
@@ -163,6 +176,70 @@ export class LeadsListComponent implements OnInit {
 
   hidePopup() {
     this.handleStatus = false;
+  }
+
+  public is_excel_loading = false;
+
+
+  exportAsXLSX():void {
+    this.is_excel_loading = true;
+    // this.leadsObj.page = 0;
+    // this.leadsObj.limit = 50000;
+
+    this.adminService.getLeads(this.leadsObj).subscribe((response: any) => {
+      var responseData = JSON.parse(JSON.stringify(response));
+
+      if(responseData.success){
+        var i = 1;
+
+        var exportData = responseData.data.map( function (a) {
+          return {
+            "Sr.no" : i++,
+            "NAME	" : a["name"],
+            "COMPANY NAME" : a["company_name"],
+            "STATUS" : a["status"],
+            "COLLECTION" : a["collection"],
+            "EMAIL" : a["email"],
+            "MESSAGE" : a["message"],
+            "PHONE NUMBER" : a["phone"],
+            "ROOMS" : a["rooms"],
+            "COUNTRY" : a["country"],
+            "STATE" : a["state"],
+            "CITY" : a["city"],
+            "ZIP CODE" : a["zip_code"],
+            "PROPERTY CODE" : a["property_code"],
+            "TIME" : a["timestemp"],
+          }
+        });
+
+        this.excelService.exportAsExcelFile(exportData, "Leads List");
+        this.is_excel_loading = false;
+      }
+
+    })
+
+  }
+
+  handleInputChange(event){
+    this.leads_file = event.target.files[0]
+  }
+
+  leadUploadStatus = false;
+  handleLeadsUploadStatus(){
+    this.leadUploadStatus = true;
+  }
+
+  uploadLeads(){
+    let formData = new FormData();
+    formData.append("apiId", environment.apiId);
+    formData.append("leads_file", this.leads_file)
+
+    this.adminService.uploadLeads(formData).subscribe((response:{success:number,message:string}) => {
+      if(response.success == 1){
+        this.router.navigate(['admin/leads']);
+        this.leadUploadStatus = false
+      }
+    })
   }
 
 }
