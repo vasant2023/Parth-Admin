@@ -48,7 +48,7 @@ export class HardwareCreateComponent implements OnInit {
     ]
   }
 
-  isLoading = false
+  public isLoading:boolean = false
 
   hardware_ID = ""
 

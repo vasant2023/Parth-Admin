@@ -58,6 +58,10 @@ import { UserListComponent } from './admin/manage-user/user-list/user-list.compo
 import { UserGroupAddComponent } from './admin/manage-user/user-group-add/user-group-add.component';
 import { UserGroupListComponent } from './admin/manage-user/user-group-list/user-group-list.component';
 import { UpdateProfileComponent } from './admin/update-profile/update-profile.component';
+import { ListBannersComponent } from './admin/manage-banners/list-banners/list-banners.component';
+import { AddBannersComponent } from './admin/manage-banners/add-banners/add-banners.component';
+import { ListBlogsComponent } from './admin/manage-blogs/list-blogs/list-blogs.component';
+import { AddBlogsComponent } from './admin/manage-blogs/add-blogs/add-blogs.component';
 
 
 
@@ -103,6 +107,10 @@ import { UpdateProfileComponent } from './admin/update-profile/update-profile.co
     UserGroupAddComponent,
     UserGroupListComponent,
     UpdateProfileComponent,
+    ListBannersComponent,
+    AddBannersComponent,
+    ListBlogsComponent,
+    AddBlogsComponent,
   ],
   imports: [
     FormsModule,

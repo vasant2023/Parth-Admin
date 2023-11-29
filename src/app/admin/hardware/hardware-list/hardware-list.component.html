@@ -1,4 +1,6 @@
-<div class="container-fluid">
+<div class="loader" *ngIf="isloading">
+</div>
+<div class="container-fluid" *ngIf="!isloading">
   <div class="row">
       <div class="col-md-12">
           <div class="card">
@@ -6,10 +8,10 @@
                 <div class="check">
                   <div class="check">
                     <div class="">
-                      <h4 class="card-title mrg-top-5">Hardwares &nbsp; &nbsp;</h4>
+                      <h4 class="card-title mrg-top-5">Brands &nbsp; &nbsp;</h4>
                     </div>
                     <div class="">
-                      <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Hardwares" />
+                      <input type="text" class="form-control" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Search Brands" />
                     </div>
                   </div>
                   <div class="button">
@@ -32,7 +34,7 @@
                                 <td colspan="6">
                                   <div class="nodata">
                                     <p class="text-center font-size-22"><i class="ei-sad"></i></p>
-                                    <p class="text-center">No Hardwares found!</p>
+                                    <p class="text-center">No Brands found!</p>
                                   </div>
                                 </td>
                               </tr>
@@ -69,7 +71,7 @@
                                 <td colspan="6">
                                   <div class="nodata">
                                     <p class="text-center font-size-22"><i class="ei-sad"></i></p>
-                                    <p class="text-center">No Hardwares found!</p>
+                                    <p class="text-center">No Brands found!</p>
                                   </div>
                                 </td>
                               </tr>

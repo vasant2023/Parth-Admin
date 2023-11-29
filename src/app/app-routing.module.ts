@@ -34,6 +34,10 @@ import { UserAddComponent } from './admin/manage-user/user-add/user-add.componen
 import { UserGroupListComponent } from './admin/manage-user/user-group-list/user-group-list.component';
 import { UserGroupAddComponent } from './admin/manage-user/user-group-add/user-group-add.component';
 import { UpdateProfileComponent } from './admin/update-profile/update-profile.component';
+import { ListBannersComponent } from './admin/manage-banners/list-banners/list-banners.component';
+import { AddBannersComponent } from './admin/manage-banners/add-banners/add-banners.component';
+import { ListBlogsComponent } from './admin/manage-blogs/list-blogs/list-blogs.component';
+import { AddBlogsComponent } from './admin/manage-blogs/add-blogs/add-blogs.component';
 
 
 const routes: Routes = [
@@ -273,6 +277,36 @@ const routes: Routes = [
           component: UserGroupAddComponent,
           data : {title : "Parth Hospitality"}
         },
+        {
+          path: "banners",
+          component: ListBannersComponent,
+          data : {title: "Parth Hospitality"}
+        },
+        {
+          path: "banners/add",
+          component: AddBannersComponent,
+          data : {title: "Parth Hospitality"}
+        },
+        {
+          path: "banners/add/:banner_id",
+          component: AddBannersComponent,
+          data : {title: "Parth Hospitality"}
+        },
+        {
+          path: "blogs",
+          component: ListBlogsComponent,
+          data : {title: "Parth Hospitality"}
+        },
+        {
+          path: "blogs/create",
+          component: AddBlogsComponent,
+          data : {title: "Parth Hospitality"}
+        },
+        {
+          path: "blogs/create/:blog_ID",
+          component: AddBlogsComponent,
+          data : {title: "Parth Hospitality"}
+        }
       ],
       data: { title: 'Parth Admin' },
   },

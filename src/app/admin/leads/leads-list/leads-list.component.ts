@@ -24,7 +24,7 @@ import {
 export class LeadsListComponent implements OnInit {
 
   searchText : any;
-  isloading = false;
+  public isloading = false;
   leadFlag = false;
   statusId = "";
   readMore = false;
@@ -36,7 +36,8 @@ export class LeadsListComponent implements OnInit {
     next_followup_date: "",
     lead_ID :"",
     fromDate: "",
-    toDate: ""
+    toDate: "",
+    type:""
   }
 
   schedule_date:"";
@@ -107,8 +108,10 @@ export class LeadsListComponent implements OnInit {
     } else {
       this.leadsObj.toDate = "";
     }
-
-    this.getLeads();
+    if(this.leadsObj.fromDate && this.leadsObj.toDate){
+      this.getLeads();
+    }
+    //
   }
 
   // Date range ended
@@ -117,12 +120,13 @@ export class LeadsListComponent implements OnInit {
   statusList:any = [];
 
   getLeads(){
+    this.isloading = true;
     this.adminService.getLeads(this.leadsObj).subscribe((response : {success:number, message:string, data:[]}) => {
       if(response.success == 1){
-        console.log(this.leadsList.length)
         this.leadsList = response.data;
       }
-    })
+      this.isloading = false
+    });
   }
 
   getDetails(id){
@@ -240,6 +244,10 @@ export class LeadsListComponent implements OnInit {
         this.leadUploadStatus = false
       }
     })
+  }
+
+  filterLeadType(){
+    this.getLeads();
   }
 
 }

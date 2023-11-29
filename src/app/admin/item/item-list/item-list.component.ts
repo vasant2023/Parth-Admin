@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 })
 export class ItemListComponent implements OnInit {
   searchText = "";
-  isloading: boolean;
+  public isloading: boolean = false;
 
   constructor(
     public adminService: AdminServiceService,
@@ -180,6 +180,7 @@ export class ItemListComponent implements OnInit {
             this.toastr.error(response.message, "Error", {});
             this.loaderService.hide();
           }
+          this.isloading = false
         }
       );
   }

@@ -17,7 +17,7 @@ export class ColletionCategoryListComponent implements OnInit {
   nestedCategory : any = []
   category_list : any = [];
   searchText : "";
-  isloading:any;
+  public isloading:boolean = false;
   p:number = 1;
 
   constructor(
@@ -38,12 +38,14 @@ export class ColletionCategoryListComponent implements OnInit {
   }
 
   getCategories(){
+    this.isloading = true;
     this.adminService.getCollectioncategories().subscribe((response : {success : number, message: string, categories:[]}) => {
       if(response.success == 1){
         this.category_list = response.categories;
       } else {
         alert(response.message)
       }
+      this.isloading = false
     })
   }
 

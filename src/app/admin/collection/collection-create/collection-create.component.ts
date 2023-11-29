@@ -96,6 +96,7 @@ export class CollectionCreateComponent implements OnInit {
       title: "",
       text: "",
     },
+    removedImages:[]
   };
   collection_ID = "";
 
@@ -111,7 +112,7 @@ export class CollectionCreateComponent implements OnInit {
 
   collectionForm: FormGroup;
 
-  isLoading = false;
+  public isLoading:boolean = false;
   itemList: any = [];
   laminatesList: any = [];
   addonsList: any = [];
@@ -187,7 +188,7 @@ export class CollectionCreateComponent implements OnInit {
     this.collectionObj.specification_image = event.target.files[0];
   }
 
-  item_images(event) {
+  collection_images(event) {
     this.collectionObj.collection_images = [];
     var files = event.srcElement.files;
     for (var key in files) {
@@ -264,7 +265,7 @@ export class CollectionCreateComponent implements OnInit {
         this.addonsList = response.categories;
         this.filteredAddonList = this.addonsList
       } else {
-        alert(response.message)
+        // alert(response.message)
       }
     })
   }
@@ -340,6 +341,10 @@ export class CollectionCreateComponent implements OnInit {
     if (form.valid) {
       if (this.isLoading == false) {
         this.isLoading = true;
+
+        // console.log(this.collectionObj);
+        // return false
+        
 
         let formData = new FormData();
         formData.append("apiId", environment.apiId);
@@ -439,6 +444,9 @@ export class CollectionCreateComponent implements OnInit {
             this.collectionObj.collection_images[index]
           );
         }
+        
+        formData.append('removedImages' , this.collectionObj.removedImages);
+
         formData.append("image_alttext", this.collectionObj.image_alttext);
         formData.append("sort_order", this.collectionObj.sort_order);
         formData.append("tag_line", this.collectionObj.tag_line);
@@ -512,6 +520,16 @@ export class CollectionCreateComponent implements OnInit {
       }
     }
 
+  }
+
+  removeImages(index, collection_image_ID){
+    this.collectionObj.images.splice(index, 1);
+    // this.collectionObj.removedImages.push(collection_image_ID);
+    if (!this.collectionObj.removedImages) {
+      this.collectionObj.removedImages = [];
+    }
+  
+    this.collectionObj.removedImages.push(collection_image_ID);
   }
 
 

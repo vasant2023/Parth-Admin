@@ -21,7 +21,7 @@ export class UserGroupAddComponent implements OnInit {
     status:""
   }
 
-  isLoading = false
+  public isLoading:boolean = false
 
   group_ID:"";
 

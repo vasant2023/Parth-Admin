@@ -114,7 +114,7 @@ export class ItemCreateComponent implements OnInit {
     private dragulaService: DragulaService
   ) { }
 
-  isLoading = false;
+  public isLoading:boolean = false;
 
   ngOnInit() {
     this.getItemId();
@@ -126,9 +126,9 @@ export class ItemCreateComponent implements OnInit {
     this.getItemAddon();
   }
 
-  public onChange({ editor }: ChangeEvent) {
-    this.itemObj.description = editor.getData();
-  }
+  // public onChange({ editor }: ChangeEvent) {
+  //   this.itemObj.description = editor.getData();
+  // }
 
   hardwares_List: any = [];
   itemCategory: any = [];

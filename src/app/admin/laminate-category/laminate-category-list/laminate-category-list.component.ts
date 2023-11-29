@@ -17,7 +17,7 @@ export class LaminateCategoryListComponent implements OnInit {
   nestedCategory : any = []
   category_list : any = [];
   searchText : any;
-  isloading:any;
+  public isloading:boolean = false;
   p:number = 1
 
 
@@ -39,12 +39,14 @@ export class LaminateCategoryListComponent implements OnInit {
   }
 
   getCategories(){
+    this.isloading = true;
     this.adminService.getLaminatecategories().subscribe((response : {success : number, message: string, categories:[]}) => {
       if(response.success == 1){
         this.category_list = response.categories;
       } else {
         alert(response.message)
       }
+      this.isloading = false
     })
   }
 

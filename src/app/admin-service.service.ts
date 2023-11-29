@@ -633,6 +633,7 @@ export class AdminServiceService {
     body = body.append('fromDate', data.fromDate);
     body = body.append('toDate', data.toDate);
     body = body.append('status_id', data.status_id);
+    body = body.append('type', data.type);
 
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -889,6 +890,101 @@ export class AdminServiceService {
 
   updateProfile(formData){
     const url = environment.apiUrl + "user/updateProfile";
+    return this.http.post<any>(url, formData).pipe();
+  }
+
+  // Banners Api
+
+  getBanners() {
+    const url = environment.apiUrl + "home-banners/list";
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  getBannerDetails(banner_id){
+    const url = environment.apiUrl + "home-banners/details";
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+    body = body.append("banner_id", banner_id);
+
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  addBanner(formData){
+    const url = environment.apiUrl + "home-banners-upload";
+    return this.http.post<any>(url, formData).pipe();
+  }
+
+  deleteBanner(banner_id) {
+    const url = environment.apiUrl + "home-banners/delete";
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+    body = body.append("banner_id", banner_id);
+
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  // Blogs Api
+
+  getBlogs() {
+    const url = environment.apiUrl + "blogs/list";
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+    body = body.append("flag", "all");
+
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  deleteBlog(blog_ID) {
+    const url = environment.apiUrl + "blogs/remove";
+    const apiId = environment.apiId;
+
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+    body = body.append("blog_ID", blog_ID);
+
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  blogDetails(blog_ID) {
+    const url = environment.apiUrl + "blogs/details";
+    const apiId = environment.apiId;
+    let body = new HttpParams();
+    body = body.append("apiId", apiId);
+    body = body.append("blog_ID", blog_ID);
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/x-www-form-urlencoded",
+    });
+    return this.http.post(url, body, { headers: httpHeaders });
+  }
+
+  createBlog(formData){
+    const url = environment.apiUrl + "blogs/save";
     return this.http.post<any>(url, formData).pipe();
   }
 }

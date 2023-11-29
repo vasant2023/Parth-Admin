@@ -24,3 +24,14 @@
   h2{
     padding: 1rem 0;
   }
+
+  .default_imageiconcategory {
+    position: relative;
+  }
+  .removeImage {
+    position: absolute;
+    color: red;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }

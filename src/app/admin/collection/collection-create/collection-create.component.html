@@ -443,7 +443,7 @@
                             <div class="clearfix"></div>
                             <div
                               class="default_imageiconcategory"
-                              *ngFor="let image of collectionObj.images"
+                              *ngFor="let image of collectionObj.images; let i = index"
                             >
                               <img
                                 [src]="
@@ -454,6 +454,11 @@
                                 class="img categoryiconimg"
                                 default="assets/images/profile.jpg"
                               />
+                              <button class="removeImage" (click)="removeImages(i, image.collection_image_ID)">
+                                <span class="material-symbols-outlined">
+                                  cancel
+                                </span>
+                              </button>
                             </div>
                             <div class="clearfix"></div>
                             <label for="images" class="pointer">
@@ -468,7 +473,7 @@
                                 class="d-none"
                                 name="images"
                                 accept="image/*"
-                                (change)="item_images($event)"
+                                (change)="collection_images($event)"
                                 multiple
                               />
                             </label>
@@ -510,6 +515,7 @@
                           </div>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -899,6 +905,7 @@
       </div>
     </div>
 
-    <button type="submit" class="btn submit_btn">Submit</button>
+    <button type="submit" class="btn submit_btn">{{isLoading ? 'Submitting...' : 'Submit'}}</button>
+
   </form>
 </div>

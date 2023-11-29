@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 })
 export class BrandListComponent implements OnInit {
   searchText = "";
-  isloading: boolean;
+  isloading: boolean = false;
   p:number = 1;
   
   constructor(
@@ -44,6 +44,7 @@ export class BrandListComponent implements OnInit {
             this.toastr.error(response.message, "Error", {});
             this.loaderService.hide();
           }
+          this.isloading = false
         }
       );
   }

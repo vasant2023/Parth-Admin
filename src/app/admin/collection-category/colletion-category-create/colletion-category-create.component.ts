@@ -34,7 +34,7 @@ export class ColletionCategoryCreateComponent implements OnInit {
 
   nestedCollectionCategory: any = []
   category_ID = "";
-  isLoading = false;
+  public isLoading:boolean = false;
 
   createCategoryForm: FormGroup;
 

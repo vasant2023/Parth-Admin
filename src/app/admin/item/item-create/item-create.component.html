@@ -585,6 +585,7 @@
           </div>
         </div>
       </div>
+
       <div class="col-5">
         <div class="">
           <div class="col">
@@ -819,8 +820,10 @@
           </div>
         </div>
       </div>
+      
     </div>
 
-    <button type="submit" class="btn submit_btn">Submit</button>
+    <button type="submit" class="btn submit_btn">{{isLoading ? 'Submitting...' : 'Submit'}}</button>
+
   </form>
 </div>

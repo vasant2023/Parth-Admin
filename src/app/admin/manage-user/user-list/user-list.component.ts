@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 export class UserListComponent implements OnInit {
 
   searchText = "";
-  isloading: boolean;
+  isLoading: boolean;
   p:number = 1
 
   constructor(
@@ -32,14 +32,14 @@ export class UserListComponent implements OnInit {
   }
 
   getUserList(){
-    this.isloading = true;
+    this.isLoading = true;
     this.adminService.getUserList().subscribe((response: {success:number, message:string, users:[]}) => {
       if(response.success == 1){
         this.userList = response.users;
-        this.isloading = false
+        this.isLoading = false
       } else {
         this.toastr.error(response.message, "Error", {});
-        this.isloading = false
+        this.isLoading = false
       }
     });
   }

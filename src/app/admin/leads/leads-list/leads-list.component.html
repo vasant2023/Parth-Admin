@@ -1,4 +1,7 @@
-<div class="container-fluid">
+<div class="loader" *ngIf="isloading">
+</div>
+
+<div class="container-fluid" *ngIf="!isloading">
   <div class="check">
     <div class="">
       <h4 class="card-title mrg-top-5">Leads &nbsp; &nbsp;</h4>
@@ -36,6 +39,20 @@
           >
             {{ status.status }}
           </option>
+        </select>
+      </div>
+      <div class="select">
+        <select
+          name="statusFilter"
+          [(ngModel)]="this.leadsObj.type"
+          (change)="filterLeadType()"
+          class="btn submit_btn"
+          style="padding-right: 32px; width: auto"
+        >
+          <option value="">Select Type</option>
+          <option value="contact">Contact</option>
+          <option value="lead">Lead</option>
+          <option value="channel_partner">Channel Partner</option>
         </select>
       </div>
       <div style="margin-left: auto">

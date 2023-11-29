@@ -48,14 +48,15 @@
             </ul>
           </li>
 
-          <li [class.open]="defaultActive == 'brands' || activePath == 'brands'" class="nav-item dropdown">
+          <!-- <li [class.open]="defaultActive == 'brands' || activePath == 'brands'" class="nav-item dropdown">
             <a class="dropdown-toggle" routerLink="/admin/brands">
               <span class="material-symbols-outlined">
                 branding_watermark
               </span>
               <span class="title">Brands</span>
             </a>
-          </li>
+          </li> -->
+          
 
           <li [class.open]="defaultActive == 'laminate-category' || activePath == 'laminate-category'"
             class="nav-item dropdown" (click)="toggleSubMenu('laminate-category')">
@@ -89,16 +90,16 @@
               <span class="arrow">
                 <i class="ti-angle-right"></i>
               </span>
-              <span class="title">Hardwares</span>
+              <span class="title">Brands</span>
             </a>
             <ul class="dropdown-menu">
               <ng-container>
                 <li [class.active]="activeSubPath == 'hardwares'">
-                  <a routerLink="/admin/hardwares">Hardwares</a>
+                  <a routerLink="/admin/hardwares">Brands</a>
                 </li>
-                <li [class.active]="activeSubPath == 'hardware-category'">
+                <!-- <li [class.active]="activeSubPath == 'hardware-category'">
                   <a routerLink="/admin/hardware-category">Hardware Categories</a>
-                </li>
+                </li> -->
               </ng-container>
             </ul>
           </li>
@@ -162,6 +163,23 @@
             </ul>
           </li>
 
+          <li [class.open]="defaultActive == 'banners' || activePath == 'banners'" class="nav-item dropdown">
+            <a class="dropdown-toggle" routerLink="/admin/banners">
+              <span class="material-symbols-outlined">
+                photo_library
+              </span>
+              <span class="title">Banners</span>
+            </a>
+          </li>
+
+          <li [class.open]="defaultActive == 'blogs' || activePath == 'blogs'" class="nav-item dropdown">
+            <a class="dropdown-toggle" routerLink="/admin/blogs">
+              <span class="material-symbols-outlined">
+                forum
+              </span>
+              <span class="title">Blogs</span>
+            </a>
+          </li>
 
         </ul>
       </div>

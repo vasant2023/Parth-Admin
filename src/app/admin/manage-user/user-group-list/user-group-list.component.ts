@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 export class UserGroupListComponent implements OnInit {
 
   searchText = "";
-  isloading: boolean;
+  isLoading: boolean;
   p:number = 1
 
   constructor(
@@ -33,15 +33,15 @@ export class UserGroupListComponent implements OnInit {
   }
   
   getUserGroup(){
-    this.isloading = true
+    this.isLoading = true
     this.adminService.getAllgrouptypes().subscribe((response: {success:number, message:string,users_group:[]}) => {
       if(response.success == 1){
         this.userGroupList = response.users_group;
         console.log(this.userGroupList)
-        this.isloading =false;
+        this.isLoading =false;
       } else {
         this.toastr.error(response.message, "Error", {});
-        this.isloading = false
+        this.isLoading = false
       }
     })
   }

@@ -63,7 +63,7 @@ export class LeadsAddComponent implements OnInit {
     rooms: "",
   }
 
-  isLoading = false;
+  public isLoading:boolean = false;
   countries:any=[];
   states:any = [];
   cities:any = []

@@ -17,6 +17,7 @@ export class HardwareCategoryListComponent implements OnInit {
   nestedCategory : any = []
   category_list : any = [];
   searchText : any;
+  p:number = 1;
   isloading:any;
 
   constructor(

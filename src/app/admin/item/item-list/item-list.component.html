@@ -1,4 +1,6 @@
-<div class="container-fluid">
+<div class="loader" *ngIf="isloading">
+</div>
+<div class="container-fluid" *ngIf="!isloading">
   <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -65,9 +67,9 @@
                   <td>
                     <span>{{ item.item }}</span>
                   </td>
-                  <td>
+                  <!-- <td>
                     <span innerHTML="{{ item.description }}"></span>
-                  </td>
+                  </td> -->
                   <td>
                     <span>{{ item.color }}</span>
                   </td>

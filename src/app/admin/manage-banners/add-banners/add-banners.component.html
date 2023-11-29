@@ -1,0 +1,127 @@
+<div class="container-fluid">
+    <div class="page-title">
+      <h4>Banners</h4>
+    </div>
+    <form name="form" (ngSubmit)="addBanner()" #createBannerForm="ngForm">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-heading border bottom">
+              <h4 class="card-title">Basic Details</h4>
+            </div>
+            <div class="card-block">
+              <div class="mrg-top-20">
+                <div class="row">
+                  <div class="col-md-12">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="sort_order">Sort Order*</label>
+                            <input type="number" class="form-control" name="sort_order" [(ngModel)]="bannerObj.sort_order"
+                              #sort_order="ngModel" [ngClass]="{ 'is-invalid': createBannerForm.submitted && sort_order.invalid }"
+                              required />
+                            <div *ngIf="createBannerForm.submitted && sort_order.invalid" class="invalid-feedback">
+                              <div *ngIf="sort_order.errors.required"> Sort Order is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="status">Status</label>
+                          <select name="status" id="status" class="form-control" [(ngModel)]="bannerObj.status">
+                            <option value="">Select Status</option>
+                            <option value="1">Active</option>
+                            <option value="0">In Active</option>
+                          </select>
+                          
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="link">Link</label>
+                            <input type="text" class="form-control" name="link" [(ngModel)]="bannerObj.link"
+                              #link="ngModel" [ngClass]="{ 'is-invalid': createBannerForm.submitted && link.invalid }"
+                              required />
+                            <div *ngIf="createBannerForm.submitted && link.invalid" class="invalid-feedback">
+                              <div *ngIf="link.errors.required"> Link is required
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-heading border bottom">
+              <h4 class="card-title">Image Uploads</h4>
+            </div>
+            <div class="card-block">
+              <div class="mrg-top-20">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="web_banner">Web Banner Image</label>
+                          <div class="clearfix"></div>
+                          <div class="default_imageiconcategory">
+                            <img [src]="bannerObj.mainImage" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                          </div>
+                          <div class="clearfix"></div>
+                          <label for="web_banner" class="pointer">
+                            <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                              file</span>
+                            <input type="file" id="web_banner" maxlength="" class="d-none" name="icon"
+                              accept="image/*" (change)="handleWebBanner($event)">
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="mobile_banner">Mobile Banner Image</label>
+                          <div class="clearfix"></div>
+                          <div class="default_imageiconcategory">
+                            <img [src]="bannerObj.mobileImage" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                          </div>
+                          <div class="clearfix"></div>
+                          <label for="mobile_banner" class="pointer">
+                            <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                              file</span>
+                            <input type="file" id="mobile_banner" maxlength="" class="d-none" name="icon"
+                              accept="image/*" (change)="handleMobileBanner($event)">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn submit_btn">{{isLoading ? 'Submitting...' : 'Submit'}}</button>
+
+  
+    </form>
+  </div>
+  

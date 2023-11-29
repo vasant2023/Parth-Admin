@@ -58,7 +58,7 @@ export class LaminateCreateComponent implements OnInit {
     ],
   };
 
-  isLoading = false;
+  public isLoading:boolean = false;
 
   constructor(
     private router: Router,

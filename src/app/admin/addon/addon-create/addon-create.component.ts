@@ -32,7 +32,7 @@ export class AddonCreateComponent implements OnInit {
 
   nestedCategory: any = [];
   category_ID = "";
-  isLoading = false;
+  public isLoading:boolean = false;
   hideOther = false;
 
   createCategoryForm: FormGroup;

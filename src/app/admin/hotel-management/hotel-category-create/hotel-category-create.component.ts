@@ -34,7 +34,7 @@ export class HotelCategoryCreateComponent implements OnInit {
 
   nestedCategory: any = []
   category_ID = "";
-  isLoading = false;
+  public isLoading:boolean = false;
 
   createCategoryForm: FormGroup;
 

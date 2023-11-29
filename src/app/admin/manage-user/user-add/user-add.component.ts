@@ -46,7 +46,7 @@ export class UserAddComponent implements OnInit {
     profile_pic:"",
   }
 
-  isLoading = false
+  public isLoading:boolean = false
 
   user_id:"";
 

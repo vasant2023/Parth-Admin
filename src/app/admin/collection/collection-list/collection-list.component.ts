@@ -15,7 +15,8 @@ import Swal from "sweetalert2";
 export class CollectionListComponent implements OnInit {
 
   searchText = "";
-  isloading: boolean;
+
+  public isloading: boolean = false;
   p: number = 1;
 
   constructor(
@@ -45,6 +46,7 @@ export class CollectionListComponent implements OnInit {
             this.toastr.error(response.message, "Error", {});
             this.loaderService.hide();
           }
+          this.isloading = false;
         }
       );
   }

@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
 export class LaminateListComponent implements OnInit {
 
   searchText = "";
-  isloading: boolean;
+  public isloading: boolean = false;
   p:number = 1
 
   constructor(
@@ -42,6 +42,7 @@ export class LaminateListComponent implements OnInit {
         this.toastr.error(response.message, "Error", {});
         this.loaderService.hide();
       }
+      this.isloading = false;
     })
   }
 

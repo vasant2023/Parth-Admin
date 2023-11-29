@@ -1,0 +1,179 @@
+<div class="container-fluid">
+    <div class="page-title">
+      <h4>Brands</h4>
+    </div>
+    <form name="form" (ngSubmit)="submitBlog()" #createBlogForm="ngForm">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-heading border bottom">
+              <h4 class="card-title">Basic Details</h4>
+            </div>
+            <div class="card-block">
+              <div class="mrg-top-20">
+                <div class="row">
+                  <div class="col-md-12">
+                    
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="title">Blog Title</label>
+                          <input type="text" class="form-control" name="title" [(ngModel)]="blogObj.title"
+                            #title="ngModel" [ngClass]="{ 'is-invalid': createBlogForm.submitted && title.invalid }"
+                            required />
+                          <div *ngIf="createBlogForm.submitted && title.invalid" class="invalid-feedback">
+                            <div *ngIf="title.errors.required">Title is required
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>Description</label>
+                           <!-- <ckeditor [editor]="Editor" [(ngModel)]="blogObj.description" name="description" #description="ngModel"></ckeditor> -->
+                          <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
+                            #keypoints="ngModel" [(ngModel)]="blogObj.description"
+                            [className]="(createBlogForm.submitted && !blogObj.keypoints) ? 'error-editor' : '' ">
+                          </ck-editor>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="meta_title">Meta Title</label>
+                            <input type="text" class="form-control" name="meta_title" [(ngModel)]="blogObj.meta_title"
+                              #meta_title="ngModel"
+                            />
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Meta Description</label>
+                            <ck-editor skin="moono-lisa" language="en" [config]="configEditor" name="keypoints"
+                              #keypoints="ngModel" [(ngModel)]="blogObj.meta_description"
+                              [className]="(createBlogForm.submitted && !blogObj.keypoints) ? 'error-editor' : '' ">
+                            </ck-editor>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="meta_keywords">Meta KeyWords</label>
+                            <input type="text" class="form-control" name="meta_keywords" [(ngModel)]="blogObj.meta_keywords"
+                              #meta_keywords="ngModel"
+                            />
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="sort_order">Sort Order</label>
+                            <input type="number" class="form-control" name="sort_order" [(ngModel)]="blogObj.sort_order"
+                              #sort_order="ngModel"
+                            />
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" id="status" class="form-control" [(ngModel)]="blogObj.status">
+                              <option value="">Select Status</option>
+                              <option value="1">Active</option>
+                              <option value="0">In Active</option>
+                            </select>
+                            
+                          </div>
+                        </div>
+                      </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-heading border bottom">
+              <h4 class="card-title">Image Uploads</h4>
+            </div>
+            <div class="card-block">
+              <div class="mrg-top-20">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="banner_image">Banner Image</label>
+                          <div class="clearfix"></div>
+                          <div class="default_imageiconcategory">
+                            <img
+                                [src]="blogObj.banner_view ? blogObj.banner_view : blogObj.banner_image"
+                                class="img categoryiconimg"
+                                default="assets/images/default.png"
+                            />
+                          </div>
+                          <div class="clearfix"></div>
+                          <label for="img-banner-upload" class="pointer">
+                            <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                              file</span>
+                            <input type="file" id="img-banner-upload" maxlength="" class="d-none" name="icon"
+                              accept="image/*" (change)="handleBannerImage($event)">
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label for="blog_image">Blog Image</label>
+                            <div class="clearfix"></div>
+                            <div class="default_imageiconcategory">
+                              <img
+                                  [src]="blogObj.blog_image_view ? blogObj.blog_image_view : blogObj.blog_image"
+                                  class="img categoryiconimg"
+                                  default="assets/images/default.png"
+                              />
+                            </div>
+                            <div class="clearfix"></div>
+                            <label for="img-blog-upload" class="pointer">
+                              <span class="btn choose_btn btn-default display-block no-mrg-btm">Choose
+                                file</span>
+                              <input type="file" id="img-blog-upload" maxlength="" class="d-none" name="icon"
+                                accept="image/*" (change)="handleBlogImage($event)">
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+        <button type="submit" class="btn submit_btn">{{isLoading ? 'Submitting...' : 'Submit'}}</button>
+  
+    </form>
+  </div>
+  
