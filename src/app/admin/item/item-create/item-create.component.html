@@ -420,14 +420,14 @@
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
                           <img
-                            [src]="
-                              itemObj.banner_image
-                                ? itemObj.banner_image
-                                : 'assets/images/default.png'
-                            "
-                            class="img categoryiconimg"
-                            default="assets/images/default.png"
-                          />
+                              *ngIf="itemObj.banner_view || itemObj.banner_image; else placeholder"
+                              [src]="itemObj.banner_view ? itemObj.banner_view : itemObj.banner_image"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                         </div>
                         <div class="clearfix"></div>
                         <label for="img-icon-upload" class="pointer">
@@ -455,15 +455,16 @@
                         <label for="category">Mobile Image</label>
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
+                          
                           <img
-                            [src]="
-                              itemObj.banner_image_mobile
-                                ? itemObj.banner_image_mobile
-                                : 'assets/images/default.png'
-                            "
-                            class="img categoryiconimg"
-                            default="assets/images/default.png"
-                          />
+                              *ngIf="itemObj.banner_image_mobile_view || itemObj.banner_image_mobile; else placeholder"
+                              [src]="itemObj.banner_image_mobile_view ? itemObj.banner_image_mobile_view : itemObj.banner_image_mobile"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                         </div>
                         <div class="clearfix"></div>
                         <label for="img-upload" class="pointer">
@@ -492,7 +493,7 @@
                       <div class="form-group">
                         <label for="category">Images</label>
                         <div class="clearfix"></div>
-                        <div
+                        <!-- <div
                           class="default_imageiconcategory"
                           *ngFor="let image of itemObj.images"
                         >
@@ -504,6 +505,14 @@
                             "
                             class="img categoryiconimg"
                           />
+                        </div> -->
+
+                        <div class="default_imageiconcategory" *ngFor="let image of itemObj.images; let i = index">
+                              <a href="javascript:void(0)"
+                                  (click)="removeProductImage(i, image.item_image_ID)"
+                                  class="removeIcon"><span class="material-symbols-outlined">close</span>
+                              </a>
+                              <img src="{{image.image}}" class="img developerprofileimg" />
                         </div>
                         <div class="clearfix"></div>
                         <label for="images" class="pointer">

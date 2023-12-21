@@ -81,10 +81,24 @@ export class HardwareCategoryCreateComponent implements OnInit {
 
   handleInputChange(event) {
     this.categoryObj.category_icon_file = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.categoryObj.icon_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   handleInputChangeBanner(event) {
     this.categoryObj.category_banner_file = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.categoryObj.banner_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   getCategoryId() {

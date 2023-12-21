@@ -110,6 +110,7 @@ export class LeadsListComponent implements OnInit {
     }
     if(this.leadsObj.fromDate && this.leadsObj.toDate){
       this.getLeads();
+      this.leadFlag = false;
     }
     //
   }
@@ -150,6 +151,7 @@ export class LeadsListComponent implements OnInit {
   statusFilter(){
     this.leadsObj.status_id = this.statusId;
     this.getLeads();
+    this.leadFlag = false;
   }
 
   handleChange(lead_ID){
@@ -248,6 +250,7 @@ export class LeadsListComponent implements OnInit {
 
   filterLeadType(){
     this.getLeads();
+    this.leadFlag = false;
   }
 
 }

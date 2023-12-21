@@ -148,11 +148,6 @@
                                       &nbsp;&nbsp;&nbsp;&nbsp; ---{{ c.category }}
                                     </option>
     
-                                    <!-- <ng-container *ngFor="let c of c.children">
-                                                <option [value]="c.category_ID">
-                                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ----{{ c.category }}
-                                                </option>
-                                              </ng-container> -->
                                   </ng-container>
                                 </ng-container>
                               </ng-container>
@@ -161,38 +156,13 @@
                         </div>
                       </div>
 
-                      <!-- <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="sale_price">Sale Price</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            name="sale_price"
-                            [(ngModel)]="collectionObj.sale_price"
-                            #sale_price="ngModel"
-                            [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted && sale_price.invalid
-                            }"
-                            required
-                          />
-                        </div>
-                      </div>
-                    </div> -->
-
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="short_description"
                               >Short Description</label
                             >
-                            <!-- <ckeditor
-                            [editor]="Editor"
-                            [(ngModel)]="collectionObj.short_description"
-                            name="short_description"
-                            #short_description="ngModel"
-                          ></ckeditor> -->
+                            
                             <ck-editor
                               skin="moono-lisa"
                               language="en"
@@ -216,12 +186,6 @@
                         <div class="col-md-12">
                           <div class="form-group">
                             <label for="description">Long Description</label>
-                            <!-- <ckeditor
-                            [editor]="Editor"
-                            [(ngModel)]="collectionObj.description"
-                            name="description"
-                            #description="ngModel"
-                          ></ckeditor> -->
                             <ck-editor
                               skin="moono-lisa"
                               language="en"
@@ -241,113 +205,6 @@
                         </div>
                       </div>
 
-                      <!-- <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label for="status">Status</label>
-                          <input
-                            type="number"
-                            class="form-control"
-                            name="status"
-                            [(ngModel)]="collectionObj.status"
-                            #status="ngModel"
-                            [ngClass]="{
-                              'is-invalid':
-                                collectionForm.submitted && status.invalid
-                            }"
-                            required
-                          />
-                        </div>
-                      </div>
-                    </div> -->
-
-                      <!-- Accordian -->
-
-                      <!-- <div class="row">
-                      <div class="col-md-12">
-                        <h3 style="padding-bottom: 1rem">Details</h3>
-  
-                        <div
-                          class="row"
-                          *ngFor="let accordion of accordionList; let i = index"
-                        >
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label for="title{{ i }}">Title</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                [name]="'title' + i"
-                                [(ngModel)]="accordion.title"
-                                #title="ngModel"
-                                [ngClass]="{
-                                  'is-invalid':
-                                    collectionForm.submitted && title.invalid
-                                }"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label for="text{{ i }}">Accordion Text</label>
-                              <input
-                                type="text"
-                                class="form-control"
-                                [name]="'text' + i"
-                                #text="ngModel"
-                                [ngClass]="{
-                                  'is-invalid':
-                                    collectionForm.submitted && text.invalid
-                                }"
-                                [(ngModel)]="accordion.text"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <button
-                              type="button"
-                              class="btn submit_btn"
-                              (click)="addAccordion()"
-                            >
-                              Add More
-                            </button>
-  
-                            <button
-                              type="button"
-                              class="btn btn-danger"
-                              (click)="deleteAccordion(i)"
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-
-                      <!-- Accordian End -->
-
-                      <!-- <div class="row">
-                      <div class="col-md-12">
-                        <h2>Category :</h2>
-                        <div class="form-group" *ngFor="let item of categoryList">
-                          <label for="item_{{ item.category_ID }}">
-                            <input
-                              type="checkbox"
-                              name="item_{{ item.category_ID }}"
-                              [(checklist)]="collectionObj.category_ID"
-                              [checklistValue]="item.category_ID"
-                              id="item_{{ item.category_ID }}"
-                              class="rounded-checkbox"
-                            />
-                            <span class="commonSpan"
-                              >{{ item.category }}&nbsp;</span
-                            >
-                          </label>
-                        </div>
-                      </div>
-                    </div> -->
                     </div>
                   </div>
                 </div>
@@ -373,14 +230,15 @@
                             <div class="clearfix"></div>
                             <div class="default_imageiconcategory">
                               <img
-                                [src]="
-                                  collectionObj.banner_image
-                                    ? collectionObj.banner_image
-                                    : 'assets/images/default.png'
-                                "
+                                *ngIf="collectionObj.banner_view || collectionObj.banner_image; else placeholder"
+                                [src]="collectionObj.banner_view ? collectionObj.banner_view : collectionObj.banner_image"
                                 class="img categoryiconimg"
-                                default="assets/images/default.png"
                               />
+
+                              <ng-template #placeholder>
+                                  <img src="assets/images/default.png" class="img categoryiconimg" />
+                              </ng-template>
+
                             </div>
                             <div class="clearfix"></div>
 
@@ -405,14 +263,14 @@
                             <div class="clearfix"></div>
                             <div class="default_imageiconcategory">
                               <img
-                                [src]="
-                                  collectionObj.specification_image
-                                    ? collectionObj.specification_image
-                                    : 'assets/images/default.png'
-                                "
+                                *ngIf="collectionObj.specification_image_view || collectionObj.specification_image; else placeholder"
+                                [src]="collectionObj.specification_image_view ? collectionObj.specification_image_view : collectionObj.specification_image"
                                 class="img categoryiconimg"
-                                default="assets/images/default.png"
                               />
+
+                              <ng-template #placeholder>
+                                  <img src="assets/images/default.png" class="img categoryiconimg" />
+                              </ng-template>
                             </div>
                             <div class="clearfix"></div>
                             <label for="img-upload" class="pointer">
@@ -441,24 +299,13 @@
                           <div class="form-group col" style="padding-left: 0">
                             <label for="category">Images</label>
                             <div class="clearfix"></div>
-                            <div
-                              class="default_imageiconcategory"
-                              *ngFor="let image of collectionObj.images; let i = index"
-                            >
-                              <img
-                                [src]="
-                                  image.image
-                                    ? image.image
-                                    : 'assets/images/default.png'
-                                "
-                                class="img categoryiconimg"
-                                default="assets/images/profile.jpg"
-                              />
-                              <button class="removeImage" (click)="removeImages(i, image.collection_image_ID)">
-                                <span class="material-symbols-outlined">
-                                  cancel
-                                </span>
-                              </button>
+
+                            <div class="default_imageiconcategory" *ngFor="let image of collectionObj.images; let i = index">
+                              <a href="javascript:void(0)"
+                                  (click)="removeImages(i, image.collection_image_ID)"
+                                  class="removeImage"><span class="material-symbols-outlined">cancel</span>
+                              </a>
+                              <img src="{{image.image}}" class="img" />
                             </div>
                             <div class="clearfix"></div>
                             <label for="images" class="pointer">

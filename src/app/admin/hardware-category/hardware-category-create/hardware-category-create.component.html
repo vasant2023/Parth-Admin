@@ -168,7 +168,15 @@
                           <label for="category">Icon Image</label>
                           <div class="clearfix"></div>
                           <div class="default_imageiconcategory">
-                            <img [src]="categoryObj.icon ? categoryObj.icon : 'assets/images/default.png'" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                            <img
+                              *ngIf="categoryObj.icon_view || categoryObj.icon; else placeholder"
+                              [src]="categoryObj.icon_view ? categoryObj.icon_view : categoryObj.icon"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                           </div>
                           <div class="clearfix"></div>
                           <label for="img-icon-upload" class="pointer">
@@ -186,7 +194,15 @@
                           <label for="category">Image</label>
                           <div class="clearfix"></div>
                           <div class="default_imageiconcategory">
-                            <img [src]="categoryObj.image ? categoryObj.image : 'assets/images/default.png'" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                            <img
+                              *ngIf="categoryObj.banner_view || categoryObj.image; else placeholder"
+                              [src]="categoryObj.banner_view ? categoryObj.banner_view : categoryObj.image"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                           </div>
                           <div class="clearfix"></div>
                           <label for="category_banner_file" class="pointer">

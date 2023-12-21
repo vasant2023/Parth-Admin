@@ -124,12 +124,17 @@
                         <div class="form-group">
                           <label for="banner_image">Banner Image</label>
                           <div class="clearfix"></div>
-                          <div class="default_imageiconcategory">
+                          <div class="default_imageiconcategory">                        
                             <img
-                                [src]="blogObj.banner_view ? blogObj.banner_view : blogObj.banner_image"
-                                class="img categoryiconimg"
-                                default="assets/images/default.png"
+                              *ngIf="blogObj.banner_view || blogObj.banner_image; else placeholder"
+                              [src]="blogObj.banner_view ? blogObj.banner_view : blogObj.banner_image"
+                              class="img categoryiconimg"
                             />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
+
                           </div>
                           <div class="clearfix"></div>
                           <label for="img-banner-upload" class="pointer">
@@ -149,10 +154,14 @@
                             <div class="clearfix"></div>
                             <div class="default_imageiconcategory">
                               <img
-                                  [src]="blogObj.blog_image_view ? blogObj.blog_image_view : blogObj.blog_image"
-                                  class="img categoryiconimg"
-                                  default="assets/images/default.png"
-                              />
+                              *ngIf="blogObj.blog_image_view || blogObj.blog_image; else placeholder"
+                              [src]="blogObj.blog_image_view ? blogObj.blog_image_view : blogObj.blog_image"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                             </div>
                             <div class="clearfix"></div>
                             <label for="img-blog-upload" class="pointer">

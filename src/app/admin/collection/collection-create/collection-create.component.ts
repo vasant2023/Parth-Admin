@@ -85,6 +85,7 @@ export class CollectionCreateComponent implements OnInit {
     specification_image: (File = null),
     brochure: (File = null),
     collection_images: [],
+    images:[],
     sort_order: "",
     status: 1,
     warranty_time: "",
@@ -182,10 +183,24 @@ export class CollectionCreateComponent implements OnInit {
 
   handleInputChangeBannerImage(event) {
     this.collectionObj.banner_image = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.collectionObj.banner_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   handleInputChangeSpecificationImage(event) {
     this.collectionObj.specification_image = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.collectionObj.specification_image_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   collection_images(event) {
@@ -194,6 +209,11 @@ export class CollectionCreateComponent implements OnInit {
     for (var key in files) {
       if (typeof files[key].type != "undefined") {
         this.collectionObj.collection_images.push(files[key]);
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.collectionObj.images.push({ "image": e.target.result, "image_ID": "0" });
+        };
+        reader.readAsDataURL(files[key]);
       }
     }
   }

@@ -72,6 +72,13 @@ export class UserAddComponent implements OnInit {
 
   handleInputChange(event) {
     this.userObj.profile_pic = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.userObj.profile_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   getAllgrouptypes(){

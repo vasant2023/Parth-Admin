@@ -166,7 +166,15 @@
                         <label for="category">Icon Image</label>
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
-                          <img [src]="laminateObj.image ? laminateObj.image : 'assets/images/default.png'" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                          <img
+                              *ngIf="laminateObj.image_view || laminateObj.image; else placeholder"
+                              [src]="laminateObj.image_view ? laminateObj.image_view : laminateObj.image"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                         </div>
                         
                         <div class="clearfix"></div>

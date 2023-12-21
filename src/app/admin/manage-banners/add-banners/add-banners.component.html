@@ -82,7 +82,16 @@
                           <label for="web_banner">Web Banner Image</label>
                           <div class="clearfix"></div>
                           <div class="default_imageiconcategory">
-                            <img [src]="bannerObj.mainImage" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                            <img
+                              *ngIf="bannerObj.mainImage || bannerObj.mainImage; else placeholder"
+                              [src]="bannerObj.mainImage ? bannerObj.mainImage : bannerObj.mainImage"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
+
                           </div>
                           <div class="clearfix"></div>
                           <label for="web_banner" class="pointer">
@@ -99,7 +108,15 @@
                           <label for="mobile_banner">Mobile Banner Image</label>
                           <div class="clearfix"></div>
                           <div class="default_imageiconcategory">
-                            <img [src]="bannerObj.mobileImage" class="img categoryiconimg" default="assets/images/profile.jpg" />
+                            <img
+                              *ngIf="bannerObj.mobileImage || bannerObj.mobileImage; else placeholder"
+                              [src]="bannerObj.mobileImage ? bannerObj.mobileImage : bannerObj.mobileImage"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                           </div>
                           <div class="clearfix"></div>
                           <label for="mobile_banner" class="pointer">

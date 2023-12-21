@@ -55,6 +55,8 @@ export class ItemCreateComponent implements OnInit {
     banner_image_mobile: (File = null),
     illustration_pdf: (File = null),
     item_images: [],
+    images:[],
+    removedFiles:[],
     sort_order: "",
     status: "",
     mark_as: "",
@@ -203,14 +205,27 @@ export class ItemCreateComponent implements OnInit {
 
   handleInputChangeBannerImage(event) {
     this.itemObj.banner_image = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.itemObj.banner_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   handleInputChangeMobileImage(event) {
     this.itemObj.banner_image_mobile = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.itemObj.banner_image_mobile_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   handleInputChangeItemImage(event: any, index:number) {
-
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       const reader = new FileReader();
@@ -234,7 +249,20 @@ export class ItemCreateComponent implements OnInit {
     for (var key in files) {
       if (typeof files[key].type != "undefined") {
         this.itemObj.item_images.push(files[key]);
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.itemObj.images.push({ "image": e.target.result, "image_ID": "0" });
+        };
+        reader.readAsDataURL(files[key]);
       }
+    }
+  }
+
+  removeProductImage(index, file_id) {
+    this.itemObj.images.splice(index, 1);
+    this.itemObj.removedFiles = this.itemObj.removedFiles ? this.itemObj.removedFiles : [];
+    if (file_id != "" && file_id != "0" && typeof (file_id) != "undefined") {
+        this.itemObj.removedFiles.push(file_id);
     }
   }
 
@@ -299,8 +327,6 @@ export class ItemCreateComponent implements OnInit {
 
   saveItem(form) {
     this.itemObj.sizeList = this.sizeList;
-    // console.log(this.itemObj);
-    // return false
     if (form.valid) {
       if (this.isLoading == false) {
         this.isLoading = true;
@@ -317,7 +343,8 @@ export class ItemCreateComponent implements OnInit {
         formData.append("description", this.itemObj.description);
         formData.append("short_description", this.itemObj.short_description);
         formData.append("hotel_category", this.itemObj.hotel_category);
-
+        formData.append("removedFiles", this.itemObj.removedFiles);
+        
         var sort_order = 1;
         var hardwares = [];
         var laminates = [];

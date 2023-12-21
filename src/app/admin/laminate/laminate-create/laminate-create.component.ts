@@ -78,6 +78,13 @@ export class LaminateCreateComponent implements OnInit {
 
   handleInputChange(event) {
     this.laminateObj.image = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+          this.laminateObj.image_view = e.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   getLaminateId() {
@@ -87,15 +94,17 @@ export class LaminateCreateComponent implements OnInit {
   }
 
   laminateDetail() {
-    this.adminService
-      .laminateDetail(this.laminate_ID)
-      .subscribe(
-        (response: { success: number; message: string; laminate: [] }) => {
-          if (response.success == 1) {
-            this.laminateObj = response.laminate;
+    if(this.laminate_ID){
+      this.adminService
+        .laminateDetail(this.laminate_ID)
+        .subscribe(
+          (response: { success: number; message: string; laminate: [] }) => {
+            if (response.success == 1) {
+              this.laminateObj = response.laminate;
+            }
           }
-        }
-      );
+        );
+    }
   }
 
   submitLaminate() {
@@ -118,7 +127,6 @@ export class LaminateCreateComponent implements OnInit {
       formData.append(
         "image",
         this.laminateObj.image,
-        this.laminateObj.image.name
       );
       if (this.laminate_ID) {
         formData.append("laminate_ID", this.laminate_ID);

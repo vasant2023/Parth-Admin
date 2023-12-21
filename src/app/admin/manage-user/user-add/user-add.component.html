@@ -180,14 +180,14 @@
                         <div class="clearfix"></div>
                         <div class="default_imageiconcategory">
                           <img
-                            [src]="
-                              userObj.profile_pic
-                                ? userObj.profile_pic
-                                : 'assets/images/default.png'
-                            "
-                            class="img categoryiconimg"
-                            default="assets/images/profile.jpg"
-                          />
+                              *ngIf="userObj.profile_pic || userObj.profile_view; else placeholder"
+                              [src]="userObj.profile_view ? userObj.profile_view : userObj.profile_pic"
+                              class="img categoryiconimg"
+                            />
+
+                            <ng-template #placeholder>
+                                <img src="assets/images/default.png" class="img categoryiconimg" />
+                            </ng-template>
                         </div>
                         <div class="clearfix"></div>
                         <label for="img-icon-upload" class="pointer">
