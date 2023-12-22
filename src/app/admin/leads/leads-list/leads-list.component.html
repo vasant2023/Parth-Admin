@@ -213,13 +213,22 @@
                 <p class="name">{{ detailObj.name }}</p>
               </div>
             </div>
-            <div class="flex align-center">
-              <div>
-                <span class="material-symbols-outlined"> detector_status </span>
+            <div>
+              <div class="flex align-center">
+                <div>
+                  <span class="material-symbols-outlined"> detector_status </span>
+                </div>
+                <div>
+                  <p>Status : {{ detailObj.status }}</p>
+                </div>
+                
               </div>
-              <div>
-                <p>Status : {{ detailObj.status }}</p>
-              </div>
+            </div>
+          </div>
+          <div class="flex align-center">
+            <div><span class="material-symbols-outlined">switch_access</span></div>
+            <div>
+              <p style="text-transform: capitalize;">Type : {{ detailObj.type ? detailObj.type : '--'  }}</p>
             </div>
           </div>
           <div class="flex align-center">
@@ -248,7 +257,7 @@
               <span class="material-symbols-outlined"> real_estate_agent </span>
             </div>
             <div>
-              <p>Property Code : {{ detailObj.property_code }}</p>
+              <p>Property Code : {{ detailObj.property_code == 'undefined' || !detailObj.property_code ? '--' : detailObj.property_code }}</p>
             </div>
           </div>
 
@@ -257,7 +266,7 @@
               <span class="material-symbols-outlined"> king_bed </span>
             </div>
             <div>
-              <p>Rooms : {{ detailObj.rooms }}</p>
+              <p>Rooms : {{ detailObj.rooms == 'undefined' || !detailObj.rooms ? '--' : detailObj.rooms }}</p>
             </div>
           </div>
           <div class="flex align-center">
@@ -318,7 +327,7 @@
                 <span class="material-symbols-outlined"> calendar_month </span>
               </div>
               <div>
-                <p>FOllow Up Date : {{ detailObj.next_followup_date }}</p>
+                <p>Follow Up Date : {{ detailObj.next_followup_date }}</p>
               </div>
             </div>
             <div class="flex">
